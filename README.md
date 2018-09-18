@@ -23,7 +23,7 @@ Existiran fundamentalmente dos modos de juego, el online descrito con anteriorid
 # Equipo de desarrollo
 |                  Nombre                 | Correo | Cuenta de Github |
 |:---------------------------------------:|:------:|:----------------:|
-|          Enrique Rico González          |    e.rico.2016@alumnos.urjc.es    |         https://github.com/Richenric         |
+|          Enrique Rico González          |    Rickenric@gmail.com    |         https://github.com/Richenric         |
 | María de los Ángeles Saint-Mard Álvarez |    mawyn.lovegood@gmail.com    |         https://github.com/MawynNeko         |
 |           Lucas A. Muñoz Muñoz          |    Lukasa707@gmail.com    |         https://github.com/Lukasha707         |
 
