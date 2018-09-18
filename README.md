@@ -19,3 +19,14 @@ Existiran fundamentalmente dos modos de juego, el online descrito con anteriorid
 * **Escudo:** El jugador conjurara el escudo para defenderse con el click derecho del raton,
 
 * **Zonal:** El jugador invocara un ataque zonal pulsando la barra espaciadora.
+
+# Equipo de desarrollo
+|                  Nombre                 | Correo | Cuenta de Github |
+|:---------------------------------------:|:------:|:----------------:|
+|          Enrique Rico González          |    e.rico.2016@alumnos.urjc.es    |         https://github.com/Richenric         |
+| María de los Ángeles Saint-Mard Álvarez |    mawyn.lovegood@gmail.com    |         https://github.com/MawynNeko         |
+|           Lucas A. Muñoz Muñoz          |    Lukasa707@gmail.com    |         https://github.com/Lukasha707         |
+
+|                  Trello de desarrollo                 |
+|:---------------------------------------:|
+|          https://trello.com/b/dPwAMG6B/gaias-soul-2d          |
