@@ -1,17 +1,9 @@
 # GAIA'S SOULS 
 
+## Descripción del juego
+Gaia's Souls es un shooter en tercera persona con plano cenital, en el que el personaje es un espiritu elemental que usa sus poderes magicos para el combate.
 
-## Descripción de la tematica del juego
-Es un shooter en tercera persona con plano cenital, en el que el personaje es un espiritu elemental que usa sus poderes magicos para el combate por equipos.
-
-## Diseño de mecánicas
-Los equipos (de 2 a 4 jugadores) tienen como objetivo luchar por la supremacia en el escenario, con el fin de conseguir mas puntos que el enemigo (estos puntos se consiguen basicamente asesinando al enemigo).
-Para ello se cuenta con hechizos de ataque y defensa que no pueden ser usados indiscriminadamente, pues su uso se ve limitado por un enfriamiento que equilibra el uso de los más débiles y los más potentes.
-
-Existiran fundamentalmente dos modos de juego, el online descrito con anterioridad y uno offline, en el que se batiran dos personajes en duelo en el mismo terminal, utilizando las mismas mecanicas de juego.
-
-## Descripcion de las funcionalidades principales
-
+## Mecánicas
 * **Moverse:** El jugador se podra desplazar con las teclas WASD en las 4 direcciones,
 
 * **Disparar:** El jugador disparara hacia donde apunte el raton, pulsando el click izquierdo,
@@ -20,7 +12,29 @@ Existiran fundamentalmente dos modos de juego, el online descrito con anteriorid
 
 * **Zonal:** El jugador invocara un ataque zonal pulsando la barra espaciadora.
 
-# Equipo de desarrollo
+## Dinámicas
+En el planteamiento inicial (sujeto a cambios), el jugador tiene tres modos de juego, dos online, por equipos y "Todos contra todos", y uno offline para dos jugadores enfrentados a duelo. En todos ellos se cuenta con hechizos de ataque y defensa que no pueden ser usados indiscriminadamente, pues su uso se ve limitado por un enfriamiento que equilibra el uso de los más débiles y los más potentes.
+
+* **En el online por equipos**, se formarán 4 equipos máximo (de 2 a 4 jugadores), los cuales tienen como objetivo luchar por la supremacia en el escenario con el fin de conseguir más puntos que los equipos enemigos (estos puntos se consiguen basicamente asesinando al enemigo).
+
+* **En el online "Todos contra todos"**, el jugador tendrá que luchar por mantener el liderazgo en puntuación. 
+
+* **En el offline**, se batiran dos personajes en duelo en el mismo terminal, ganando el que consiga mayor puntuación.
+
+## Concept art
+ 
+**Modelos de jugador**
+
+ 
+**Tipos de zonales**
+
+ 
+**Tipos de proyectiles**
+
+ 
+**Tipos de escudos**
+
+## Equipo de desarrollo
 |                  Nombre                 | Correo | Cuenta de Github |
 |:---------------------------------------:|:------:|:----------------:|
 |          Enrique Rico González          |    Rickenric@gmail.com    |         https://github.com/Richenric         |
