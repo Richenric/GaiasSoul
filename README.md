@@ -4,7 +4,7 @@
 Gaia's Souls es un shooter en tercera persona con plano cenital, en el que el personaje es un espíritu elemental que usa sus poderes mágicos para el combate.
 
 ## Mecánicas
-* **Moverse:** El jugador se podrá desplazar con las teclas WASD en las 4 direcciones,
+* **Moverse:** El jugador podrá desplazarse con las teclas WASD en las 4 direcciones,
 
 * **Disparar:** El jugador disparará hacia donde apunte el raton, pulsando el click izquierdo,
 
