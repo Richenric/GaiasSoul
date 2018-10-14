@@ -3,17 +3,60 @@ var offGameScene = new Phaser.Scene('Offline');
 
 console.log('Me he ejecutado yyaaay');
 
+function Player (){
+    var that = this;
+    this.p = null;
+    this.velocityX = 0; //Variable que contiene la velocidad pero no la aplica
+    this.velocityY = 0;
+    this.controlers = [];
+    this.create = function(gW,gH,cp){ //create player sprite (depth 1) if you don't set the body as active it won't collide with the world bounds
+        that.p = offGameScene.physics.add.sprite(gW,gH, 'player');//create player sprite (depth 1)
+        that.p.depth = 1;
+        that.p.setScale(1,1);
+        that.p.controlers = cp;
+        that.p.setCollideWorldBounds(true);    
+    }
+
+    this.update = function(){
+        that.velocityX = Math.min(that.velocityX, 300);
+        that.velocityX = Math.max(that.velocityX,-300);
+        that.velocityY = Math.min(that.velocityY, 300);
+        that.velocityY = Math.max(that.velocityY,-300);
+        that.p.setVelocity(that.velocityX,that.velocityY);
+
+
+        if (that.controlers[1].isDown){
+            that.velocityX += -300;
+            that.p.setVelocityX(that.velocityX); 
+        }else if (that.controlers[3].isDown){
+            that.velocityX +=  300;
+            that.p.setVelocityX(that.velocityX);
+        }
+        if (that.controlers[0].isDown){
+            that.velocityY += -300;
+            that.p.setVelocityY(that.velocityY);
+        }else if (that.controlers[2].isDown){
+            that.velocityY +=  300;
+            that.p.setVelocityY(that.velocityY);
+        }
+        if (that.velocityX>0)
+            that.velocityX += -7.5;
+        else if (that.velocityX<0)
+            that.velocityX +=  7.5;
+    
+        if (that.velocityY>0)
+            that.velocityY += -7.5;
+        else if (that.velocityY<0)
+            that.velocityY +=  7.5;
+    }
+}
+
 offGameScene.init = function(){
-	this.cursors;
+    this.cursors;
+    console.log(this.cursors);
 
-	this.velocity1X = 0;
-	this.velocity1Y = 0;
-
-	this.velocity2X = 0;
-	this.velocity2Y = 0;
-
-	this.toobig = false;
-	this.accel = 10;
+    this.p1 = new Player();
+    this.p2 = new Player();
 };
 
 //load assets
@@ -22,7 +65,6 @@ offGameScene.preload = function(){
 	this.load.image('background','assets/sprites/background.png');
 	this.load.image('player','assets/sprites/player.png');
 	this.load.image('enemy', 'assets/sprites/enemy.png')
-	//this.load.atlas('flares', 'assets/particles/flares.png', 'assets/particles/flares.json');
 	this.load.audio('theme','assets/audio/Holfix-PixelParade.mp3');
 };
 
@@ -40,41 +82,23 @@ offGameScene.create = function(){
 	console.log(bg);
 	console.log(this);
 
-	//Create controls
-	cursors = this.input.keyboard.createCursorKeys();
-    keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+    //Create controls
     keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    cursors = this.input.keyboard.createCursorKeys();
 
-	//create player sprite (depth 1)
-	//if you don't set the body as active it won't collide with the world bounds
-	this.player1 = this.physics.add.sprite(gameW/2,gameH/2, 'player')
-	this.player1.depth = 1;
-	this.player1.setScale(1,1);
-	//player.scaleX = ...;
-	//player.x = ...;
-	this.player1.setCollideWorldBounds(true);
+    var cp1 =  [cursors.up,cursors.left,cursors.down,cursors.right];
+    var cp2 = [keyA,keyW,keyS,keyD];
 
-	this.player2 = this.physics.add.sprite(gameW/2,gameH/2, 'player')
-	this.player2.depth = 1;
-	this.player2.setCollideWorldBounds(true);
+    this.p1.create(gameW/2,gameH/2,cp1);
+    this.p2.create(gameW/3,gameH/3,cp2);
 
-	//create enemy sprite (depth 0)
-	this.enemy0 = this.physics.add.sprite(gameW/3, gameH/3, 'enemy')
-	this.enemy0.setCollideWorldBounds(true);
+    this.p3.
+   
 
-	//create a second enemy sprite (depth 0)
-	this.enemy1 = this.physics.add.sprite(gameW/1.5, gameH/1.5, 'enemy')
-	this.enemy1.displayWidth = 200;
-	this.enemy1.flipX = true;
-	//enemy1.setAngle(-60);
-	//enemy1.angle += 45; //Degrees
-	//enemy1.setRotation(Math.PI / 4);
-	//this.enemy1.rotation = Math.PI / 4; //Radians
-	this.enemy1.setCollideWorldBounds(true);
-
-	this.physics.world.enable([ this.player1, this.player2, this.enemy0, this.enemy1 ]);
+	this.physics.world.enable([ this.p1, this.p2 ]);
 
 	/*var particles = this.add.particles('flares');
 
@@ -111,109 +135,9 @@ offGameScene.create = function(){
 
 //this is called up to 60 times per second
 offGameScene.update = function(){
-	this.enemy1.angle += 1;
-	this.enemy1.x += this.accel * Math.cos(this.enemy1.angle/180*Math.PI);
-	this.enemy1.y += this.accel * Math.sin(this.enemy1.angle/180*Math.PI);
 
-	if (this.toobig == false){
-		this.enemy0.displayWidth += 1;
-		this.enemy0.displayHeight += 1;
-	}else if (this.toobig == true){
-		this.enemy0.displayWidth -= 1;
-		this.enemy0.displayHeight -= 1;
-	}
+	this.p1.update();
+    this.p2.update();
 
-	if (this.enemy0.displayWidth >= 200){
-		this.toobig = true;
-	}else if (this.enemy0.displayWidth <= 100){
-		this.toobig = false;
-	}
-
-	velocity1X = Math.min(velocity1X, 300);
-    velocity1X = Math.max(velocity1X, -300);
-    velocity1Y = Math.min(velocity1Y, 300);
-    velocity1Y = Math.max(velocity1Y, -300);
-    this.player1.setVelocityX(velocity1X);
-    this.player1.setVelocityY(velocity1Y);
-
-    velocity2X = Math.min(velocity2X, 300);
-    velocity2X = Math.max(velocity2X, -300);
-    velocity2Y = Math.min(velocity2Y, 300);
-    velocity2Y = Math.max(velocity2Y, -300);
-    this.player2.setVelocityX(velocity2X);
-    this.player2.setVelocityY(velocity2Y);
-
-    if (cursors.left.isDown)
-    {
-        velocity1X += -300;
-        this.player1.setVelocityX(velocity1X);
-    }
-    else if (cursors.right.isDown)
-    {
-        velocity1X += 300;
-        this.player1.setVelocityX(velocity1X);
-    }
-
-    if (cursors.up.isDown)
-    {
-        velocity1Y += -300;
-        this.player1.setVelocityY(velocity1Y);
-    }
-    else if (cursors.down.isDown)
-    {
-        velocity1Y += 300;
-        this.player1.setVelocityY(velocity1Y);
-    }
-    
-        if (velocity1X>0){
-            velocity1X += -7.5;
-        }else if (velocity1X<0){
-            velocity1X += 7.5;
-        }
-
-        if (velocity1Y>0){
-            velocity1Y += -7.5;
-        }else if (velocity1Y<0){
-            velocity1Y += 7.5;
-        }
-
-    if (keyA.isDown)
-    {
-        velocity2X += -300;
-        this.player2.setVelocityX(velocity2X);
-    }
-    else if (keyD.isDown)
-    {
-        velocity2X += 300;
-        this.player2.setVelocityX(velocity2X);
-    }
-
-    if (keyW.isDown)
-    {
-        velocity2Y += -300;
-        this.player2.setVelocityY(velocity2Y);
-    }
-    else if (keyS.isDown)
-    {
-        velocity2Y += 300;
-        this.player2.setVelocityY(velocity2Y);
-    }
-    
-        if (velocity2X>0){
-            velocity2X += -7.5;
-        }else if (velocity2X<0){
-            velocity2X += 7.5;
-        }
-
-        if (velocity2Y>0){
-            velocity2Y += -7.5;
-        }else if (velocity2Y<0){
-            velocity2Y += 7.5;
-        }
-
-    this.physics.world.collide(this.player1, this.player2);
-    this.physics.world.collide(this.player1, this.enemy0);
-    this.physics.world.collide(this.player1, this.enemy1);
-    this.physics.world.collide(this.player2, this.enemy0);
-    this.physics.world.collide(this.player2, this.enemy1);
+    this.physics.world.collide(this.p1, this.p2);
 };
