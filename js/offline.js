@@ -3,60 +3,61 @@ var offGameScene = new Phaser.Scene('Offline');
 
 console.log('Me he ejecutado yyaaay');
 
-function Player (){
-    var that = this;
-    this.p = null;
-    this.velocityX = 0; //Variable que contiene la velocidad pero no la aplica
-    this.velocityY = 0;
-    this.controlers = [];
-    this.create = function(gW,gH,cp){ //create player sprite (depth 1) if you don't set the body as active it won't collide with the world bounds
-        that.p = offGameScene.physics.add.sprite(gW,gH, 'player');//create player sprite (depth 1)
-        that.p.depth = 1;
-        that.p.setScale(1,1);
-        that.p.controlers = cp;
-        that.p.setCollideWorldBounds(true);    
+class Player extends Phaser.Physics.Arcade.Sprite{
+
+    constructor (scene, x, y, texture, cp){ //create player sprite (depth 1) if you don't set the body as active it won't collide with the world bounds
+        super(scene, x, y, texture);//create player sprite (depth 1)
+        scene.add.existing(this);
+        scene.physics.add.existing(this);
+        this.setCircle(50);
+
+        this.velocityX = 0; //Variable que contiene la velocidad pero no la aplica
+        this.velocityY = 0;
+        this.controlers = [];
+
+        this.depth = 1;
+        this.alpha = 1;
+        this.setScale(0.5,0.5);
+        this.setBlendMode('ADD'),
+        this.controlers = cp;
+        this.setCollideWorldBounds(true);
     }
 
-    this.update = function(){
-        that.velocityX = Math.min(that.velocityX, 300);
-        that.velocityX = Math.max(that.velocityX,-300);
-        that.velocityY = Math.min(that.velocityY, 300);
-        that.velocityY = Math.max(that.velocityY,-300);
-        that.p.setVelocity(that.velocityX,that.velocityY);
+    update(){
+        this.velocityX = Math.min(this.velocityX, 300);
+        this.velocityX = Math.max(this.velocityX,-300);
+        this.velocityY = Math.min(this.velocityY, 300);
+        this.velocityY = Math.max(this.velocityY,-300);
+        this.setVelocity(this.velocityX,this.velocityY);
 
 
-        if (that.controlers[1].isDown){
-            that.velocityX += -300;
-            that.p.setVelocityX(that.velocityX); 
-        }else if (that.controlers[3].isDown){
-            that.velocityX +=  300;
-            that.p.setVelocityX(that.velocityX);
+        if (this.controlers[1].isDown){
+            this.velocityX += -300;
+            this.setVelocityX(this.velocityX); 
+        }else if (this.controlers[3].isDown){
+            this.velocityX +=  300;
+            this.setVelocityX(this.velocityX);
         }
-        if (that.controlers[0].isDown){
-            that.velocityY += -300;
-            that.p.setVelocityY(that.velocityY);
-        }else if (that.controlers[2].isDown){
-            that.velocityY +=  300;
-            that.p.setVelocityY(that.velocityY);
+        if (this.controlers[0].isDown){
+            this.velocityY += -300;
+            this.setVelocityY(this.velocityY);
+        }else if (this.controlers[2].isDown){
+            this.velocityY +=  300;
+            this.setVelocityY(this.velocityY);
         }
-        if (that.velocityX>0)
-            that.velocityX += -7.5;
-        else if (that.velocityX<0)
-            that.velocityX +=  7.5;
+        if (this.velocityX>0)
+            this.velocityX += -7.5;
+        else if (this.velocityX<0)
+            this.velocityX +=  7.5;
     
-        if (that.velocityY>0)
-            that.velocityY += -7.5;
-        else if (that.velocityY<0)
-            that.velocityY +=  7.5;
+        if (this.velocityY>0)
+            this.velocityY += -7.5;
+        else if (this.velocityY<0)
+            this.velocityY +=  7.5;
     }
 }
 
 offGameScene.init = function(){
-    this.cursors;
-    console.log(this.cursors);
-
-    this.p1 = new Player();
-    this.p2 = new Player();
 };
 
 //load assets
@@ -65,20 +66,20 @@ offGameScene.preload = function(){
 	this.load.image('background','assets/sprites/background.png');
 	this.load.image('player','assets/sprites/player.png');
 	this.load.image('enemy', 'assets/sprites/enemy.png')
+    this.load.image('flares', 'assets/particles/red.png');
+    this.load.atlas('sparks', 'assets/particles/flaresSheet.png', 'assets/particles/flares.json');
 	this.load.audio('theme','assets/audio/Holfix-PixelParade.mp3');
 };
 
 //called once after the preload ends
 offGameScene.create = function(){
 	//create bg sprite (depth 0)
-	//this.add.sprite(675,321, 'background');
 	let bg = this.add.sprite(0,0, 'background');
 
-	//change the origin to up-left corner
-	//bg.setOrigin(0,0);
 	let gameW = this.sys.game.config.width;
 	let gameH = this.sys.game.config.height;
 	bg.setPosition(gameW/2,gameH/2);
+    bg.setDepth(0);
 	console.log(bg);
 	console.log(this);
 
@@ -88,31 +89,47 @@ offGameScene.create = function(){
     keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     cursors = this.input.keyboard.createCursorKeys();
+    console.log(cursors.up);
 
     var cp1 =  [cursors.up,cursors.left,cursors.down,cursors.right];
-    var cp2 = [keyA,keyW,keyS,keyD];
+    var cp2 = [keyW,keyA,keyS,keyD];
 
-    this.p1.create(gameW/2,gameH/2,cp1);
-    this.p2.create(gameW/3,gameH/3,cp2);
-
-    this.p3.
-   
+    this.p1 = new Player(this, gameW/2+400, gameH/2, 'player', cp1);    
+    console.log(this.p1.depth);
+    console.log(bg.depth);
+    this.p2 = new Player(this, gameW/2-400, gameH/2, 'player', cp2);
+    
 
 	this.physics.world.enable([ this.p1, this.p2 ]);
 
-	/*var particles = this.add.particles('flares');
+	this.particles = this.add.particles('sparks');
 
-    particles.createEmitter({
+    that=this;
+    this.particles.createEmitter({
         frame: 'red',
         lifespan: 750,
         speed: { min: 10, max: 25 },
-        scale: { start: 1, end: 0, ease: 'Quad.easeOut' },
+        scale: { start: 0.5, end: 0, ease: 'Quad.easeOut' },
         //alpha: { start: 1, end: 0, ease: 'Circ.easeIn'},
         quantity: 2,
         blendMode: 'ADD',
         quantity: 2,
-        follow: sprite
-    });*/
+        follow: that.p1
+    });
+
+    this.particles = this.add.particles('sparks');
+
+    this.particles.createEmitter({
+        frame: 'yellow',
+        lifespan: 750,
+        speed: { min: 10, max: 25 },
+        scale: { start: 0.5, end: 0, ease: 'Quad.easeOut' },
+        //alpha: { start: 1, end: 0, ease: 'Circ.easeIn'},
+        quantity: 2,
+        blendMode: 'ADD',
+        quantity: 2,
+        follow: that.p2
+    });
 
 	var music = this.sound.add('theme');
     
