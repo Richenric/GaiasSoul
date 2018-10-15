@@ -5,11 +5,25 @@ console.log('Me he ejecutado yyaaay');
 
 class Player extends Phaser.Physics.Arcade.Sprite{
 
-    constructor (scene, x, y, texture, cp){ //create player sprite (depth 1) if you don't set the body as active it won't collide with the world bounds
+    constructor (scene, x, y, texture, frame, cp){ //create player sprite (depth 1) if you don't set the body as active it won't collide with the world bounds
         super(scene, x, y, texture);//create player sprite (depth 1)
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.setCircle(50);
+
+        scene.particles = scene.add.particles('sparks');
+
+        scene.particles.createEmitter({
+            frame: frame,
+            lifespan: 750,
+            speed: { min: 10, max: 25 },
+            scale: { start: 0.5, end: 0, ease: 'Quad.easeOut' },
+            //alpha: { start: 1, end: 0, ease: 'Circ.easeIn'},
+            quantity: 2,
+            blendMode: 'ADD',
+            quantity: 2,
+            follow: this
+        });
 
         this.velocityX = 0; //Variable que contiene la velocidad pero no la aplica
         this.velocityY = 0;
@@ -94,42 +108,13 @@ offGameScene.create = function(){
     var cp1 =  [cursors.up,cursors.left,cursors.down,cursors.right];
     var cp2 = [keyW,keyA,keyS,keyD];
 
-    this.p1 = new Player(this, gameW/2+400, gameH/2, 'player', cp1);    
+    this.p1 = new Player(this, gameW/2+400, gameH/2, 'player', 'red', cp1);    
     console.log(this.p1.depth);
     console.log(bg.depth);
-    this.p2 = new Player(this, gameW/2-400, gameH/2, 'player', cp2);
+    this.p2 = new Player(this, gameW/2-400, gameH/2, 'player', 'yellow', cp2);
     
 
 	this.physics.world.enable([ this.p1, this.p2 ]);
-
-	this.particles = this.add.particles('sparks');
-
-    that=this;
-    this.particles.createEmitter({
-        frame: 'red',
-        lifespan: 750,
-        speed: { min: 10, max: 25 },
-        scale: { start: 0.5, end: 0, ease: 'Quad.easeOut' },
-        //alpha: { start: 1, end: 0, ease: 'Circ.easeIn'},
-        quantity: 2,
-        blendMode: 'ADD',
-        quantity: 2,
-        follow: that.p1
-    });
-
-    this.particles = this.add.particles('sparks');
-
-    this.particles.createEmitter({
-        frame: 'yellow',
-        lifespan: 750,
-        speed: { min: 10, max: 25 },
-        scale: { start: 0.5, end: 0, ease: 'Quad.easeOut' },
-        //alpha: { start: 1, end: 0, ease: 'Circ.easeIn'},
-        quantity: 2,
-        blendMode: 'ADD',
-        quantity: 2,
-        follow: that.p2
-    });
 
 	var music = this.sound.add('theme');
     
