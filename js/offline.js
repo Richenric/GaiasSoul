@@ -44,7 +44,6 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.velocityY = Math.max(this.velocityY,-300);
         this.setVelocity(this.velocityX,this.velocityY);
 
-
         if (this.controlers[1].isDown){
             this.velocityX += -300;
             this.setVelocityX(this.velocityX); 
@@ -94,30 +93,33 @@ offGameScene.create = function(){
 	let gameH = this.sys.game.config.height;
 	bg.setPosition(gameW/2,gameH/2);
     bg.setDepth(0);
-	console.log(bg);
-	console.log(this);
 
     //Create controls
-    keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    //PLAYER 1: B->escudo V->zonal Espacio->Disparo
+    keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A); 
     keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+
+    keyV = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.V); 
+    keyB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B);
+    keySpace = this.input.keyboard.addKey(32);
+    //PLAYER 2: -->escudo .->zonal Control->disparo
     cursors = this.input.keyboard.createCursorKeys();
-    console.log(cursors.up);
+    keySlash = this.input.keyboard.addKey(189);
+    keyPeriod = this.input.keyboard.addKey(190);
+    keyControlRight = this.input.keyboard.addKey(17);
 
     var cp1 =  [cursors.up,cursors.left,cursors.down,cursors.right];
     var cp2 = [keyW,keyA,keyS,keyD];
 
     this.p1 = new Player(this, gameW/2+400, gameH/2, 'player', 'red', cp1);    
-    console.log(this.p1.depth);
-    console.log(bg.depth);
     this.p2 = new Player(this, gameW/2-400, gameH/2, 'player', 'yellow', cp2);
-    
 
 	this.physics.world.enable([ this.p1, this.p2 ]);
 
+    //MUSIC
 	var music = this.sound.add('theme');
-    
     //0.37
     var loopMarker = {
         name: 'loop',
@@ -138,7 +140,7 @@ offGameScene.create = function(){
 //this is called up to 60 times per second
 offGameScene.update = function(){
 
-	this.p1.update();
+    this.p1.update();
     this.p2.update();
 
     this.physics.world.collide(this.p1, this.p2);
