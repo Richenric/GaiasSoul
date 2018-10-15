@@ -7,17 +7,20 @@ mainMenuScene.init = function(){
 var mSTw;
 var opTw;
 var bkTw;
+var pLTw;
     
 }
 
 //load assets
 mainMenuScene.preload = function(){
-    //Crear la imagen de fondo del menu
+    //Se cargan las imagenes para postriormente crear los sprites
     this.load.image('bg','assets/sprites/mainMenuBg.png');
     this.load.image('bPlay','assets/sprites/playButton.png');
     this.load.image('bOffline','assets/sprites/offlineButton.png');
     this.load.image('bOnline','assets/sprites/onlineButton.png');
     this.load.image('bOptions','assets/sprites/optionsButton.png');
+    this.load.image('clOptions','assets/sprites/optionsButton.png'); //Cambiar sprite 'optionsClick.png'
+    this.load.image('optM','assets/sprites/optionsMenu.png');
     this.load.image('bBack','assets/sprites/backButton.png');
     /*this.load.image('bExit','assets/sprites/exitButton.png');*/
     this.load.image('pRuebas','assets/sprites/exitButton.png');
@@ -25,48 +28,61 @@ mainMenuScene.preload = function(){
 
 //called once after the preload ends
 mainMenuScene.create = function(){
-    //BACKGROUND//
+    //BACKGROUND// --> Se crea y coloca el sprite del fondo
     let bg = this.add.sprite(0,0, 'bg');
     
     let gameW = this.sys.game.config.width;
 	let gameH = this.sys.game.config.height;
     bg.setPosition(gameW/2,gameH/2);
     
-            //let pRuebas = this.add.sprite(gameW/2,gameH/2, 'pRuebas');
-    //BOTONES//
-        //~CONTENEDOR~//mode selector
-    let modSel = this.add.container(gameW/2,gameH/2);
+    //let pRuebas = this.add.sprite(gameW/2,gameH/2, 'pRuebas');
+    
+    //~CONTENEDORES~// --> Para introducir en ellos los botones, permitiendo mayor facilidad a la hora de animarlos.
+        //Selección de modo de juego//
+    let modSel = this.add.container(gameW/2,gameH/2); 
+        //Botón de opciones//
     let idOpt = this.add.container(gameW/4,gameH/3);
+        //Botón de retroceso//
     let idBck = this.add.container(gameW/1.09,gameH/1.2);
+        //Botón de retroceso//
+    let idPly = this.add.container(gameW/2,gameH/2);
+    
+    //BOTONES//    
         //OFFLINE//
-    let bOff = this.add.sprite(-125,-125, 'bOffline').setInteractive();
-        bOff.setAlpha(0);
+        //Creación del sprite, y le conferimos interactividad
+    let bOff = this.add.sprite(-125,-125,'bOffline').setInteractive(); 
+        //Por defecto al ejecutarse este botón tendrá una opacidad del 0%
+        bOff.setAlpha(0);   
+        //Cuando se haga click en el botón se ejecutará la escena correspondiente al modo de juego seleccionado
         bOff.on('pointerdown', function (pointer) { mainMenuScene.scene.switch(offGameScene); });
+        //Añadimos el sprite al contenedor 'Selección de modo de juego'
     modSel.add(bOff);
-            //bOff.on('pointerdown', function (pointer) { this.setTint(0xff0000); });
+            
         //ONLINE//
     let bOn = this.add.sprite(125,125, 'bOnline').setInteractive();
         bOn.setAlpha(0);
     modSel.add(bOn);
-        //bOff.on('pointerdown', function (pointer) { mainMenuScene.scene.switch(onGameScene); });
-            //bOn.on('pointerdown', function (pointer) { this.setTint(0xff0000); });
     
-        //BACK//        --> Dentro de la escena mainMenuScene, revierte de 'Online'+'Offline' a 'Play'
-        //              --> Tmbn estará presente en la escena 'optScene' para regresar a la escea 'mainMenuScene'
+        //BACK//
     let bBack = this.add.sprite(0,0, 'bBack').setInteractive();
         bBack.setAlpha(0);
         bBack.on('pointerdown', function (pointer) { 
+                //Al hacer click sobre este botón, la opacidad del botón pasará del 100% al 0%
             this.setAlpha(0);
+                //Los demás botones también variarán la opacidad en función de si son o no requeridos en el submenú en cuestión. //Esto es posible realizarlo de este modo porque al no mostrarse un botón (opacidad del 0%, o setAlpha(0)), la interactividad que radica de hacer click sobre él deja de existir hasta que este vuelva a tener una opacidad del 100% (setAlpha(1))
             bOff.setAlpha(0);
             bOn.setAlpha(0);
             bPlay.setAlpha(1);
             bOpt.setAlpha(1);
+            mOpt.setAlpha(0);
+            cOpt.setAlpha(0);
             /*bExit.setAlpha(1);*/});
+                //Roto el sprite para prepararlo para implementar de forma más sencilla el movimiento oscilatorio desarrolado más adelante
     bBack.setRotation(6);
     idBck.add(bBack);
     
         //PLAY//    --> Solo cuando se haga click en 'Play' estarán visibles los botones 'offline' y 'online'
-    let bPlay = this.add.sprite(gameW/2,gameH/2, 'bPlay').setInteractive();
+    let bPlay = this.add.sprite(0,0, 'bPlay').setInteractive();
         bPlay.setAlpha(1);
         bPlay.on('pointerdown', function (pointer) { 
             this.setAlpha(0);
@@ -74,23 +90,35 @@ mainMenuScene.create = function(){
             bOn.setAlpha(1);
             bBack.setAlpha(1);
             bOpt.setAlpha(0);
+            mOpt.setAlpha(0);
+            cOpt.setAlpha(0);
             /*bExit.setAlpha(0);*/});
+        idPly.add(bPlay);
     
         //OPTIONS//     --> Redirige a otra escena
     let bOpt = this.add.sprite(0,0, 'bOptions').setInteractive();
         bOpt.setAlpha(1);
+        bOpt.on('pointerdown', function (pointer){
+            this.setAlpha(0);   //o no??
+            bPlay.setAlpha(0);
+            bBack.setAlpha(1);
+            mOpt.setAlpha(1);
+            cOpt.setAlpha(1);
+        });
     bOpt.setRotation(6);
     idOpt.add(bOpt);
-        //bOff.on('pointerdown', function (pointer) { mainMenuScene.scene.switch(optMenuScene); });
-            //bOpt.on('pointerdown', function (pointer) { this.setTint(0xff0000); });
-
-        /*//EXIT//
-    let bExit = this.add.sprite(gameW/12,gameH/1.2, 'bExit').setInteractive();
-        bExit.setAlpha(1);
-        bExit.on('pointerdown', function (pointer) { this.sys.game.destroy(true);}); //REVISAR Y POSIBLEMENTE CAMBIAR
-            //bExit.on('pointerdown', function (pointer) { this.setTint(0xff0000); });*/
+    
+    //OPTIONS MENU//
+    let cOpt = this.add.sprite(gameW/4,gameH/3, 'clOptions');
+        cOpt.setAlpha(0);
+    let mOpt = this.add.image(gameW/2.33,gameH/1.75,'optM');
+        mOpt.setAlpha(0);
+    
+        
     
     
+    //ANIMACIONES DE LOS BOTONES//
+        //Selección de Modo de Juego// --> Desclazamiento circular de los elementos del contenedor
     mSTw = this.tweens.add({
         targets: modSel,
         angle: 360,
@@ -100,6 +128,7 @@ mainMenuScene.create = function(){
     });
     //para que los sprites realmente oscilen entre (30,-30), aplicar un giro previamente a los sprites en cuestion.
     //Ejemplo: sprite0.setRotation(6); //6 xk está en radianes
+        //Botón Opciones// --> Giro oscilatorio
     opTw = this.tweens.add({
         targets: idOpt,
         angle: 30,
@@ -107,11 +136,19 @@ mainMenuScene.create = function(){
         yoyo: true,
         repeat: -1
     });
+        //Botón Back// --> Giro oscilatorio
     bkTw = this.tweens.add({
         targets: idBck, 
         angle: 30,
         duration: 600,
         yoyo: true,
+        repeat: -1
+    });
+    
+    plTw = this.tweens.add({
+        targets: idPly,
+        scaleX: { value: 0.75, duration: 1000, yoyo: true, },
+        scaleY: { value: 0.75, duration: 1000, yoyo: true, },
         repeat: -1
     });
 
@@ -120,20 +157,5 @@ mainMenuScene.create = function(){
 //this is called up to 60 times per second
 mainMenuScene.update = function(){
  
-    //Se supone que el botón play debería crecer y decrecer... pero no está colaborando mucho ¬¬
-    /*if (this.toobig == false){
-		this.bPlay.displayWidth += 1;
-		this.bPlay.displayHeight += 1;
-	}else if (this.toobig == true){
-		this.bPlay.displayWidth -= 1;
-		this.bPlay.displayHeight -= 1;
-	}
-
-	if (this.bPlay.displayWidth >= 200){
-		this.toobig = true;
-	}else if (this.bPlay.displayWidth <= 100){
-		this.toobig = false;
-	}    */
-    
-/*Phaser.Actions.RotateAroundDistance(bOff.getChildren(), { x: 400, y: 300 }, 0.02, 200);*/
+ 
 }
