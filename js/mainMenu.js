@@ -3,17 +3,17 @@ let mainMenuScene = new Phaser.Scene('mainMenu');
 
 
 mainMenuScene.init = function(){
-    mainMenuScene.create();
-var mSTw;
-var opTw;
-var bkTw;
-var pLTw;
+
+    this.mSTw;
+    this.opTw;
+    this.bkTw;
+    this.pLTw;
     
-}
+};
 
 //load assets
 mainMenuScene.preload = function(){
-    //Se cargan las imagenes para postriormente crear los sprites
+    //Se cargan las imagenes para posteriormente crear los sprites
     this.load.image('bg','assets/sprites/mainMenuBg.png');
     this.load.image('bPlay','assets/sprites/playButton.png');
     this.load.image('bOffline','assets/sprites/offlineButton.png');
@@ -24,7 +24,8 @@ mainMenuScene.preload = function(){
     this.load.image('bBack','assets/sprites/backButton.png');
     /*this.load.image('bExit','assets/sprites/exitButton.png');*/
     this.load.image('pRuebas','assets/sprites/exitButton.png');
-}
+    this.load.audio('theme','assets/audio/Holfix-PixelParade.mp3');
+};
 
 //called once after the preload ends
 mainMenuScene.create = function(){
@@ -75,7 +76,6 @@ mainMenuScene.create = function(){
             bPlay.setAlpha(1);
             bOpt.setAlpha(1);
             mOpt.setAlpha(0);
-            cOpt.setAlpha(0);
             /*bExit.setAlpha(1);*/});
                 //Roto el sprite para prepararlo para implementar de forma más sencilla el movimiento oscilatorio desarrolado más adelante
     bBack.setRotation(6);
@@ -91,7 +91,6 @@ mainMenuScene.create = function(){
             bBack.setAlpha(1);
             bOpt.setAlpha(0);
             mOpt.setAlpha(0);
-            cOpt.setAlpha(0);
             /*bExit.setAlpha(0);*/});
         idPly.add(bPlay);
     
@@ -103,23 +102,17 @@ mainMenuScene.create = function(){
             bPlay.setAlpha(0);
             bBack.setAlpha(1);
             mOpt.setAlpha(1);
-            cOpt.setAlpha(1);
         });
     bOpt.setRotation(6);
     idOpt.add(bOpt);
     
     //OPTIONS MENU//
-    let cOpt = this.add.sprite(gameW/4,gameH/3, 'clOptions');
-        cOpt.setAlpha(0);
-    let mOpt = this.add.image(gameW/2.33,gameH/1.75,'optM');
+    let mOpt = this.add.image(gameW/2,gameH/2,'optM');
         mOpt.setAlpha(0);
-    
-        
-    
     
     //ANIMACIONES DE LOS BOTONES//
         //Selección de Modo de Juego// --> Desclazamiento circular de los elementos del contenedor
-    mSTw = this.tweens.add({
+    this.mSTw = this.tweens.add({
         targets: modSel,
         angle: 360,
         duration: 6000,
@@ -129,7 +122,7 @@ mainMenuScene.create = function(){
     //para que los sprites realmente oscilen entre (30,-30), aplicar un giro previamente a los sprites en cuestion.
     //Ejemplo: sprite0.setRotation(6); //6 xk está en radianes
         //Botón Opciones// --> Giro oscilatorio
-    opTw = this.tweens.add({
+    this.opTw = this.tweens.add({
         targets: idOpt,
         angle: 30,
         duration: 600,
@@ -137,7 +130,7 @@ mainMenuScene.create = function(){
         repeat: -1
     });
         //Botón Back// --> Giro oscilatorio
-    bkTw = this.tweens.add({
+    this.bkTw = this.tweens.add({
         targets: idBck, 
         angle: 30,
         duration: 600,
@@ -145,17 +138,35 @@ mainMenuScene.create = function(){
         repeat: -1
     });
     
-    plTw = this.tweens.add({
+    this.plTw = this.tweens.add({
         targets: idPly,
         scaleX: { value: 0.75, duration: 1000, yoyo: true, },
         scaleY: { value: 0.75, duration: 1000, yoyo: true, },
         repeat: -1
     });
+  
+    //SONIDO//
 
-}
+    var music = this.sound.add('theme');
+    
+    var loopMarker = {
+        name: 'loop',
+        start: 12.00,
+        duration: 120.00,
+        config: {
+            loop: true
+        }
+    };
+
+    music.addMarker(loopMarker);
+
+    music.play('loop', {
+        delay: 1
+    }); 
+};
 
 //this is called up to 60 times per second
 mainMenuScene.update = function(){
  
  
-}
+};
