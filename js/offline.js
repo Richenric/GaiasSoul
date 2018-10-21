@@ -59,26 +59,29 @@ class Zonal extends Phaser.Physics.Arcade.Sprite{
             //follow: this
         });
         this.setCircle(50);
+        this.scaleX = 0.1;
+        this.scaleY = 0.1;
         this.alpha = 0;
         this.lifeTime = 30;
     };
     update(){
             this.lifeTime--;
+            this.scaleX = this.scaleX +0.065;
+            this.scaleY = this.scaleY +0.065;
         if(this.lifeTime <=0){//si llega a 0 se hace desaparecer el zonal
             this.emmi.on = false;
             this.destroy();//y se permite la creacion de otro zonal
         }
     };
-}
+};
 
 class Player extends Phaser.Physics.Arcade.Sprite{
-
-    constructor (scene, x, y, texture, frame, cp,tag){ //create player sprite (depth 1) if you don't set the body as active it won't collide with the world bounds
+    //create player sprite (depth 1) if you don't set the body as active it won't collide with the world bounds
+    constructor (scene, x, y, texture, frame, cp,tag){
         super(scene, x, y, texture);//create player sprite (depth 1)
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.setCircle(50);
-
         this.tag = tag;
 
         scene.particles = scene.add.particles('sparks');
@@ -131,39 +134,23 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             this.velocityY +=  300;
             this.setVelocityY(this.velocityY);
         }
-        if (this.velocityX>0)
-            this.velocityX += -7.5;
-        else if (this.velocityX<0)
-            this.velocityX +=  7.5;
+        if (this.velocityX>0)       this.velocityX += -7.5;
+        else if (this.velocityX<0)  this.velocityX +=  7.5;
     
-        if (this.velocityY>0)
-            this.velocityY += -7.5;
-        else if (this.velocityY<0)
-            this.velocityY +=  7.5;
+        if (this.velocityY>0)       this.velocityY += -7.5;
+        else if (this.velocityY<0)  this.velocityY +=  7.5;
 
         //DISPARO
         for(var i=0;i<4;i++) this.allCd[i] += 1;
-        if (this.controlers[6].isDown && this.allCd[1] >= 60){
-            //this.input.mouse.requestPointerLock();
-            if(this.velocityX !== 0 || this.velocityY !== 0){
-                this.myAttacks[1] = new Disparo(this.scene, this.x, this.y, 'enemy', this.frpost, this.tag);
-                
-                if (this.velocityX > 0) {
-                    this.myAttacks[1].setVelocityX(Math.min(Math.max((this.velocityX*3), 10), 900));
-                }else if (this.velocityX < 0){
-                    this.myAttacks[1].setVelocityX(Math.max(Math.min((this.velocityX*3), -10), -900));
-                }
-                //disparo.setVelocityX(Math.max((offGameScene.p1.velocityX*3),50));
-
-                if (this.velocityY > 0) {
-                    this.myAttacks[1].setVelocityY(Math.min(Math.max((this.velocityY*3), 10), 900));
-                }else if (this.velocityY < 0){
-                    this.myAttacks[1].setVelocityY(Math.max(Math.min((this.velocityY*3), -10), -900));
-                }
-                //disparo.setVelocityY(Math.max((offGameScene.p1.velocityY*3),50));
-                this.scene.attacks.add(this.myAttacks[1]);
-                this.allCd[1] = 0;
-            }
+        if (this.controlers[6].isDown && this.allCd[1] >= 60 && (this.velocityX !== 0 || this.velocityY !== 0)){
+            this.myAttacks[1] = new Disparo(this.scene, this.x, this.y, 'enemy', this.frpost, this.tag);
+            if(this.velocityX>0) this.myAttacks[1].setVelocityX(Math.min(Math.max((this.velocityX*3), 10), 900));
+            else                 this.myAttacks[1].setVelocityX(Math.max(Math.min((this.velocityX*3),-10),-900));
+            
+            if(this.velocityY>0) this.myAttacks[1].setVelocityY(Math.min(Math.max((this.velocityY*3), 10), 900));
+            else                 this.myAttacks[1].setVelocityY(Math.max(Math.min((this.velocityY*3),-10),-900));
+            this.scene.attacks.add(this.myAttacks[1]);
+            this.allCd[1] = 0;
         }
         //ZONAL
         if (this.controlers[5].isDown && this.allCd[0] >=120){ //ZONAL
@@ -171,16 +158,6 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             this.scene.attacks.add(this.myAttacks[0]);
             this.allCd[0] = 0;
         }
-        /*
-        if(this.zonalCreado == true){ //si hay un zonal creado
-            this.myAttacks[0].lifeOfthis--;//se le resta tiempo de vida
-            
-            if(this.myAttacks[0].lifeOfthis <=0){ //si llega a 0 se hace desaparecer el zonal
-                this.myAttacks[0].startCountDown();
-                this.myAttacks[0].destroy();
-                this.zonalCreado = false; //y se permite la creacion de otro zonal
-            }
-        } */
     }
 }
 
@@ -192,19 +169,17 @@ offGameScene.preload = function(){
 	//load images
 	this.load.image('background','assets/sprites/background3.png');
     this.load.image('player','assets/sprites/player.png');
-    this.load.image('red','assets/particles/red.png');
+    this.load.image('red','assets/particles/AVerSiMeMuero2.0.png');
     this.load.image('enemy', 'assets/sprites/enemy.png');
     this.load.atlas('flares', 'assets/particles/flares.png', 'assets/particles/flares.json');
     this.load.atlas('sparks', 'assets/particles/flaresSheet.png', 'assets/particles/flares.json');
 	this.load.audio('theme','assets/audio/Holfix-PixelParade.mp3');
 };
 
-//called once after the preload ends
-offGameScene.create = function(){
+offGameScene.create = function(){ //called once after the preload ends
     var that = this;
 	//create bg sprite (depth 0)
 	let bg = this.add.sprite(0,0, 'background');
-
 	let gameW = this.sys.game.config.width;
 	let gameH = this.sys.game.config.height;
 	bg.setPosition(gameW/2,gameH/2);
@@ -221,12 +196,12 @@ offGameScene.create = function(){
     keySpace = this.input.keyboard.addKey(32);
     cp2 = [keyW,keyA,keyS,keyD,keyB,keyV,keySpace];
     
-       //PLAYER 2: Slas->escudo .->zonal Control->disparo
-    curs = this.input.keyboard.createCursorKeys(); //Cursores
+       //PLAYER 2: Slas->escudo .->zonal Shift->disparo
+    curs = this.input.keyboard.createCursorKeys(); //Cursores(flechitas)
     keySlash = this.input.keyboard.addKey(189);
     keyPoint = this.input.keyboard.addKey(190);
     keyShR = this.input.keyboard.addKey(16);
-    cp1 = [curs.up,curs.left,curs.down,curs.right,curs,keyPoint,keyShR];
+    cp1 = [curs.up,curs.left,curs.down,curs.right,keySlash,keyPoint,keyShR];
     
     //Inicializacion de jugadores
     this.p1 = new Player(this, gameW/2+400, gameH/2, 'red', 'red', cp1, 'Jugador2');
@@ -255,15 +230,11 @@ offGameScene.create = function(){
     });
     console.log(this.p1);
 };
-
 //this is called up to 60 times per second
 offGameScene.update = function(){
     this.p1.update();
     this.p2.update();
 
-    this.attacks.children.iterate(function (att) {
-        att.update();
-    });
-    //this.attacks.preUpdate(time,delta);
+    this.attacks.children.iterate(function (att) { att.update(); });
     this.physics.world.collide(this.p1, this.p2);
 };
