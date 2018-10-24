@@ -10,11 +10,11 @@ let config = {
     height: window.innerHeight -15, //Configuramos el alto del canvas para que se ajuste al ancho de pantalla mostrada
     title: "Gaia's Souls", //Titulo en el menú de phaser al inspeccionar
     url: "http://192.168.1.195:8080/GaiasSoul", //Url en el menú de phaser al inspeccionar
-    version: "0.0.4", //Version en el menú de phaser al inspeccionar
+    version: "0.1.0", //Version en el menú de phaser al inspeccionar
     physics: { //Configuramos las físicas que se van a usar en el juego
         default: 'arcade', //Usamos físicas ARCADE
         arcade: {
-            debug: true //Usamos el modo DEBUG mientras desarrollamos para ver cajas de colision y vectores de movimiento, luego se pone a false
+            //debug: true //Usamos el modo DEBUG mientras desarrollamos para ver cajas de colision y vectores de movimiento, luego se pone a false
         }
     },
     scene: [mainMenuScene, offGameScene], //Declaramos que escenas se van a usar y en que orden
@@ -29,9 +29,6 @@ console.log(window.innerHeight -15); //Testeo del tamaño de ventana
 let game = new Phaser.Game(config);
 
 //Declaración de variables globales
-var velocity1X = 0;
-var velocity1Y = 0;
-
-var velocity2X = 0;
-var velocity2Y = 0;
+var gameW = window.innerWidth -15;
+var gameH = window.innerHeight -15;
 
