@@ -214,6 +214,9 @@ offGameScene.preload = function(){
 //called once after the preload ends
 offGameScene.create = function(){
     var that = this;
+    //Lanzamos la escena de interfaz sobre la de juego
+    this.scene.launch(offInterface);
+    
     //create bg sprite (depth 0)
     let bg = this.add.sprite(0,0, 'background');
 
