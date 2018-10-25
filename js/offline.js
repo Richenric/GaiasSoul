@@ -203,7 +203,8 @@ offGameScene.preload = function(){
     //load images
     this.load.image('background','assets/sprites/background3.png');
     this.load.image('player','assets/sprites/player.png');
-    this.load.image('red','assets/particles/red.png');
+    this.load.image('red','assets/particles/AVerSiMeMuero2.0.png');
+    this.load.image('yellow','assets/particles/yellow.png');
     this.load.image('enemy', 'assets/sprites/enemy.png');
     this.load.atlas('flares', 'assets/particles/flares.png', 'assets/particles/flares.json');
     this.load.atlas('sparks', 'assets/particles/flaresSheet.png', 'assets/particles/flares.json');
@@ -242,7 +243,7 @@ offGameScene.create = function(){
     cp1 = [curs.up,curs.left,curs.down,curs.right,curs,keyPoint,keyShR];
     
     //Inicializacion de jugadores
-    this.p1 = new Player(this, gameW/2-400, gameH/2, 'player', 'yellow', cp2, 'Jugador1');
+    this.p1 = new Player(this, gameW/2-400, gameH/2, 'yellow', 'yellow', cp2, 'Jugador1');
     this.p2 = new Player(this, gameW/2+400, gameH/2, 'red', 'red', cp1, 'Jugador2');    
 
     this.attacks = this.add.group();
