@@ -11,7 +11,8 @@ offInterface.preload = function(){
     this.load.image('pIc','assets/sprites/pSpIc.png');
     this.load.image('eIc','assets/sprites/eSpIc.png');
     this.load.image('dis','assets/sprites/disSpIc.png');
-    this.load.image('colDn','assets/sprites/cdSpIc.png');
+    this.load.image('colDn1','assets/sprites/cdSpIc1.png');
+    this.load.image('colDn2','assets/sprites/cdSpIc2.png');
     this.load.image('bgIn','assets/sprites/transBg.png');
 };
 
@@ -55,7 +56,7 @@ offInterface.create = function(){
     let pDis1 = this.add.sprite(0,0,'dis');
         pDis1.setAlpha(0.5);
         shoot1.add(pDis1);
-    let pColD1 = this.add.sprite(0,0,'colDn');
+    let pColD1 = this.add.sprite(0,0,'colDn1');
         pColD1.setAlpha(0.75);
         pColD1.setScale(0);
         shoot1.add(pColD1);
@@ -72,7 +73,7 @@ offInterface.create = function(){
     let eDis1 = this.add.sprite(0,0,'dis');
         eDis1.setAlpha(0.5);
         guard1.add(eDis1);
-    let eColD1 = this.add.sprite(0,0,'colDn');
+    let eColD1 = this.add.sprite(0,0,'colDn1');
         eColD1.setAlpha(0.75);
         eColD1.setScale(0);
         guard1.add(eColD1);
@@ -89,7 +90,7 @@ offInterface.create = function(){
     let zDis1 = this.add.sprite(0,0,'dis');
         zDis1.setAlpha(0.5);
         boom1.add(zDis1);
-    let zColD1 = this.add.sprite(0,0,'colDn');
+    let zColD1 = this.add.sprite(0,0,'colDn1');
         zColD1.setAlpha(0.75);
         zColD1.setScale(0);
         boom1.add(zColD1);
@@ -106,7 +107,7 @@ offInterface.create = function(){
     let pDis2 = this.add.sprite(0,0,'dis');
         pDis2.setAlpha(0.5);
         shoot2.add(pDis2);
-    let pColD2 = this.add.sprite(0,0,'colDn');
+    let pColD2 = this.add.sprite(0,0,'colDn2');
         pColD2.setAlpha(0.75);
         pColD2.setScale(0);
         shoot2.add(pColD2);
@@ -123,7 +124,7 @@ offInterface.create = function(){
     let eDis2 = this.add.sprite(0,0,'dis');
         eDis2.setAlpha(0.5);
         guard2.add(eDis2);
-    let eColD2 = this.add.sprite(0,0,'colDn');
+    let eColD2 = this.add.sprite(0,0,'colDn2');
         eColD2.setAlpha(0.75);
         eColD2.setScale(0);
         guard2.add(eColD2);
@@ -140,7 +141,7 @@ offInterface.create = function(){
     let zDis2 = this.add.sprite(0,0,'dis');
         zDis2.setAlpha(0.5);
         boom2.add(zDis2);
-    let zColD2 = this.add.sprite(0,0,'colDn');
+    let zColD2 = this.add.sprite(0,0,'colDn2');
         zColD2.setAlpha(0.75);
         zColD2.setScale(0);
         boom2.add(zColD2);
