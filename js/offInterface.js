@@ -52,8 +52,10 @@ offInterface.create = function(){
     //ICONOS//
         //Proyectil Jugador 1//
     let pry1 = this.add.sprite(0,0,'pIc');
+        pry1.setScale(0.5);
         shoot1.add(pry1);
     let pDis1 = this.add.sprite(0,0,'dis');
+        pDis1.setScale(0.5);
         pDis1.setAlpha(0.5);
         shoot1.add(pDis1);
     let pColD1 = this.add.sprite(0,0,'colDn1');
@@ -63,14 +65,16 @@ offInterface.create = function(){
     
     this.p1Tw = this.tweens.add({
         targets: pColD1,
-        scaleX: { value: 1, duration: 2000, yoyo: false, },
-        scaleY: { value: 1, duration: 2000, yoyo: false, },
+        scaleX: { value: 0.5, duration: 2000, yoyo: false, },
+        scaleY: { value: 0.5, duration: 2000, yoyo: false, },
     });
     
     //Escudo Jugador 1//
     let sh1 = this.add.sprite(0,0,'eIc');
+        sh1.setScale(0.5);
         guard1.add(sh1);
     let eDis1 = this.add.sprite(0,0,'dis');
+        eDis1.setScale(0.5);
         eDis1.setAlpha(0.5);
         guard1.add(eDis1);
     let eColD1 = this.add.sprite(0,0,'colDn1');
@@ -80,15 +84,17 @@ offInterface.create = function(){
     
     this.e1Tw = this.tweens.add({
         targets: eColD1,
-        scaleX: { value: 1, duration: 2000, yoyo: false, },
-        scaleY: { value: 1, duration: 2000, yoyo: false, },
+        scaleX: { value: 0.5, duration: 2000, yoyo: false, },
+        scaleY: { value: 0.5, duration: 2000, yoyo: false, },
     });
     
         //Zonal Jugador 1//
     let zon1 = this.add.sprite(0,0,'zIc');
+        zon1.setScale(0.5);
         boom1.add(zon1);
     let zDis1 = this.add.sprite(0,0,'dis');
         zDis1.setAlpha(0.5);
+        zDis1.setScale(0.5);
         boom1.add(zDis1);
     let zColD1 = this.add.sprite(0,0,'colDn1');
         zColD1.setAlpha(0.75);
@@ -97,15 +103,17 @@ offInterface.create = function(){
     
     this.z1Tw = this.tweens.add({
         targets: zColD1,
-        scaleX: { value: 1, duration: 2000, yoyo: false, },
-        scaleY: { value: 1, duration: 2000, yoyo: false, },
+        scaleX: { value: 0.5, duration: 2000, yoyo: false, },
+        scaleY: { value: 0.5, duration: 2000, yoyo: false, },
     });
     
             //Proyectil Jugador 2//
     let pry2 = this.add.sprite(0,0,'pIc');
+        pry2.setScale(0.5);
         shoot2.add(pry2);
     let pDis2 = this.add.sprite(0,0,'dis');
         pDis2.setAlpha(0.5);
+        pDis2.setScale(0.5);
         shoot2.add(pDis2);
     let pColD2 = this.add.sprite(0,0,'colDn2');
         pColD2.setAlpha(0.75);
@@ -114,15 +122,17 @@ offInterface.create = function(){
     
     this.p2Tw = this.tweens.add({
         targets: pColD2,
-        scaleX: { value: 1, duration: 2000, yoyo: false, },
-        scaleY: { value: 1, duration: 2000, yoyo: false, },
+        scaleX: { value: 0.5, duration: 2000, yoyo: false, },
+        scaleY: { value: 0.5, duration: 2000, yoyo: false, },
     });
     
     //Escudo Jugador 2//
     let sh2 = this.add.sprite(0,0,'eIc');
+        sh2.setScale(0.5);
         guard2.add(sh2);
     let eDis2 = this.add.sprite(0,0,'dis');
         eDis2.setAlpha(0.5);
+        eDis2.setScale(0.5);
         guard2.add(eDis2);
     let eColD2 = this.add.sprite(0,0,'colDn2');
         eColD2.setAlpha(0.75);
@@ -131,15 +141,17 @@ offInterface.create = function(){
     
     this.e2Tw = this.tweens.add({
         targets: eColD2,
-        scaleX: { value: 1, duration: 2000, yoyo: false, },
-        scaleY: { value: 1, duration: 2000, yoyo: false, },
+        scaleX: { value: 0.5, duration: 2000, yoyo: false, },
+        scaleY: { value: 0.5, duration: 2000, yoyo: false, },
     });
     
         //Zonal Jugador 2//
     let zon2 = this.add.sprite(0,0,'zIc');
+        zon2.setScale(0.5);
         boom2.add(zon2);
     let zDis2 = this.add.sprite(0,0,'dis');
         zDis2.setAlpha(0.5);
+        zDis2.setScale(0.5);
         boom2.add(zDis2);
     let zColD2 = this.add.sprite(0,0,'colDn2');
         zColD2.setAlpha(0.75);
@@ -148,8 +160,8 @@ offInterface.create = function(){
     
     this.z2Tw = this.tweens.add({
         targets: zColD2,
-        scaleX: { value: 1, duration: 2000, yoyo: false, },
-        scaleY: { value: 1, duration: 2000, yoyo: false, },
+        scaleX: { value: 0.5, duration: 2000, yoyo: false, },
+        scaleY: { value: 0.5, duration: 2000, yoyo: false, },
     });
 };
 

@@ -1,9 +1,8 @@
-//Create new scene
+﻿//Create new scene
 let mainMenuScene = new Phaser.Scene('mainMenu');
 
 
 mainMenuScene.init = function(){
-
 /*    this.mSTw;
     this.opTw;
     this.bkTw;
@@ -14,7 +13,7 @@ mainMenuScene.init = function(){
 //load assets
 mainMenuScene.preload = function(){
     //Se cargan las imagenes para posteriormente crear los sprites
-    this.load.image('bg','assets/sprites/mainMenuBg.png');
+    this.load.image('bg','assets/sprites/background3.png');
     this.load.image('bPlay','assets/sprites/playButton.png');
     this.load.image('bOffline','assets/sprites/offlineButton.png');
     this.load.image('bOnline','assets/sprites/onlineButton.png');
@@ -82,6 +81,7 @@ mainMenuScene.create = function(){
     
         //BACK//
     let bBack = this.add.sprite(0,0, 'bBack').setInteractive();
+        bBack.setScale(0.75);
         bBack.setAlpha(0);
         bBack.on('pointerdown', function (pointer) { 
                 //Al hacer click sobre este botón, la opacidad del botón pasará del 100% al 0%
@@ -134,6 +134,7 @@ mainMenuScene.create = function(){
     
         //CONTROLES//
     let bCtrls = this.add.sprite(0,0, 'bCtrls').setInteractive();
+        bCtrls.setScale(0.75);
         bCtrls.setAlpha(1);
         bCtrls.on('pointerdown', function(pointer){
             this.setAlpha(0);
@@ -168,7 +169,7 @@ mainMenuScene.create = function(){
     let volLoudAct = this.add.sprite(200,0, 'vUpAct');
             volLoud.setAlpha(0);    volLoudAct.setAlpha(0);
         volLoud.on('pointerdown', function (pointer) {
-            music.setVolume(1);
+            volumen = music.setVolume(1);
             this.setAlpha(0);    volLoudAct.setAlpha(1);
             vol7.setAlpha(1);       vol7Act.setAlpha(0);
             vol6.setAlpha(1);       vol6Act.setAlpha(0);
@@ -185,7 +186,7 @@ mainMenuScene.create = function(){
     let vol7Act = this.add.sprite(150,0, 'vMidAct');
             vol7.setAlpha(0);       vol7Act.setAlpha(0);
         vol7.on('pointerdown', function (pointer) {
-            music.setVolume(0.75);
+            volumen = music.setVolume(0.75);
             volLoud.setAlpha(1);    volLoudAct.setAlpha(0);
             this.setAlpha(0);       vol7Act.setAlpha(1);
             vol6.setAlpha(1);       vol6Act.setAlpha(0);
@@ -202,7 +203,7 @@ mainMenuScene.create = function(){
     let vol6Act = this.add.sprite(100,0, 'vMidAct');
             vol6.setAlpha(0);       vol6Act.setAlpha(0);
         vol6.on('pointerdown', function (pointer) {
-            music.setVolume(0.5);
+            volumen = music.setVolume(0.5);
             volLoud.setAlpha(1);    volLoudAct.setAlpha(0);
             vol7.setAlpha(1);       vol7Act.setAlpha(0);
             this.setAlpha(0);       vol6Act.setAlpha(1);
@@ -219,7 +220,7 @@ mainMenuScene.create = function(){
     let vol5Act = this.add.sprite(50,0, 'vMidAct');
             vol5.setAlpha(0);       vol5Act.setAlpha(0);
         vol5.on('pointerdown', function (pointer) {
-            music.setVolume(0.25);
+            volumen = music.setVolume(0.25);
             volLoud.setAlpha(1);    volLoudAct.setAlpha(0);
             vol7.setAlpha(1);       vol7Act.setAlpha(0);
             vol6.setAlpha(1);       vol6Act.setAlpha(0);
@@ -236,7 +237,7 @@ mainMenuScene.create = function(){
     let vol4Act = this.add.sprite(0,0, 'vMidAct');
             vol4.setAlpha(0);       vol4Act.setAlpha(0);
         vol4.on('pointerdown', function (pointer) {
-            music.setVolume(0.1);
+            volumen = music.setVolume(0.1);
             volLoud.setAlpha(1);    volLoudAct.setAlpha(0);
             vol7.setAlpha(1);       vol7Act.setAlpha(0);
             vol6.setAlpha(1);       vol6Act.setAlpha(0);
@@ -253,7 +254,7 @@ mainMenuScene.create = function(){
     let vol3Act = this.add.sprite(-50,0, 'vMidAct');
             vol3.setAlpha(0);       vol3Act.setAlpha(0);
         vol3.on('pointerdown', function (pointer) {
-            music.setVolume(0.075);
+            volumen = music.setVolume(0.075);
             volLoud.setAlpha(1);    volLoudAct.setAlpha(0);
             vol7.setAlpha(1);       vol7Act.setAlpha(0);
             vol6.setAlpha(1);       vol6Act.setAlpha(0);
@@ -270,7 +271,7 @@ mainMenuScene.create = function(){
     let vol2Act = this.add.sprite(-100,0, 'vMidAct');
             vol2.setAlpha(0);       vol2Act.setAlpha(0);
         vol2.on('pointerdown', function (pointer) {
-            music.setVolume(0.05);
+            volumen = music.setVolume(0.05);
             volLoud.setAlpha(1);    volLoudAct.setAlpha(0);
             vol7.setAlpha(1);       vol7Act.setAlpha(0);
             vol6.setAlpha(1);       vol6Act.setAlpha(0);
@@ -287,7 +288,7 @@ mainMenuScene.create = function(){
     let vol1Act = this.add.sprite(-150,0, 'vMidAct');
             vol1.setAlpha(0);       vol1Act.setAlpha(0);
         vol1.on('pointerdown', function (pointer) {
-            music.setVolume(0.025);
+            volumen = music.setVolume(0.025);
             volLoud.setAlpha(1);    volLoudAct.setAlpha(0);
             vol7.setAlpha(1);       vol7Act.setAlpha(0);
             vol6.setAlpha(1);       vol6Act.setAlpha(0);
@@ -304,7 +305,7 @@ mainMenuScene.create = function(){
     let volMuteAct = this.add.sprite(-200,0, 'vDwAct');
             volMute.setAlpha(0);    volMuteAct.setAlpha(0);
         volMute.on('pointerdown', function (pointer) {
-            music.setVolume(0);
+            volumen = music.setVolume(0);
             volLoud.setAlpha(1);    volLoudAct.setAlpha(0);
             vol7.setAlpha(1);       vol7Act.setAlpha(0);
             vol6.setAlpha(1);       vol6Act.setAlpha(0);
@@ -341,6 +342,7 @@ mainMenuScene.create = function(){
     
         //OPTIONS//     --> Redirige a otra escena
     let bOpt = this.add.sprite(0,0, 'bOptions').setInteractive();
+        bOpt.setScale(0.75);
         bOpt.setAlpha(1);
         bOpt.on('pointerdown', function (pointer){
             this.setAlpha(0);
@@ -401,7 +403,7 @@ mainMenuScene.create = function(){
         angle: 15,
         duration: 600,
         yoyo: true,
-        repeat: -1
+        repeat: -1,
     });
     
     this.plTw = this.tweens.add({
