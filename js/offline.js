@@ -39,6 +39,48 @@ class Disparo extends Phaser.Physics.Arcade.Sprite{
     };
 };
 
+class Escudo extends Phaser.Physics.Arcade.Sprite{
+    constructor(scene,x, y, texture,frame, tag){
+        super(scene, x, y, texture);
+        scene.add.existing(this).setOrigin(0.5);
+        scene.physics.add.existing(this);
+
+        this.particles = scene.add.particles('sparks');
+        
+        this.emmi = this.particles.createEmitter({
+            frame: frame,
+            lifespan: { min: 200, max: 500 },
+            x:0, y:0,
+            speed: 200,
+            scale: { start: 0.1, end: 0.5 },
+            //alpha: { start: 0, end: 1, ease: "Quad.easeIn" },
+            angle: { start: 0, end: 360, steps: 20 }, //Steps permite que se haga de manera ordenada y en circulo
+            frequency: 32,
+            blendMode: 'ADD',
+            quantity: 10,
+            //on: false,
+            //follow: this
+        });
+        
+        this.setCircle(100,-50,-50);
+        this.alpha = 0;
+
+        this.tag = tag;
+        this.isDefense = true;
+        this.lifeTime = 120;
+        this.iMayDie = false;
+    };
+    update(x, y){
+            this.lifeTime--;
+            this.setPosition(x,y);
+            this.particles.setPosition(x,y);
+        if(this.lifeTime <=0){//si llega a 0 se hace desaparecer el zonal
+            this.emmi.on = false;
+            this.iMayDie = true;//y se permite la creacion de otro zonal
+        }
+    };
+}
+
 class Zonal extends Phaser.Physics.Arcade.Sprite{
     constructor(scene,x, y, texture,frame, tag){
         super(scene, x, y, texture);
@@ -84,8 +126,12 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.setCircle(50);
 
         this.tag = tag;
+        this.isDefense = false;
 
         this.score = 0;
+
+
+        this.defenses = scene.add.group();
 
         scene.particles = scene.add.particles('sparks');
         scene.particles.createEmitter({
@@ -171,6 +217,13 @@ class Player extends Phaser.Physics.Arcade.Sprite{
                 this.allCd[1] = 0;
             }
         }
+        //ESCUDO
+        if (this.controlers[4].isDown && this.allCd[2] >=480){ //ESCUDO
+            var escudo = new Escudo(this.scene, this.x, this.y, 'enemy', this.frpost, this.tag);
+            this.defenses.add(escudo);
+            this.isDefense = true;
+            this.allCd[2] = 0;
+        }
         //ZONAL
         if (this.controlers[5].isDown && this.allCd[0] >=120){ //ZONAL
             var zonal = new Zonal(this.scene, this.x, this.y, 'enemy', this.frpost, this.tag);
@@ -243,7 +296,7 @@ offGameScene.create = function(){
     keySlash = this.input.keyboard.addKey(189);
     keyPoint = this.input.keyboard.addKey(190);
     keyShR = this.input.keyboard.addKey(16);
-    cp1 = [curs.up,curs.left,curs.down,curs.right,curs,keyPoint,keyShR];
+    cp1 = [curs.up,curs.left,curs.down,curs.right,keySlash,keyPoint,keyShR];
     
     //Inicializacion de jugadores
     this.p1 = new Player(this, gameW/2-400, gameH/2, 'yellow', 'yellow', cp2, 'Jugador1');
@@ -258,6 +311,10 @@ offGameScene.create = function(){
     var collider1 = this.physics.add.overlap(this.p1, this.attacks, this.checkCollision, null, this);
 
     var collider2 = this.physics.add.overlap(this.p2, this.attacks, this.checkCollision, null, this);
+
+    var collider3 = this.physics.add.overlap(this.p1.defenses, this.attacks, this.checkCollision, null, this);
+
+    var collider4 = this.physics.add.overlap(this.p2.defenses, this.attacks, this.checkCollision, null, this);
 
     //MUSIC
     var music = this.sound.add('theme');
@@ -280,14 +337,17 @@ offGameScene.create = function(){
 
 offGameScene.checkCollision=function(object1, object2){
         console.log("inside");
-        if(object1.tag != object2.tag && object1.tag == 'Jugador1'){
+        if(object1.tag != object2.tag && object1.tag == 'Jugador1' && !object1.isDefense){
             this.p1.setPosition(gameW/2-400, gameH/2);
             this.p2.score += 1;
             object2.emmi.on = false;
             object2.destroy();
-        }else if(object1.tag != object2.tag && object1.tag == 'Jugador2'){
+        }else if(object1.tag != object2.tag && object1.tag == 'Jugador2' && !object1.isDefense){
             this.p2.setPosition(gameW/2+400, gameH/2);
             this.p1.score += 1;
+            object2.emmi.on = false;
+            object2.destroy();
+        }else if(object1.tag != object2.tag && object1.isDefense){
             object2.emmi.on = false;
             object2.destroy();
         }
@@ -303,6 +363,22 @@ offGameScene.update = function(){
             console.log("HOLA MUY BUENAS PASO POR AQUI ");
             offGameScene.attacks.remove(att,offGameScene,true); } //-COMO SE QUITA A UN CHILDREN DE SU PAPI?? -La unica solucion es matar muahahahah!
         else{ att.update(); }
+    },this);
+
+    this.p1.defenses.children.each(function (deff) {
+        if(deff.iMayDie){
+            console.log("HOLA MUY BUENAS PASO POR ACA ");
+            offGameScene.p1.defenses.remove(deff,offGameScene,true); //-COMO SE QUITA A UN CHILDREN DE SU PAPI?? -La unica solucion es matar muahahahah!
+            offGameScene.p1.isDefense = false;}
+        else{ deff.update(this.p1.x, this.p1.y); }
+    },this);
+
+    this.p2.defenses.children.each(function (deff) {
+        if(deff.iMayDie){
+            console.log("HOLA MUY BUENAS PASO POR ACA ");
+            offGameScene.p2.defenses.remove(deff,offGameScene,true); //-COMO SE QUITA A UN CHILDREN DE SU PAPI?? -La unica solucion es matar muahahahah!
+            offGameScene.p2.isDefense = false;}
+        else{ deff.update(this.p2.x, this.p2.y); }
     },this);
     
     this.caption.setText(Phaser.Utils.String.Format(this.captionTextFormat, [
