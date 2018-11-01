@@ -17,6 +17,7 @@ let config = {
             //debug: true //Usamos el modo DEBUG mientras desarrollamos para ver cajas de colision y vectores de movimiento, luego se pone a false
         }
     },
+    disableContextMenu: true,
     scene: [mainMenuScene, offGameScene, offInterface], //Declaramos que escenas se van a usar y en que orden
     fps: 60
 };
