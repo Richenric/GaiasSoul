@@ -1,14 +1,8 @@
 ﻿//Create new scene
 let mainMenuScene = new Phaser.Scene('mainMenu');
 
-
 mainMenuScene.init = function(){
-/*    this.mSTw;
-    this.opTw;
-    this.bkTw;
-    this.pLTw;*/
-    
-};
+/*    this.mSTw;this.opTw;this.bkTw;this.pLTw;*/    };
 
 //load assets
 mainMenuScene.preload = function(){
@@ -29,22 +23,34 @@ mainMenuScene.preload = function(){
     this.load.image('optM','assets/sprites/optionsMenu.png');
     this.load.image('bBack','assets/sprites/backButton.png');
     /*this.load.image('bExit','assets/sprites/exitButton.png');*/
-    this.load.image('pRuebas','assets/sprites/exitButton.png');
     this.load.audio('theme','assets/audio/Holfix-PixelParade.mp3');
 };
 
-//called once after the preload ends
 mainMenuScene.create = function(){
+    var that = this;
+    this.allVolButtons = [];
+    function volBinit(posX,posY,imageN,imageAct){
+        let normal = that.add.sprite(posX,posY, imageN).setInteractive();
+        let accion = that.add.sprite(posX,posY, imageAct);
+        let volButton = { n: normal, act: accion };    
+        volButton.n.setAlpha(0);    volButton.act.setAlpha(0);
+        return volButton;
+    }
+    
+    function volActionConfig(num,vol){
+        that.allVolButtons[num].n.on('pointerdown', function (pointer) {
+            volumen = music.setVolume(vol);
+            that.allVolButtons.forEach(bttn => { bttn.n.setAlpha(1); bttn.act.setAlpha(0);}); //Resto de botones
+            that.allVolButtons[num].n.setAlpha(0); that.allVolButtons[num].act.setAlpha(1); //Boton de volumen seleccionado
+        });
+    }
+
     //BACKGROUND// --> Se crea y coloca el sprite del fondo
     let bg = this.add.sprite(0,0, 'bg');
-    
     let gameW = this.sys.game.config.width;
 	let gameH = this.sys.game.config.height;
     bg.setPosition(gameW/2,gameH/2);
-    
     this.input.setDefaultCursor('url(assets/cursors/CustomCursor.cur), pointer');
-    
-    //let pRuebas = this.add.sprite(gameW/2,gameH/2, 'pRuebas');
     
     //~CONTENEDORES~// --> Para introducir en ellos los botones, permitiendo mayor facilidad a la hora de animarlos.
         //Selección de modo de juego//
@@ -64,15 +70,12 @@ mainMenuScene.create = function(){
     //BOTONES//    
         //OFFLINE//
         //Creación del sprite, y le conferimos interactividad
-    let bOff = this.add.sprite(-125,-125,'bOffline').setInteractive(); 
-        //Por defecto al ejecutarse este botón tendrá una opacidad del 0%
-        bOff.setAlpha(0);
-        //Cuando se haga click en el botón se ejecutará la escena correspondiente al modo de juego seleccionado
-        bOff.on('pointerdown', function (pointer) {
+    let bOff = this.add.sprite(-125,-125,'bOffline').setInteractive();
+        bOff.setAlpha(0); //Por defecto al ejecutarse este botón tendrá una opacidad del 0%
+        bOff.on('pointerdown', function (pointer) {//Cuando se haga click en el botón se ejecutará la escena correspondiente al modo de juego seleccionado
             music.stop('theme');
             mainMenuScene.scene.switch(offGameScene); });
-        //Añadimos el sprite al contenedor 'Selección de modo de juego'
-    modSel.add(bOff);
+    modSel.add(bOff); //Añadimos el sprite al contenedor 'Selección de modo de juego'
 
         //ONLINE//
     let bOn = this.add.sprite(125,125, 'bOnline').setInteractive();
@@ -91,18 +94,9 @@ mainMenuScene.create = function(){
             bOn.setAlpha(0);
             bPlay.setAlpha(1);
             bCtrls.setAlpha(1);
-            volLoud.setAlpha(0);    volLoudAct.setAlpha(0);
-            vol7.setAlpha(0);       vol7Act.setAlpha(0);
-            vol6.setAlpha(0);       vol6Act.setAlpha(0);
-            vol5.setAlpha(0);       vol5Act.setAlpha(0);
-            vol4.setAlpha(0);       vol4Act.setAlpha(0);
-            vol3.setAlpha(0);       vol3Act.setAlpha(0);
-            vol2.setAlpha(0);       vol2Act.setAlpha(0);
-            vol1.setAlpha(0);       vol1Act.setAlpha(0);
-            volMute.setAlpha(0);    volMuteAct.setAlpha(0);
+            that.allVolButtons.forEach(button => { button.n.setAlpha(0); button.act.setAlpha(0); });
             bOpt.setAlpha(1);
             mOpt.setAlpha(0);
-
             /*bExit.setAlpha(1);*/});
                 //Roto el sprite para prepararlo para implementar de forma más sencilla el movimiento oscilatorio desarrolado más adelante
     bBack.setRotation(6.15);
@@ -116,19 +110,10 @@ mainMenuScene.create = function(){
             bOff.setAlpha(1);
             bOn.setAlpha(1);
             bCtrls.setAlpha(0);
-            volLoud.setAlpha(0);    volLoudAct.setAlpha(0);
-            vol7.setAlpha(0);       vol7Act.setAlpha(0);
-            vol6.setAlpha(0);       vol6Act.setAlpha(0);
-            vol5.setAlpha(0);       vol5Act.setAlpha(0);
-            vol4.setAlpha(0);       vol4Act.setAlpha(0);
-            vol3.setAlpha(0);       vol3Act.setAlpha(0);
-            vol2.setAlpha(0);       vol2Act.setAlpha(0);
-            vol1.setAlpha(0);       vol1Act.setAlpha(0);
-            volMute.setAlpha(0);    volMuteAct.setAlpha(0);
+            that.allVolButtons.forEach(button => { button.n.setAlpha(0); button.act.setAlpha(0); });
             bBack.setAlpha(1);
             bOpt.setAlpha(0);
             mOpt.setAlpha(0);
-            /*bExit.setAlpha(0);*/
         });
         idPly.add(bPlay);
     
@@ -141,182 +126,36 @@ mainMenuScene.create = function(){
             bOff.setAlpha(0);
             bOn.setAlpha(0);
             bPlay.setAlpha(0);
-            volLoud.setAlpha(0);    volLoudAct.setAlpha(0);
-            vol7.setAlpha(0);       vol7Act.setAlpha(0);
-            vol6.setAlpha(0);       vol6Act.setAlpha(0);
-            vol5.setAlpha(0);       vol5Act.setAlpha(0);
-            vol4.setAlpha(0);       vol4Act.setAlpha(0);
-            vol3.setAlpha(0);       vol3Act.setAlpha(0);
-            vol2.setAlpha(0);       vol2Act.setAlpha(0);
-            vol1.setAlpha(0);       vol1Act.setAlpha(0);
-            volMute.setAlpha(0);    volMuteAct.setAlpha(0);
+            that.allVolButtons.forEach(button => { button.n.setAlpha(0); button.act.setAlpha(0); });
             bBack.setAlpha(1);
             bOpt.setAlpha(0);
             mOpt.setAlpha(1);//De momento, para comprobar que el botón funciona correctamente
         });
     bCtrls.setRotation(6.15);
     ctrls.add(bCtrls);
-    
-    
-    
-    //////////////////////////////////////////////////////////////////////////////
-        //SONIDO//
 
+    ////////SONIDO////////////////////////////////////////////////////////////////    
     var music = this.sound.add('theme', loopMarker);
+    this.allVolButtons[0] = volBinit(-200,0,'vDw' ,'vDwAct' );
+    this.allVolButtons[1] = volBinit(-150,0,'vMid','vMidAct');
+    this.allVolButtons[2] = volBinit(-100,0,'vMid','vMidAct');
+    this.allVolButtons[3] = volBinit( -50,0,'vMid','vMidAct');
+    this.allVolButtons[4] = volBinit(   0,0,'vMid','vMidAct');
+    this.allVolButtons[5] = volBinit(  50,0,'vMid','vMidAct');
+    this.allVolButtons[6] = volBinit( 100,0,'vMid','vMidAct');
+    this.allVolButtons[7] = volBinit( 150,0,'vMid','vMidAct');
+    this.allVolButtons[8] = volBinit( 200,0,'vUp' ,'vUpAct' );
+    volActionConfig(0,0);
+    volActionConfig(1,0.025);
+    volActionConfig(2,0.05);
+    volActionConfig(3,0.075);
+    volActionConfig(4,0.1);
+    volActionConfig(5,0.25);
+    volActionConfig(6,0.5);
+    volActionConfig(7,0.75);
+    volActionConfig(8,1);
 
-    //let vol = 1;
-    let volLoud = this.add.sprite(200,0, 'vUp').setInteractive();
-    let volLoudAct = this.add.sprite(200,0, 'vUpAct');
-            volLoud.setAlpha(0);    volLoudAct.setAlpha(0);
-        volLoud.on('pointerdown', function (pointer) {
-            volumen = music.setVolume(1);
-            this.setAlpha(0);    volLoudAct.setAlpha(1);
-            vol7.setAlpha(1);       vol7Act.setAlpha(0);
-            vol6.setAlpha(1);       vol6Act.setAlpha(0);
-            vol5.setAlpha(1);       vol5Act.setAlpha(0);
-            vol4.setAlpha(1);       vol4Act.setAlpha(0);
-            vol3.setAlpha(1);       vol3Act.setAlpha(0);
-            vol2.setAlpha(1);       vol2Act.setAlpha(0);
-            vol1.setAlpha(1);       vol1Act.setAlpha(0);
-            volMute.setAlpha(1);    volMuteAct.setAlpha(0);
-        });
-        vCtrl.add(volLoud);         vCtrl.add(volLoudAct);
-
-    let vol7 = this.add.sprite(150,0, 'vMid').setInteractive();
-    let vol7Act = this.add.sprite(150,0, 'vMidAct');
-            vol7.setAlpha(0);       vol7Act.setAlpha(0);
-        vol7.on('pointerdown', function (pointer) {
-            volumen = music.setVolume(0.75);
-            volLoud.setAlpha(1);    volLoudAct.setAlpha(0);
-            this.setAlpha(0);       vol7Act.setAlpha(1);
-            vol6.setAlpha(1);       vol6Act.setAlpha(0);
-            vol5.setAlpha(1);       vol5Act.setAlpha(0);
-            vol4.setAlpha(1);       vol4Act.setAlpha(0);
-            vol3.setAlpha(1);       vol3Act.setAlpha(0);
-            vol2.setAlpha(1);       vol2Act.setAlpha(0);
-            vol1.setAlpha(1);       vol1Act.setAlpha(0);
-            volMute.setAlpha(1);    volMuteAct.setAlpha(0);
-        });
-            vCtrl.add(vol7);        vCtrl.add(vol7Act);
-
-    let vol6 = this.add.sprite(100,0, 'vMid').setInteractive();
-    let vol6Act = this.add.sprite(100,0, 'vMidAct');
-            vol6.setAlpha(0);       vol6Act.setAlpha(0);
-        vol6.on('pointerdown', function (pointer) {
-            volumen = music.setVolume(0.5);
-            volLoud.setAlpha(1);    volLoudAct.setAlpha(0);
-            vol7.setAlpha(1);       vol7Act.setAlpha(0);
-            this.setAlpha(0);       vol6Act.setAlpha(1);
-            vol5.setAlpha(1);       vol5Act.setAlpha(0);
-            vol4.setAlpha(1);       vol4Act.setAlpha(0);
-            vol3.setAlpha(1);       vol3Act.setAlpha(0);
-            vol2.setAlpha(1);       vol2Act.setAlpha(0);
-            vol1.setAlpha(1);       vol1Act.setAlpha(0);
-            volMute.setAlpha(1);    volMuteAct.setAlpha(0);
-        });
-            vCtrl.add(vol6);        vCtrl.add(vol6Act);
-
-    let vol5 = this.add.sprite(50,0, 'vMid').setInteractive();
-    let vol5Act = this.add.sprite(50,0, 'vMidAct');
-            vol5.setAlpha(0);       vol5Act.setAlpha(0);
-        vol5.on('pointerdown', function (pointer) {
-            volumen = music.setVolume(0.25);
-            volLoud.setAlpha(1);    volLoudAct.setAlpha(0);
-            vol7.setAlpha(1);       vol7Act.setAlpha(0);
-            vol6.setAlpha(1);       vol6Act.setAlpha(0);
-            this.setAlpha(0);       vol5Act.setAlpha(1);
-            vol4.setAlpha(1);       vol4Act.setAlpha(0);
-            vol3.setAlpha(1);       vol3Act.setAlpha(0);
-            vol2.setAlpha(1);       vol2Act.setAlpha(0);
-            vol1.setAlpha(1);       vol1Act.setAlpha(0);
-            volMute.setAlpha(1);    volMuteAct.setAlpha(0);
-        });
-            vCtrl.add(vol5);        vCtrl.add(vol5Act);
-
-    let vol4 = this.add.sprite(0,0, 'vMid').setInteractive();
-    let vol4Act = this.add.sprite(0,0, 'vMidAct');
-            vol4.setAlpha(0);       vol4Act.setAlpha(0);
-        vol4.on('pointerdown', function (pointer) {
-            volumen = music.setVolume(0.1);
-            volLoud.setAlpha(1);    volLoudAct.setAlpha(0);
-            vol7.setAlpha(1);       vol7Act.setAlpha(0);
-            vol6.setAlpha(1);       vol6Act.setAlpha(0);
-            vol5.setAlpha(1);       vol5Act.setAlpha(0);
-            this.setAlpha(0);       vol4Act.setAlpha(1);
-            vol3.setAlpha(1);       vol3Act.setAlpha(0);
-            vol2.setAlpha(1);       vol2Act.setAlpha(0);
-            vol1.setAlpha(1);       vol1Act.setAlpha(0);
-            volMute.setAlpha(1);    volMuteAct.setAlpha(0);
-        });
-            vCtrl.add(vol4);        vCtrl.add(vol4Act);
-
-    let vol3 = this.add.sprite(-50,0, 'vMid').setInteractive();
-    let vol3Act = this.add.sprite(-50,0, 'vMidAct');
-            vol3.setAlpha(0);       vol3Act.setAlpha(0);
-        vol3.on('pointerdown', function (pointer) {
-            volumen = music.setVolume(0.075);
-            volLoud.setAlpha(1);    volLoudAct.setAlpha(0);
-            vol7.setAlpha(1);       vol7Act.setAlpha(0);
-            vol6.setAlpha(1);       vol6Act.setAlpha(0);
-            vol5.setAlpha(1);       vol5Act.setAlpha(0);
-            vol4.setAlpha(1);       vol4Act.setAlpha(0);
-            this.setAlpha(0);       vol3Act.setAlpha(1);
-            vol2.setAlpha(1);       vol2Act.setAlpha(0);
-            vol1.setAlpha(1);       vol1Act.setAlpha(0);
-            volMute.setAlpha(1);    volMuteAct.setAlpha(0);
-        });
-            vCtrl.add(vol3);        vCtrl.add(vol3Act);
-
-    let vol2 = this.add.sprite(-100,0, 'vMid').setInteractive();
-    let vol2Act = this.add.sprite(-100,0, 'vMidAct');
-            vol2.setAlpha(0);       vol2Act.setAlpha(0);
-        vol2.on('pointerdown', function (pointer) {
-            volumen = music.setVolume(0.05);
-            volLoud.setAlpha(1);    volLoudAct.setAlpha(0);
-            vol7.setAlpha(1);       vol7Act.setAlpha(0);
-            vol6.setAlpha(1);       vol6Act.setAlpha(0);
-            vol5.setAlpha(1);       vol5Act.setAlpha(0);
-            vol4.setAlpha(1);       vol4Act.setAlpha(0);
-            vol3.setAlpha(1);       vol3Act.setAlpha(0);
-            this.setAlpha(0);       vol2Act.setAlpha(1);
-            vol1.setAlpha(1);       vol1Act.setAlpha(0);
-            volMute.setAlpha(1);    volMuteAct.setAlpha(0);
-        });
-            vCtrl.add(vol2);        vCtrl.add(vol2Act);
-
-    let vol1 = this.add.sprite(-150,0, 'vMid').setInteractive();
-    let vol1Act = this.add.sprite(-150,0, 'vMidAct');
-            vol1.setAlpha(0);       vol1Act.setAlpha(0);
-        vol1.on('pointerdown', function (pointer) {
-            volumen = music.setVolume(0.025);
-            volLoud.setAlpha(1);    volLoudAct.setAlpha(0);
-            vol7.setAlpha(1);       vol7Act.setAlpha(0);
-            vol6.setAlpha(1);       vol6Act.setAlpha(0);
-            vol5.setAlpha(1);       vol5Act.setAlpha(0);
-            vol4.setAlpha(1);       vol4Act.setAlpha(0);
-            vol3.setAlpha(1);       vol3Act.setAlpha(0);
-            vol2.setAlpha(1);       vol2Act.setAlpha(0);
-            this.setAlpha(0);       vol1Act.setAlpha(1);
-            volMute.setAlpha(1);    volMuteAct.setAlpha(0);
-        });
-            vCtrl.add(vol1);        vCtrl.add(vol1Act);
-
-    let volMute = this.add.sprite(-200,0, 'vDw').setInteractive();
-    let volMuteAct = this.add.sprite(-200,0, 'vDwAct');
-            volMute.setAlpha(0);    volMuteAct.setAlpha(0);
-        volMute.on('pointerdown', function (pointer) {
-            volumen = music.setVolume(0);
-            volLoud.setAlpha(1);    volLoudAct.setAlpha(0);
-            vol7.setAlpha(1);       vol7Act.setAlpha(0);
-            vol6.setAlpha(1);       vol6Act.setAlpha(0);
-            vol5.setAlpha(1);       vol5Act.setAlpha(0);
-            vol4.setAlpha(1);       vol4Act.setAlpha(0);
-            vol3.setAlpha(1);       vol3Act.setAlpha(0);
-            vol2.setAlpha(1);       vol2Act.setAlpha(0);
-            vol1.setAlpha(1);       vol1Act.setAlpha(0);
-            this.setAlpha(0);    volMuteAct.setAlpha(1);
-        });
-            vCtrl.add(volMute);     vCtrl.add(volMuteAct);
+    this.allVolButtons.forEach(button => { vCtrl.add(button.n); vCtrl.add(button.act); });
 
     var loopMarker = {
         name: 'loop',
@@ -327,20 +166,12 @@ mainMenuScene.create = function(){
             loop: true
         }
     };
-    
     music.addMarker(loopMarker);
-
     music.play('loop', {
         delay: 1
     });
-//////////////////////////////////////////////////////////////////////////////
-    
-    
-    
-    
-    
-    
-        //OPTIONS//     --> Redirige a otra escena
+
+    ///////OPTIONS// --> Redirige a otra escena///////////////////////////////////////////////
     let bOpt = this.add.sprite(0,0, 'bOptions').setInteractive();
         bOpt.setScale(0.75);
         bOpt.setAlpha(1);
@@ -348,15 +179,7 @@ mainMenuScene.create = function(){
             this.setAlpha(0);
             bPlay.setAlpha(0);
             bCtrls.setAlpha(0);
-            volLoud.setAlpha(0);    volLoudAct.setAlpha(1);
-            vol7.setAlpha(1);       vol7Act.setAlpha(0);
-            vol6.setAlpha(1);       vol6Act.setAlpha(0);
-            vol5.setAlpha(1);       vol5Act.setAlpha(0);
-            vol4.setAlpha(1);       vol4Act.setAlpha(0);
-            vol3.setAlpha(1);       vol3Act.setAlpha(0);
-            vol2.setAlpha(1);       vol2Act.setAlpha(0);
-            vol1.setAlpha(1);       vol1Act.setAlpha(0);
-            volMute.setAlpha(1);    volMuteAct.setAlpha(0);
+            that.allVolButtons.forEach(button => { button.n.setAlpha(1); });
             bBack.setAlpha(1);
             mOpt.setAlpha(1);
             
@@ -367,11 +190,10 @@ mainMenuScene.create = function(){
     //OPTIONS MENU//
     let mOpt = this.add.image(gameW/2,gameH/2,'optM');
         mOpt.setAlpha(0);
-        //mOpt.z = 0;
         mOpt.setDepth(0);
     
     //ANIMACIONES DE LOS BOTONES//
-        //Selección de Modo de Juego// --> Desclazamiento circular de los elementos del contenedor
+        //Selección de Modo de Juego// --> Deslizamiento circular de los elementos del contenedor
     this.mSTw = this.tweens.add({
         targets: modSel,
         angle: 360,
@@ -412,11 +234,7 @@ mainMenuScene.create = function(){
         scaleY: { value: 0.75, duration: 1000, yoyo: true, },
         repeat: -1
     });
-    
 };
-
 //this is called up to 60 times per second
 mainMenuScene.update = function(){
- 
- 
 };

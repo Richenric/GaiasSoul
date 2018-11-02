@@ -3,14 +3,12 @@ var offGameScene = new Phaser.Scene('Offline');
 
 offGameScene.init = function(){
     this.caption;
-
     this.captionStyle = {
         fill: '#7fdbff',
         fontFamily: 'verdana',
         lineSpacing: 4,
         fontSize: 50
     };
-
     this.captionTextFormat = (
         '%1  :  ' +
         '%2\n'
@@ -29,7 +27,6 @@ offGameScene.preload = function(){
     this.load.atlas('sparks', 'assets/particles/flaresSheet.png', 'assets/particles/flares.json');
     this.load.audio('theme','assets/audio/Holfix-PixelParade.mp3');
 };
-
 //called once after the preload ends
 offGameScene.create = function(){
     var that = this;
@@ -129,6 +126,5 @@ offGameScene.update = function(){
         this.p1.score,
         this.p2.score
     ]));
-
     this.physics.world.collide(this.p1, this.p2);
 };

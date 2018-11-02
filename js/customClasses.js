@@ -41,10 +41,7 @@ class Escudo extends Phaser.Physics.Arcade.Sprite{
         super(scene, x, y, texture);
         scene.add.existing(this).setOrigin(0.5);
         scene.physics.add.existing(this);
-
-        this.particles = scene.add.particles('sparks');
-        
-        this.emmi = this.particles.createEmitter({
+        this.emmi = scene.add.particles('sparks').createEmitter({
             frame: frame,
             lifespan: { min: 200, max: 500 },
             x:0, y:0,
@@ -70,7 +67,7 @@ class Escudo extends Phaser.Physics.Arcade.Sprite{
     update(x, y){
             this.lifeTime--;
             this.setPosition(x,y);
-            this.particles.setPosition(x,y);
+            this.emmi.setPosition(x,y);
         if(this.lifeTime <=0){//si llega a 0 se hace desaparecer el zonal
             this.emmi.on = false;
             this.iMayDie = true;//y se permite la creacion de otro zonal
@@ -94,8 +91,6 @@ class Zonal extends Phaser.Physics.Arcade.Sprite{
             frequency: 32,
             blendMode: 'ADD',
             quantity: 64,
-            //on: false,
-            //follow: this
         });
         
         this.setCircle(100,-50,-50);
