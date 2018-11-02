@@ -3,12 +3,14 @@ var offGameScene = new Phaser.Scene('Offline');
 
 offGameScene.init = function(){
     this.caption;
+
     this.captionStyle = {
         fill: '#7fdbff',
         fontFamily: 'verdana',
         lineSpacing: 4,
         fontSize: 50
     };
+
     this.captionTextFormat = (
         '%1  :  ' +
         '%2\n'
@@ -27,6 +29,7 @@ offGameScene.preload = function(){
     this.load.atlas('sparks', 'assets/particles/flaresSheet.png', 'assets/particles/flares.json');
     this.load.audio('theme','assets/audio/Holfix-PixelParade.mp3');
 };
+
 //called once after the preload ends
 offGameScene.create = function(){
     var that = this;
@@ -58,8 +61,8 @@ offGameScene.create = function(){
     curs = this.input.keyboard.createCursorKeys(); //Cursores
     keySlash = this.input.keyboard.addKey(189);
     keyPoint = this.input.keyboard.addKey(190);
-    keyShR = this.input.keyboard.addKey(16);
-    cp1 = [curs.up,curs.left,curs.down,curs.right,keySlash,keyPoint,keyShR];
+    keyComma = this.input.keyboard.addKey(188);
+    cp1 = [curs.up,curs.left,curs.down,curs.right,keyPoint,keyComma,keySlash];
     
     //Inicializacion de jugadores
     this.p1 = new Player(this, gameW/2-400, gameH/2, 'yellow', 'yellow', cp2, 'Jugador1');
@@ -95,19 +98,28 @@ offGameScene.create = function(){
 }
 
 offGameScene.checkCollision=function(object1, object2){
-        if(object1.tag != object2.tag && object1.tag == 'Jugador1' && !object1.isDefense){
+        if(object1.tag != object2.tag && object1.tag == 'Jugador1' && !object1.isDefense && !object2.isZonal){
             this.p1.muero();
             this.p1.setPosition((Math.random() * ((gameW-115)-115) + 115), (Math.random() * ((gameH-115)-115) + 115));
             console.log(this.p1.x + ", "+this.p1.y);
             this.p2.score += 1;
             object2.emmi.on = false;
             object2.destroy();
-        }else if(object1.tag != object2.tag && object1.tag == 'Jugador2' && !object1.isDefense){
+        }else if(object1.tag != object2.tag && object1.tag == 'Jugador2' && !object1.isDefense && !object2.isZonal){
             this.p2.muero();
             this.p2.setPosition((Math.random() * ((gameW-115)-115) + 115), (Math.random() * ((gameH-115)-115) + 115));
             this.p1.score += 1;
             object2.emmi.on = false;
             object2.destroy();
+        }else if(object1.tag != object2.tag && object1.tag == 'Jugador1' && !object1.isDefense && object2.isZonal){
+            this.p1.muero();
+            this.p1.setPosition((Math.random() * ((gameW-115)-115) + 115), (Math.random() * ((gameH-115)-115) + 115));
+            console.log(this.p1.x + ", "+this.p1.y);
+            this.p2.score += 1;
+        }else if(object1.tag != object2.tag && object1.tag == 'Jugador2' && !object1.isDefense && object2.isZonal){
+            this.p2.muero();
+            this.p2.setPosition((Math.random() * ((gameW-115)-115) + 115), (Math.random() * ((gameH-115)-115) + 115));
+            this.p1.score += 1;
         }
     }
 
@@ -126,5 +138,6 @@ offGameScene.update = function(){
         this.p1.score,
         this.p2.score
     ]));
+
     this.physics.world.collide(this.p1, this.p2);
 };

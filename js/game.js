@@ -10,7 +10,7 @@ let config = {
     height: window.innerHeight -15, //Configuramos el alto del canvas para que se ajuste al ancho de pantalla mostrada
     title: "Gaia's Souls", //Titulo en el menú de phaser al inspeccionar
     url: "http://192.168.1.195:8080/GaiasSoul", //Url en el menú de phaser al inspeccionar
-    version: "0.1.0", //Version en el menú de phaser al inspeccionar
+    version: "0.1.3", //Version en el menú de phaser al inspeccionar
     physics: { //Configuramos las físicas que se van a usar en el juego
         default: 'arcade', //Usamos físicas ARCADE
         arcade: {

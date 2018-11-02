@@ -6,6 +6,7 @@ class Disparo extends Phaser.Physics.Arcade.Sprite{
         this.setCircle(50);
 
         this.tag = tag;
+        this.isZonal = false;
         //console.log(this.tag);
 
         this.emmi = scene.add.particles('sparks').createEmitter({
@@ -41,7 +42,10 @@ class Escudo extends Phaser.Physics.Arcade.Sprite{
         super(scene, x, y, texture);
         scene.add.existing(this).setOrigin(0.5);
         scene.physics.add.existing(this);
-        this.emmi = scene.add.particles('sparks').createEmitter({
+
+        this.particles = scene.add.particles('sparks');
+        
+        this.emmi = this.particles.createEmitter({
             frame: frame,
             lifespan: { min: 200, max: 500 },
             x:0, y:0,
@@ -67,7 +71,7 @@ class Escudo extends Phaser.Physics.Arcade.Sprite{
     update(x, y){
             this.lifeTime--;
             this.setPosition(x,y);
-            this.emmi.setPosition(x,y);
+            this.particles.setPosition(x,y);
         if(this.lifeTime <=0){//si llega a 0 se hace desaparecer el zonal
             this.emmi.on = false;
             this.iMayDie = true;//y se permite la creacion de otro zonal
@@ -91,12 +95,15 @@ class Zonal extends Phaser.Physics.Arcade.Sprite{
             frequency: 32,
             blendMode: 'ADD',
             quantity: 64,
+            //on: false,
+            //follow: this
         });
         
         this.setCircle(100,-50,-50);
         this.alpha = 0;
 
         this.tag = tag;
+        this.isZonal = true;
         this.lifeTime = 30;
         this.iMayDie = false;
     };
@@ -153,6 +160,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
         this.score = 0;
 
+        this.defenses = scene.add.group();
         this.effects = scene.add.group();
 
         scene.particles = scene.add.particles('sparks');
@@ -245,7 +253,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         //ESCUDO
         if (this.controlers[4].isDown && this.allCd[2] >=480){ //ESCUDO
             var escudo = new Escudo(this.scene, this.x, this.y, 'enemy', this.frpost, this.tag);
-            this.effects.add(escudo);
+            this.defenses.add(escudo);
             this.isDefense = true;
             this.allCd[2] = 0;
         }
@@ -257,10 +265,17 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         }
 
         //ACTUALIZACION GRUPOS
+        this.defenses.children.each(function (deff) {
+            if(deff.iMayDie){
+                this.defenses.remove(deff,offGameScene,true);
+                this.isDefense = false;}
+            else{ deff.update(this.x, this.y); }
+        },this);
+
         this.effects.children.each(function (eff) {
             if(eff.iMayDie){
                 this.effects.remove(eff,offGameScene,true);}
-            else{ eff.update(this.x, this.y); }
+            else{ eff.update(); }
         },this);
     }
 }
