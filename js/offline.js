@@ -41,8 +41,6 @@ offGameScene.create = function(){
 
     bg.setPosition(gameW/2,gameH/2);
     bg.setDepth(0);
-    console.log(bg);
-    console.log(offGameScene);
 
     this.input.setDefaultCursor('url(assets/cursors/invisible.cur), pointer');
 
@@ -79,7 +77,7 @@ offGameScene.create = function(){
     var collider2 = this.physics.add.overlap(this.p2, this.attacks, this.checkCollision, null, this);
 
     //MUSIC
-    var music = this.sound.add('theme');
+    music = this.sound.add('theme');
     //0.37
     var loopMarker = {
         name: 'loop',
@@ -89,12 +87,9 @@ offGameScene.create = function(){
             loop: true
         }
     };
-
     music.addMarker(loopMarker);
-
-    music.play('loop', {
-        delay: 0
-    });
+    music.play('loop', { delay: 0 });   
+    music.setVolume(volumen);
 }
 
 offGameScene.checkCollision=function(object1, object2){

@@ -1,6 +1,6 @@
 ﻿//Create new scene
 let mainMenuScene = new Phaser.Scene('mainMenu');
-
+var volumen, music;
 mainMenuScene.init = function(){
 /*    this.mSTw;this.opTw;this.bkTw;this.pLTw;*/    };
 
@@ -39,7 +39,7 @@ mainMenuScene.create = function(){
     
     function volActionConfig(num,vol){
         that.allVolButtons[num].n.on('pointerdown', function (pointer) {
-            volumen = music.setVolume(vol);
+            volumen = vol; music.setVolume(vol);
             that.allVolButtons.forEach(bttn => { bttn.n.setAlpha(1); bttn.act.setAlpha(0);}); //Resto de botones
             that.allVolButtons[num].n.setAlpha(0); that.allVolButtons[num].act.setAlpha(1); //Boton de volumen seleccionado
         });
@@ -135,7 +135,7 @@ mainMenuScene.create = function(){
     ctrls.add(bCtrls);
 
     ////////SONIDO////////////////////////////////////////////////////////////////    
-    var music = this.sound.add('theme', loopMarker);
+    music = this.sound.add('theme', loopMarker);
     this.allVolButtons[0] = volBinit(-200,0,'vDw' ,'vDwAct' );
     this.allVolButtons[1] = volBinit(-150,0,'vMid','vMidAct');
     this.allVolButtons[2] = volBinit(-100,0,'vMid','vMidAct');
