@@ -1,9 +1,7 @@
-﻿//Create new scene
-let mainMenuScene = new Phaser.Scene('mainMenu');
-var volumen, music;
-mainMenuScene.init = function(){
-/*    this.mSTw;this.opTw;this.bkTw;this.pLTw;*/    };
-
+﻿let mainMenuScene = new Phaser.Scene('mainMenu');//Create new scene
+var music;
+/*mainMenuScene.init = function(){
+    this.mSTw;this.opTw;this.bkTw;this.pLTw;    };*/
 //load assets
 mainMenuScene.preload = function(){
     //Se cargan las imagenes para posteriormente crear los sprites
@@ -19,16 +17,16 @@ mainMenuScene.preload = function(){
     this.load.image('vMidAct','assets/sprites/volMidAct.png');
     this.load.image('vDwAct','assets/sprites/volMuteAct.png');
     this.load.image('bOptions','assets/sprites/optionsButton.png');
-    //this.load.image('clOptions','assets/sprites/optionsButton.png'); //Cambiar sprite 'optionsClick.png'
     this.load.image('optM','assets/sprites/optionsMenu.png');
     this.load.image('bBack','assets/sprites/backButton.png');
-    /*this.load.image('bExit','assets/sprites/exitButton.png');*/
+    this.load.image('gtitle','assets/sprites/gtitle.png');
     this.load.audio('theme','assets/audio/Holfix-PixelParade.mp3');
 };
 
 mainMenuScene.create = function(){
     var that = this;
     this.allVolButtons = [];
+    this.volumen;
     function volBinit(posX,posY,imageN,imageAct){
         let normal = that.add.sprite(posX,posY, imageN).setInteractive();
         let accion = that.add.sprite(posX,posY, imageAct);
@@ -36,15 +34,24 @@ mainMenuScene.create = function(){
         volButton.n.setAlpha(0);    volButton.act.setAlpha(0);
         return volButton;
     }
-    
     function volActionConfig(num,vol){
         that.allVolButtons[num].n.on('pointerdown', function (pointer) {
             volumen = vol; music.setVolume(vol);
+            console.log(volumen);
             that.allVolButtons.forEach(bttn => { bttn.n.setAlpha(1); bttn.act.setAlpha(0);}); //Resto de botones
             that.allVolButtons[num].n.setAlpha(0); that.allVolButtons[num].act.setAlpha(1); //Boton de volumen seleccionado
         });
     }
-
+    function animBConfig(targets,angle,duration,yoyo,repeat){
+        let anim = {
+            targets: targets,
+            angle: angle, //En grados hexadecimales
+            duration: duration,
+            yoyo: yoyo,
+            repeat: repeat
+        }
+        return anim;
+    }
     //BACKGROUND// --> Se crea y coloca el sprite del fondo
     let bg = this.add.sprite(0,0, 'bg');
     let gameW = this.sys.game.config.width;
@@ -53,19 +60,13 @@ mainMenuScene.create = function(){
     this.input.setDefaultCursor('url(assets/cursors/CustomCursor.cur), pointer');
     
     //~CONTENEDORES~// --> Para introducir en ellos los botones, permitiendo mayor facilidad a la hora de animarlos.
-        //Selección de modo de juego//
-    let modSel = this.add.container(gameW/2,gameH/2); 
-        //Botón de opciones//
-    let idOpt = this.add.container(gameW/4,gameH/3);
-        //Botón de retroceso//
-    let idBck = this.add.container(gameW/1.09,gameH/1.2);
-        //Botón de retroceso//
-    let idPly = this.add.container(gameW/2,gameH/2);
-        //Botones control volumen//
-    let vCtrl = this.add.container(gameW/2,gameH/2);
+    let modSel= this.add.container(gameW/2,gameH/2);     //Selección de modo de juego//
+    let idOpt = this.add.container(gameW/4,gameH/3+200);     //Botón de opciones//
+    let idBck = this.add.container(gameW/1.09,gameH/1.2);//Botón de retroceso//
+    let idPly = this.add.container(gameW/2,gameH/2+200);     //Botón de play//
+    let vCtrl = this.add.container(gameW/2,gameH/2);     //Botones control volumen//
     vCtrl.setDepth(1);
-        //Botón de Controles//
-    let ctrls = this.add.container(gameW/1.33,gameH/3);
+    let ctrls = this.add.container(gameW/1.33,gameH/3+200);  //Botón de Controles//
     
     //BOTONES//    
         //OFFLINE//
@@ -94,12 +95,12 @@ mainMenuScene.create = function(){
             bOn.setAlpha(0);
             bPlay.setAlpha(1);
             bCtrls.setAlpha(1);
+            title.setAlpha(1);
             that.allVolButtons.forEach(button => { button.n.setAlpha(0); button.act.setAlpha(0); });
             bOpt.setAlpha(1);
             mOpt.setAlpha(0);
-            /*bExit.setAlpha(1);*/});
-                //Roto el sprite para prepararlo para implementar de forma más sencilla el movimiento oscilatorio desarrolado más adelante
-    bBack.setRotation(6.15);
+        });
+    bBack.setRotation(6.15); //Sprite rotado para implementar el movimiento oscilatorio(mas adelante)
     idBck.add(bBack);
     
         //PLAY//    --> Solo cuando se haga click en 'Play' estarán visibles los botones 'offline' y 'online'
@@ -112,11 +113,13 @@ mainMenuScene.create = function(){
             bCtrls.setAlpha(0);
             that.allVolButtons.forEach(button => { button.n.setAlpha(0); button.act.setAlpha(0); });
             bBack.setAlpha(1);
+            title.setAlpha(0);
             bOpt.setAlpha(0);
             mOpt.setAlpha(0);
         });
         idPly.add(bPlay);
-    
+    let title = this.add.sprite(gameW/2,gameH/2-150,'gtitle');
+    title.setScale(0.75);
         //CONTROLES//
     let bCtrls = this.add.sprite(0,0, 'bCtrls').setInteractive();
         bCtrls.setScale(0.75);
@@ -127,6 +130,7 @@ mainMenuScene.create = function(){
             bOn.setAlpha(0);
             bPlay.setAlpha(0);
             that.allVolButtons.forEach(button => { button.n.setAlpha(0); button.act.setAlpha(0); });
+            title.setAlpha(0);
             bBack.setAlpha(1);
             bOpt.setAlpha(0);
             mOpt.setAlpha(1);//De momento, para comprobar que el botón funciona correctamente
@@ -154,7 +158,6 @@ mainMenuScene.create = function(){
     volActionConfig(6,0.5);
     volActionConfig(7,0.75);
     volActionConfig(8,1);
-
     this.allVolButtons.forEach(button => { vCtrl.add(button.n); vCtrl.add(button.act); });
 
     var loopMarker = {
@@ -167,9 +170,7 @@ mainMenuScene.create = function(){
         }
     };
     music.addMarker(loopMarker);
-    music.play('loop', {
-        delay: 1
-    });
+    music.play('loop', { delay: 1 });
 
     ///////OPTIONS// --> Redirige a otra escena///////////////////////////////////////////////
     let bOpt = this.add.sprite(0,0, 'bOptions').setInteractive();
@@ -180,61 +181,31 @@ mainMenuScene.create = function(){
             bPlay.setAlpha(0);
             bCtrls.setAlpha(0);
             that.allVolButtons.forEach(button => { button.n.setAlpha(1); });
+            title.setAlpha(0);
             bBack.setAlpha(1);
             mOpt.setAlpha(1);
-            
         });
     bOpt.setRotation(6.15);
     idOpt.add(bOpt);
     
     //OPTIONS MENU//
     let mOpt = this.add.image(gameW/2,gameH/2,'optM');
-        mOpt.setAlpha(0);
-        mOpt.setDepth(0);
+        mOpt.setAlpha(0); mOpt.setDepth(0);
     
     //ANIMACIONES DE LOS BOTONES//
         //Selección de Modo de Juego// --> Deslizamiento circular de los elementos del contenedor
-    this.mSTw = this.tweens.add({
-        targets: modSel,
-        angle: 360,
-        duration: 48000,
-        yoyo: false,
-        repeat: -1
-    });
+    this.mSTw = this.tweens.add(animBConfig(modSel,360,48000,false,-1));
     //para que los sprites realmente oscilen entre (30,-30), aplicar un giro previamente a los sprites en cuestion.
     //Ejemplo: sprite0.setRotation(6.16); //6.15 xk está en radianes
-        //Botón Opciones// --> Giro oscilatorio
-    this.opTw = this.tweens.add({
-        targets: idOpt,
-        angle: 15,          //En grados hexadecimales
-        duration: 600,
-        yoyo: true,
-        repeat: -1
-    });
-        //Botón Back// --> Giro oscilatorio
-    this.bkTw = this.tweens.add({
-        targets: idBck, 
-        angle: 15,
-        duration: 600,
-        yoyo: true,
-        repeat: -1
-    });
-        //Botón Control// --> Giro oscilatorio
-    this.ctrlTw = this.tweens.add({
-        targets: ctrls,
-        angle: 15,
-        duration: 600,
-        yoyo: true,
-        repeat: -1,
-    });
-    
-    this.plTw = this.tweens.add({
+    this.opTw  = this.tweens.add(animBConfig(idOpt,15,600,true,-1));  //Botón Opciones// --> Giro oscilatorio
+    this.bkTw  = this.tweens.add(animBConfig(idBck,15,600,true,-1));//Botón Back// --> Giro oscilatorio
+    this.ctrlTw= this.tweens.add(animBConfig(ctrls,15,600,true,-1));//Botón Control// --> Giro oscilatorio
+    this.plTw  = this.tweens.add({
         targets: idPly,
         scaleX: { value: 0.75, duration: 1000, yoyo: true, },
         scaleY: { value: 0.75, duration: 1000, yoyo: true, },
         repeat: -1
     });
 };
-//this is called up to 60 times per second
-mainMenuScene.update = function(){
+mainMenuScene.update = function(){//this is called up to 60 times per second
 };

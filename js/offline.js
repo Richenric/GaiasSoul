@@ -88,7 +88,7 @@ offGameScene.create = function(){
         }
     };
     music.addMarker(loopMarker);
-    music.play('loop', { delay: 0 });   
+    music.play('loop', { delay: 0 });
     music.setVolume(volumen);
 }
 
@@ -96,7 +96,6 @@ offGameScene.checkCollision=function(object1, object2){
         if(object1.tag != object2.tag && object1.tag == 'Jugador1' && !object1.isDefense && !object2.isZonal){
             this.p1.muero();
             this.p1.setPosition((Math.random() * ((gameW-115)-115) + 115), (Math.random() * ((gameH-115)-115) + 115));
-            console.log(this.p1.x + ", "+this.p1.y);
             this.p2.score += 1;
             object2.emmi.on = false;
             object2.destroy();
@@ -109,7 +108,6 @@ offGameScene.checkCollision=function(object1, object2){
         }else if(object1.tag != object2.tag && object1.tag == 'Jugador1' && !object1.isDefense && object2.isZonal){
             this.p1.muero();
             this.p1.setPosition((Math.random() * ((gameW-115)-115) + 115), (Math.random() * ((gameH-115)-115) + 115));
-            console.log(this.p1.x + ", "+this.p1.y);
             this.p2.score += 1;
         }else if(object1.tag != object2.tag && object1.tag == 'Jugador2' && !object1.isDefense && object2.isZonal){
             this.p2.muero();
