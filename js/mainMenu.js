@@ -23,7 +23,7 @@ mainMenuScene.preload = function(){
     this.load.image('howToMenu','assets/sprites/howToMenu.png');
     this.load.image('howToMenu2','assets/sprites/howToMenu2.png');
     this.load.image('botonDer','assets/sprites/botonRightA.png');
-    this.load.audio('theme','assets/audio/Holfix-PixelParade.mp3');
+    this.load.audio('theme','assets/audio/Racing-Menu.mp3');
 };
 
 mainMenuScene.create = function(){
@@ -118,11 +118,9 @@ mainMenuScene.create = function(){
             bOff.setAlpha(1);
             bOn.setAlpha(1);
             bCtrls.setAlpha(0);
-            that.allVolButtons.forEach(button => { button.n.setAlpha(0); button.act.setAlpha(0); });
             bBack.setAlpha(1);
             title.setAlpha(0);
             bOpt.setAlpha(0);
-            mOpt.setAlpha(0);
         });
         idPly.add(bPlay);
     let title = this.add.sprite(gameW/2,gameH/2-150,'gtitle');
@@ -133,10 +131,7 @@ mainMenuScene.create = function(){
         bCtrls.setAlpha(1);
         bCtrls.on('pointerdown', function(pointer){
             this.setAlpha(0);
-            bOff.setAlpha(0);
-            bOn.setAlpha(0);
             bPlay.setAlpha(0);
-            that.allVolButtons.forEach(button => { button.n.setAlpha(0); button.act.setAlpha(0); });
             title.setAlpha(0);
             bBack.setAlpha(1);
             bOpt.setAlpha(0);
@@ -205,6 +200,7 @@ mainMenuScene.create = function(){
             bPlay.setAlpha(0);
             bCtrls.setAlpha(0);
             that.allVolButtons.forEach(button => { button.n.setAlpha(1); });
+            that.allVolButtons[8].act.setAlpha(1); that.allVolButtons[8].n.setAlpha(0);
             title.setAlpha(0);
             bBack.setAlpha(1);
             mOpt.setAlpha(1);
