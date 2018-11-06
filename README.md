@@ -25,10 +25,10 @@ Partimos de un concept art de una idea inicial poco definida, y evolucionó hasta
  
 **Modelos de jugador**
 Visual de los dos personajes del local:
-![](https://media.discordapp.net/attachments/496417325961052203/509429848784109586/Dos_pjs.png)
+> ![](https://media.discordapp.net/attachments/496417325961052203/509429848784109586/Dos_pjs.png)
 
 y de su movimiento
-![](https://cdn.discordapp.com/attachments/496417325961052203/509430430697521163/Personaje.gif)
+> ![](https://cdn.discordapp.com/attachments/496417325961052203/509430430697521163/Personaje.gif)
 
 **Tipos de zonales**
 
@@ -37,7 +37,7 @@ Concept art:
 
 Visual actual:
 
-![](https://cdn.discordapp.com/attachments/496417325961052203/509421666716090369/Zonal.gif)
+> ![](https://cdn.discordapp.com/attachments/496417325961052203/509421666716090369/Zonal.gif)
 
 **Tipos de proyectiles**
 
