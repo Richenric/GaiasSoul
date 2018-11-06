@@ -26,6 +26,7 @@ Partimos de un concept art de una idea inicial poco definida, y evolucionó hasta
 **Modelos de jugador**
 Visual de los dos personajes del local:
 ![](https://media.discordapp.net/attachments/496417325961052203/509429848784109586/Dos_pjs.png)
+
 y de su movimiento
 ![](https://cdn.discordapp.com/attachments/496417325961052203/509430430697521163/Personaje.gif)
 
@@ -35,6 +36,7 @@ Concept art:
 ![](https://cdn.discordapp.com/attachments/453581461371486210/491670199112564750/GaiasSoul-Zonales-BG.png)
 
 Visual actual:
+
 ![](https://cdn.discordapp.com/attachments/496417325961052203/509421666716090369/Zonal.gif)
 
 **Tipos de proyectiles**
@@ -42,7 +44,8 @@ Visual actual:
 Concept art:
 ![](https://cdn.discordapp.com/attachments/453581461371486210/491670156683247617/GaiasSoul-Proyectiles.png)
 
-VisualActual
+Visual Actual:
+
 ![](https://cdn.discordapp.com/attachments/496417325961052203/509421674030956572/Disparo.gif)
  
 **Tipos de escudos**
@@ -51,6 +54,7 @@ Concept art inicial:
 ![](https://cdn.discordapp.com/attachments/453581461371486210/491670065847074827/GaiasSoul-Escudos-BG.png)
 
 Visual Actual:
+
 ![](https://cdn.discordapp.com/attachments/496417325961052203/509421674307911700/Escudo.gif)
 
 *todos las habilidades han sido desarrolladas para ambos jugadores aunque aqui solo se muestren las del jugador 1.
