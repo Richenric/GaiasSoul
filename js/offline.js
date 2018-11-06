@@ -87,8 +87,8 @@ offGameScene.create = function(){
     //0.37
     var loopMarker = {
         name: 'loop',
-        start: 12.00,
-        duration: 120.00,
+        start: 0.00,
+        duration: 87.00,
         config: {
             loop: true
         }
