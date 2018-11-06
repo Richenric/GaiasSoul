@@ -181,8 +181,8 @@ mainMenuScene.create = function(){
 
     var loopMarker = {
         name: 'loop',
-        start: 12.00,
-        duration: 120.00,
+        start: 0.00,
+        duration: 15.240476,
         config: {
             mute: false,
             loop: true
