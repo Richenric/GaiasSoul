@@ -13,6 +13,10 @@ offInterface.preload = function(){
     this.load.image('dis','assets/sprites/disSpIc.png');
     this.load.image('colDn1','assets/sprites/cdSpIc1alternativo.png');
     this.load.image('colDn2','assets/sprites/cdSpIc2alternativo.png');
+    this.load.image('player1','assets/sprites/player1.png');
+    this.load.image('player1wins','assets/sprites/player1wins.png');
+    this.load.image('player2','assets/sprites/player2.png');
+    this.load.image('player2wins','assets/sprites/player2wins.png');
     this.load.image('bgIn','assets/sprites/transBg.png');
 };
 
@@ -23,6 +27,8 @@ offInterface.create = function(){
 	let gameH = this.sys.game.config.height;
     bg.setPosition(gameW/2,gameH/2);
     bg.setDepth(0);
+
+    this.presentation = 120;
     
     //CONTENEDORES// -- uno por jugador, y dentro uno por icono
         //JUGADOR 1//
@@ -175,9 +181,29 @@ offInterface.create = function(){
         scaleX: { value: 0.5, duration: 1000, yoyo: false, },
         scaleY: { value: 0.5, duration: 1000, yoyo: false, },
     });
+
+    this.player1 = this.add.sprite(gameW/2-400, gameH/2-100, 'player1').setAlpha(1);
+    this.player2 = this.add.sprite(gameW/2+400, gameH/2-100, 'player2').setAlpha(1);
+    this.player1wins = this.add.sprite(gameW/2, gameH/2-20, 'player1wins').setAlpha(0);
+    this.player2wins = this.add.sprite(gameW/2, gameH/2-20, 'player2wins').setAlpha(0);
 };
 
 offInterface.update = function(){
+    if(this.presentation >= 0){
+        console.log("Hola papu");
+        if(this.presentation <=30){
+            this.player1.setAlpha(Math.min(this.presentation/30,1));
+            this.player2.setAlpha(Math.min(this.presentation/30,1));
+        }
+        this.presentation--;
+    }
+
+    if(offGameScene.p1.isDead){
+        this.player2wins.setAlpha(1);
+    }else if(offGameScene.p2.isDead){
+        this.player1wins.setAlpha(1);
+    }
+
     this.shoot1.getAt(2).setScale(Math.min((offGameScene.p1.allCd[1]/60)/2,0.5),Math.min((offGameScene.p1.allCd[1]/60)/2,0.5));
     this.guard1.getAt(2).setScale(Math.min((offGameScene.p1.allCd[2]/480)/2,0.5),Math.min((offGameScene.p1.allCd[2]/480)/2,0.5));
     this.boom1.getAt(2).setScale(Math.min((offGameScene.p1.allCd[0]/120)/2,0.5),Math.min((offGameScene.p1.allCd[0]/120)/2,0.5));

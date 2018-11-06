@@ -17,9 +17,10 @@ mainMenuScene.preload = function(){
     this.load.image('vMidAct','assets/sprites/volMidAct.png');
     this.load.image('vDwAct','assets/sprites/volMuteAct.png');
     this.load.image('bOptions','assets/sprites/optionsButton.png');
-    this.load.image('optM','assets/sprites/optionsMenu.png');
+    this.load.image('optM','assets/sprites/soundsMenu.png');
     this.load.image('bBack','assets/sprites/backButton.png');
     this.load.image('gtitle','assets/sprites/gtitle.png');
+    this.load.image('howToMenu','assets/sprites/howToMenu.png');
     this.load.audio('theme','assets/audio/Holfix-PixelParade.mp3');
 };
 
@@ -99,6 +100,7 @@ mainMenuScene.create = function(){
             that.allVolButtons.forEach(button => { button.n.setAlpha(0); button.act.setAlpha(0); });
             bOpt.setAlpha(1);
             mOpt.setAlpha(0);
+            howTo.setAlpha(0);
         });
     bBack.setRotation(6.15); //Sprite rotado para implementar el movimiento oscilatorio(mas adelante)
     idBck.add(bBack);
@@ -133,7 +135,7 @@ mainMenuScene.create = function(){
             title.setAlpha(0);
             bBack.setAlpha(1);
             bOpt.setAlpha(0);
-            mOpt.setAlpha(1);//De momento, para comprobar que el botón funciona correctamente
+            howTo.setAlpha(1);//De momento, para comprobar que el botón funciona correctamente
         });
     bCtrls.setRotation(6.15);
     ctrls.add(bCtrls);
@@ -191,6 +193,10 @@ mainMenuScene.create = function(){
     //OPTIONS MENU//
     let mOpt = this.add.image(gameW/2,gameH/2,'optM');
         mOpt.setAlpha(0); mOpt.setDepth(0);
+
+    //HOW TO MANU//
+    let howTo = this.add.image(gameW/2,gameH/2,'howToMenu');
+        howTo.setAlpha(0); howTo.setDepth(0);
     
     //ANIMACIONES DE LOS BOTONES//
         //Selección de Modo de Juego// --> Deslizamiento circular de los elementos del contenedor
