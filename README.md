@@ -30,6 +30,7 @@ Visual de los dos personajes del local:
 y de su movimiento
 > ![](https://cdn.discordapp.com/attachments/496417325961052203/509430430697521163/Personaje.gif)
 
+
 **Tipos de zonales**
 
 Concept art:
@@ -44,7 +45,7 @@ Visual actual:
 Concept art:
 ![](https://cdn.discordapp.com/attachments/453581461371486210/491670156683247617/GaiasSoul-Proyectiles.png)
 
-Visual Actual:
+Visual actual:
 
 ![](https://cdn.discordapp.com/attachments/496417325961052203/509421674030956572/Disparo.gif)
  
@@ -53,9 +54,9 @@ Visual Actual:
 Concept art inicial:
 ![](https://cdn.discordapp.com/attachments/453581461371486210/491670065847074827/GaiasSoul-Escudos-BG.png)
 
-Visual Actual:
+Visual actual:
 
-![](https://cdn.discordapp.com/attachments/496417325961052203/509421674307911700/Escudo.gif)
+>![](https://cdn.discordapp.com/attachments/496417325961052203/509421674307911700/Escudo.gif)
 
 *todos las habilidades han sido desarrolladas para ambos jugadores aunque aqui solo se muestren las del jugador 1.
 
