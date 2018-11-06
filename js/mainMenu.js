@@ -21,6 +21,8 @@ mainMenuScene.preload = function(){
     this.load.image('bBack','assets/sprites/backButton.png');
     this.load.image('gtitle','assets/sprites/gtitle.png');
     this.load.image('howToMenu','assets/sprites/howToMenu.png');
+    this.load.image('howToMenu2','assets/sprites/howToMenu2.png');
+    this.load.image('botonDer','assets/sprites/botonRightA.png');
     this.load.audio('theme','assets/audio/Holfix-PixelParade.mp3');
 };
 
@@ -100,7 +102,10 @@ mainMenuScene.create = function(){
             that.allVolButtons.forEach(button => { button.n.setAlpha(0); button.act.setAlpha(0); });
             bOpt.setAlpha(1);
             mOpt.setAlpha(0);
-            howTo.setAlpha(0);
+            dameControlesDer.setAlpha(0);
+            dameControlesIzq.setAlpha(0);
+            howTo1.setAlpha(0);
+            howTo2.setAlpha(0);
         });
     bBack.setRotation(6.15); //Sprite rotado para implementar el movimiento oscilatorio(mas adelante)
     idBck.add(bBack);
@@ -135,10 +140,27 @@ mainMenuScene.create = function(){
             title.setAlpha(0);
             bBack.setAlpha(1);
             bOpt.setAlpha(0);
-            howTo.setAlpha(1);//De momento, para comprobar que el botón funciona correctamente
+            dameControlesDer.setAlpha(1);
+            howTo1.setAlpha(1);//De momento, para comprobar que el botón funciona correctamente
         });
     bCtrls.setRotation(6.15);
     ctrls.add(bCtrls);
+
+    let dameControlesDer = this.add.sprite(gameW/2+350, gameH/2+150, 'botonDer').setAlpha(0).setInteractive();
+     dameControlesDer.on('pointerdown', function(pointer){
+            this.setAlpha(0);
+            dameControlesIzq.setAlpha(1);
+            howTo1.setAlpha(0);
+            howTo2.setAlpha(1);//De momento, para comprobar que el botón funciona correctamente
+        });
+     let dameControlesIzq = this.add.sprite(gameW/2-350, gameH/2+150, 'botonDer').setAlpha(0).setInteractive();
+     dameControlesIzq.flipX = true;
+     dameControlesIzq.on('pointerdown', function(pointer){
+            this.setAlpha(0);
+            dameControlesDer.setAlpha(1);
+            howTo1.setAlpha(1);
+            howTo2.setAlpha(0);//De momento, para comprobar que el botón funciona correctamente
+        });
 
     ////////SONIDO////////////////////////////////////////////////////////////////    
     music = this.sound.add('theme', loopMarker);
@@ -195,8 +217,10 @@ mainMenuScene.create = function(){
         mOpt.setAlpha(0); mOpt.setDepth(0);
 
     //HOW TO MANU//
-    let howTo = this.add.image(gameW/2,gameH/2,'howToMenu');
-        howTo.setAlpha(0); howTo.setDepth(0);
+    let howTo1 = this.add.image(gameW/2,gameH/2,'howToMenu');
+        howTo1.setAlpha(0); howTo1.setDepth(0);
+    let howTo2 = this.add.image(gameW/2,gameH/2,'howToMenu2');
+        howTo2.setAlpha(0); howTo2.setDepth(0);
     
     //ANIMACIONES DE LOS BOTONES//
         //Selección de Modo de Juego// --> Deslizamiento circular de los elementos del contenedor
