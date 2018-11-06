@@ -30,7 +30,7 @@ offGameScene.preload = function(){
     this.load.image('enemy', 'assets/sprites/enemy.png');
     this.load.atlas('flares', 'assets/particles/flares.png', 'assets/particles/flares.json');
     this.load.atlas('sparks', 'assets/particles/flaresSheet.png', 'assets/particles/flares.json');
-    this.load.audio('theme','assets/audio/Holfix-PixelParade.mp3');
+    this.load.audio('theme2','assets/audio/8-Bit-Mayhem.mp3');
 };
 
 //called once after the preload ends
@@ -83,7 +83,7 @@ offGameScene.create = function(){
     var collider2 = this.physics.add.overlap(this.p2, this.attacks, this.checkCollision, null, this);
 
     //MUSIC
-    music = this.sound.add('theme');
+    music = this.sound.add('theme2');
     //0.37
     var loopMarker = {
         name: 'loop',
