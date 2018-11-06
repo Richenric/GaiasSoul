@@ -34,9 +34,12 @@ y de su movimiento
 **Tipos de zonales**
 
 Concept art:
-![](https://cdn.discordapp.com/attachments/453581461371486210/491670199112564750/GaiasSoul-Zonales-BG.png)
+![]
+(https://cdn.discordapp.com/attachments/453581461371486210/491670199112564750/GaiasSoul-Zonales-BG.png)
 
 Visual actual:
+![]
+(https://cdn.discordapp.com/attachments/496417325961052203/509421666716090369/Zonal.gif)
 ![]
 (https://cdn.discordapp.com/attachments/496417325961052203/509421666716090369/Zonal.gif)
 
