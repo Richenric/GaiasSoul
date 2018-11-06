@@ -184,6 +184,7 @@ offGameScene.update = function(){
 
     if(this.hasEnded){
         if(this.keyEnter.isDown){
+            music.stop('theme2');
             this.scene.restart();
         };
     }
