@@ -3,7 +3,7 @@ var offGameScene = new Phaser.Scene('Offline');
 
 offGameScene.init = function(){
     this.winningScore = 10;
-    this.isRunning = true;
+    this.hasEnded = false;
 
     this.caption;
 
@@ -64,6 +64,9 @@ offGameScene.create = function(){
     keyPoint = this.input.keyboard.addKey(190);
     keyComma = this.input.keyboard.addKey(188);
     cp1 = [curs.up,curs.left,curs.down,curs.right,keyPoint,keyComma,keySlash];
+
+        //REINICIO JUEGO
+    this.keyEnter = this.input.keyboard.addKey(13);
     
     //Inicializacion de jugadores
     this.p1 = new Player(this, gameW/2-400, gameH/2, 'yellow', 'yellow', cp2, 'Jugador1', this.winningScore);
@@ -152,7 +155,9 @@ offGameScene.update = function(){
                 eff.emmi.on = false;
                 offGameScene.p1.effects.remove(eff,offGameScene,true);
         },this);
+        this.p1.emmi.on = false;
         this.p1.destroy();
+        this.hasEnded = true;
     }
     if(!this.p2.isDead){
         this.p2.update();
@@ -161,7 +166,9 @@ offGameScene.update = function(){
                 eff.emmi.on = false;
                 offGameScene.p2.effects.remove(eff,offGameScene,true);
         },this);
+        this.p2.emmi.on = false;
         this.p2.destroy();
+        this.hasEnded = true;
     }
 
     this.attacks.children.each(function (att) {
@@ -175,9 +182,11 @@ offGameScene.update = function(){
         this.p2.score
     ]));
 
-    /*if(this.p1.score == this.winningScore || this.p2.score == this.winningScore){
-        this.isRunning = false;
-    }*/
+    if(this.hasEnded){
+        if(this.keyEnter.isDown){
+            this.scene.restart();
+        };
+    }
 
     this.physics.world.collide(this.p1, this.p2);
 };
