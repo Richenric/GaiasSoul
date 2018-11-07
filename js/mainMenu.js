@@ -246,31 +246,15 @@ mainMenuScene.create = function(){
     score100.setScale(0.2);score100.setAlpha(0);
     
     score10.on('pointerdown', function (pointer){
-        this.setAlpha(0);
-        score20.setAlpha(0);
-        score50.setAlpha(0);
-        score100.setAlpha(0);
         setScoreAndRun(10);
     });
     score20.on('pointerdown', function (pointer){
-        score10.setAlpha(0);
-        this.setAlpha(0);
-        score50.setAlpha(0);
-        score100.setAlpha(0);
         setScoreAndRun(20);
     });
     score50.on('pointerdown', function (pointer){
-        score10.setAlpha(0);
-        score20.setAlpha(0);
-        this.setAlpha(0);
-        score100.setAlpha(0);
         setScoreAndRun(50);
     });
     score100.on('pointerdown', function (pointer){
-        score10.setAlpha(0);
-        score20.setAlpha(0);
-        score50.setAlpha(0);
-        this.setAlpha(0);
         setScoreAndRun(100);
     });
 

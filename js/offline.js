@@ -30,6 +30,7 @@ offGameScene.preload = function(){
     this.load.atlas('flares', 'assets/particles/flares.png', 'assets/particles/flares.json');
     this.load.atlas('sparks', 'assets/particles/flaresSheet.png', 'assets/particles/flares.json');
     this.load.audio('theme2','assets/audio/8-Bit-Mayhem.mp3');
+    this.load.image('escape','assets/sprites/exitButton.png');
 };
 
 //called once after the preload ends
@@ -63,7 +64,16 @@ offGameScene.create = function(){
     keyPoint = this.input.keyboard.addKey(190);
     keyComma = this.input.keyboard.addKey(188);
     cp1 = [curs.up,curs.left,curs.down,curs.right,keyPoint,keyComma,keySlash];
-
+        
+        //MENU PAUSA//
+    let escToPause = this.add.sprite(gameW/50,gameH/25, 'escape').setInteractive();
+            escToPause.setAlpha(1);
+        escToPause.on('pointerdown', function (pointer) {
+            this.setAlpha(1);
+            offInterface.scene.pause();
+            offGameScene.scene.pause();
+            offGameScene.scene.launch(pauseMenuScene);
+        });
         //REINICIO JUEGO
     this.keyEnter = this.input.keyboard.addKey(13);
     

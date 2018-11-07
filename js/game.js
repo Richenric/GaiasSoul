@@ -18,7 +18,7 @@ let config = {
         }
     },
     disableContextMenu: true,
-    scene: [mainMenuScene, offGameScene, offInterface], //Declaramos que escenas se van a usar y en que orden
+    scene: [mainMenuScene, offGameScene, offInterface, pauseMenuScene], //Declaramos que escenas se van a usar y en que orden
     fps: 60
 };
 
