@@ -17,12 +17,14 @@ pauseMenuScene.preload = function(){
     this.load.image('sndM','assets/sprites/soundsMenu.png');
     this.load.image('bBtMM','assets/sprites/backButton.png');
     this.load.image('bBack','assets/sprites/backButton.png');
+    this.load.audio('theme','assets/audio/Racing-Menu.mp3');
 };
 
 pauseMenuScene.create = function(){
     var that = this;
     this.allVolButtons = [];
     this.volumen;
+
     function volBinit(posX,posY,imageN,imageAct){
         let normal = that.add.sprite(posX,posY, imageN).setInteractive();
         let accion = that.add.sprite(posX,posY, imageAct);
@@ -78,6 +80,21 @@ pauseMenuScene.create = function(){
             this.scene.resume('Offline');
             this.scene.resume('offInterface');
             this.scene.stop('Offline');
+            music.stop('theme2');
+            music = this.sound.add('theme');
+            //0.37
+            var loopMarker = {
+                name: 'loop',
+                start: 0.00,
+                duration: 15.240476,
+                config: {
+                    mute: false,
+                    loop: true
+                }
+            };
+            music.addMarker(loopMarker);
+            music.play('loop', { delay: 0 });
+            music.setVolume(volumen);
             this.scene.stop('offInterface');
             this.scene.switch('mainMenu');
             this.scene.stop('pauseMenu');

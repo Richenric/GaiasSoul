@@ -207,7 +207,7 @@ mainMenuScene.create = function(){
         }
     };
     music.addMarker(loopMarker);
-    music.play('loop', { delay: 1 });
+    music.play('loop', { delay: 0 });
 
     ///////OPTIONS// --> Redirige a otra escena///////////////////////////////////////////////
     let bOpt = this.add.sprite(0,0, 'bOptions').setInteractive();
