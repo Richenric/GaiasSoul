@@ -61,6 +61,7 @@ mainMenuScene.create = function(){
     }
     function setScoreAndRun(score){
         winningScore = score;
+        music.stop('theme');
         mainMenuScene.scene.switch(offGameScene);
     }
     //BACKGROUND// --> Se crea y coloca el sprite del fondo
@@ -86,8 +87,12 @@ mainMenuScene.create = function(){
     let bOff = this.add.sprite(-125,-125,'bOffline').setInteractive();
         bOff.setAlpha(0); //Por defecto al ejecutarse este botón tendrá una opacidad del 0%
         bOff.on('pointerdown', function (pointer) {//Cuando se haga click en el botón se ejecutará la escena correspondiente al modo de juego seleccionado
-            music.stop('theme');
-            mainMenuScene.scene.switch(offGameScene); });
+            this.setAlpha(0);
+            bOn.setAlpha(0);
+            score10.setAlpha(1);
+            score20.setAlpha(1);
+            score50.setAlpha(1);
+            score100.setAlpha(1); });
     modSel.add(bOff); //Añadimos el sprite al contenedor 'Selección de modo de juego'
 
         //ONLINE//
@@ -115,6 +120,10 @@ mainMenuScene.create = function(){
             dameControlesIzq.setAlpha(0);
             howTo1.setAlpha(0);
             howTo2.setAlpha(0);
+            score10.setAlpha(0);
+            score20.setAlpha(0);
+            score50.setAlpha(0);
+            score100.setAlpha(0);
         });
     bBack.setRotation(6.15); //Sprite rotado para implementar el movimiento oscilatorio(mas adelante)
     idBck.add(bBack);
@@ -227,47 +236,43 @@ mainMenuScene.create = function(){
     let howTo2 = this.add.image(gameW/2,gameH/2,'howToMenu2');
         howTo2.setAlpha(0); howTo2.setDepth(0);
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////INACABADO/////////////////////////////////
-        let score10 = this.add.sprite(0,0, 'score10').setInteractive();
-        let score20 = this.add.sprite(0,0, 'score20').setInteractive();
-        let score50 = this.add.sprite(0,0, 'score50').setInteractive();
-        let score100 =this.add.sprite(0,0,'score100').setInteractive();
-        score10.setScale(0.75);score10.setAlpha(0);
-        score20.setScale(0.75);score20.setAlpha(0);
-        score50.setScale(0.75);score50.setAlpha(0);
-        score100.setScale(0.75);score100.setAlpha(0);
-        
-        score10.on('pointerdown', function (pointer){
-            this.setAlpha(0);
-            score20.setAlpha(0);
-            score50.setAlpha(0);
-            score100.setAlpha(0);
-            setScoreAndRun(10);
-        });
-        score20.on('pointerdown', function (pointer){
-            score10.setAlpha(0);
-            this.setAlpha(0);
-            score50.setAlpha(0);
-            score100.setAlpha(0);
-            setScoreAndRun(20);
-        });
-        score50.on('pointerdown', function (pointer){
-            score10.setAlpha(0);
-            score20.setAlpha(0);
-            this.setAlpha(0);
-            score100.setAlpha(0);
-            setScoreAndRun(50);
-        });
-        score100.on('pointerdown', function (pointer){
-            score10.setAlpha(0);
-            score20.setAlpha(0);
-            score50.setAlpha(0);
-            this.setAlpha(0);
-            setScoreAndRun(100);
-        });
-    /////////////////////////////////////////////////////////////////////////INACABADO/////////////////////////////////    
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    let score10 = this.add.sprite(gameW/2-300,gameH/2, 'score10').setInteractive();
+    let score20 = this.add.sprite(gameW/2-100,gameH/2, 'score20').setInteractive();
+    let score50 = this.add.sprite(gameW/2+100,gameH/2, 'score50').setInteractive();
+    let score100 =this.add.sprite(gameW/2+300,gameH/2,'score100').setInteractive();
+    score10.setScale(0.2);score10.setAlpha(0);
+    score20.setScale(0.2);score20.setAlpha(0);
+    score50.setScale(0.2);score50.setAlpha(0);
+    score100.setScale(0.2);score100.setAlpha(0);
+    
+    score10.on('pointerdown', function (pointer){
+        this.setAlpha(0);
+        score20.setAlpha(0);
+        score50.setAlpha(0);
+        score100.setAlpha(0);
+        setScoreAndRun(10);
+    });
+    score20.on('pointerdown', function (pointer){
+        score10.setAlpha(0);
+        this.setAlpha(0);
+        score50.setAlpha(0);
+        score100.setAlpha(0);
+        setScoreAndRun(20);
+    });
+    score50.on('pointerdown', function (pointer){
+        score10.setAlpha(0);
+        score20.setAlpha(0);
+        this.setAlpha(0);
+        score100.setAlpha(0);
+        setScoreAndRun(50);
+    });
+    score100.on('pointerdown', function (pointer){
+        score10.setAlpha(0);
+        score20.setAlpha(0);
+        score50.setAlpha(0);
+        this.setAlpha(0);
+        setScoreAndRun(100);
+    });
 
     //ANIMACIONES DE LOS BOTONES//
         //Selección de Modo de Juego// --> Deslizamiento circular de los elementos del contenedor
