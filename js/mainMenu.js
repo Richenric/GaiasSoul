@@ -24,6 +24,10 @@ mainMenuScene.preload = function(){
     this.load.image('howToMenu2','assets/sprites/howToMenu2.png');
     this.load.image('botonDer','assets/sprites/botonRightA.png');
     this.load.audio('theme','assets/audio/Racing-Menu.mp3');
+    this.load.image('score10' ,'assets/sprites/score10.png' );
+    this.load.image('score20' ,'assets/sprites/score20.png' );
+    this.load.image('score50' ,'assets/sprites/score50.png' );
+    this.load.image('score100','assets/sprites/score100.png');
 };
 
 mainMenuScene.create = function(){
@@ -55,6 +59,10 @@ mainMenuScene.create = function(){
         }
         return anim;
     }
+    function setScoreAndRun(score){
+        winningScore = score;
+        mainMenuScene.scene.switch(offGameScene);
+    }
     //BACKGROUND// --> Se crea y coloca el sprite del fondo
     let bg = this.add.sprite(0,0, 'bg');
     let gameW = this.sys.game.config.width;
@@ -70,6 +78,7 @@ mainMenuScene.create = function(){
     let vCtrl = this.add.container(gameW/2,gameH/2);     //Botones control volumen//
     vCtrl.setDepth(1);
     let ctrls = this.add.container(gameW/1.33,gameH/3+200);  //Botón de Controles//
+    let scorechoiceContainer = this.add.container(gameW/2,gameH/2);
     
     //BOTONES//    
         //OFFLINE//
@@ -217,7 +226,49 @@ mainMenuScene.create = function(){
         howTo1.setAlpha(0); howTo1.setDepth(0);
     let howTo2 = this.add.image(gameW/2,gameH/2,'howToMenu2');
         howTo2.setAlpha(0); howTo2.setDepth(0);
-    
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////INACABADO/////////////////////////////////
+        let score10 = this.add.sprite(0,0, 'score10').setInteractive();
+        let score20 = this.add.sprite(0,0, 'score20').setInteractive();
+        let score50 = this.add.sprite(0,0, 'score50').setInteractive();
+        let score100 =this.add.sprite(0,0,'score100').setInteractive();
+        score10.setScale(0.75);score10.setAlpha(0);
+        score20.setScale(0.75);score20.setAlpha(0);
+        score50.setScale(0.75);score50.setAlpha(0);
+        score100.setScale(0.75);score100.setAlpha(0);
+        
+        score10.on('pointerdown', function (pointer){
+            this.setAlpha(0);
+            score20.setAlpha(0);
+            score50.setAlpha(0);
+            score100.setAlpha(0);
+            setScoreAndRun(10);
+        });
+        score20.on('pointerdown', function (pointer){
+            score10.setAlpha(0);
+            this.setAlpha(0);
+            score50.setAlpha(0);
+            score100.setAlpha(0);
+            setScoreAndRun(20);
+        });
+        score50.on('pointerdown', function (pointer){
+            score10.setAlpha(0);
+            score20.setAlpha(0);
+            this.setAlpha(0);
+            score100.setAlpha(0);
+            setScoreAndRun(50);
+        });
+        score100.on('pointerdown', function (pointer){
+            score10.setAlpha(0);
+            score20.setAlpha(0);
+            score50.setAlpha(0);
+            this.setAlpha(0);
+            setScoreAndRun(100);
+        });
+    /////////////////////////////////////////////////////////////////////////INACABADO/////////////////////////////////    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     //ANIMACIONES DE LOS BOTONES//
         //Selección de Modo de Juego// --> Deslizamiento circular de los elementos del contenedor
     this.mSTw = this.tweens.add(animBConfig(modSel,360,48000,false,-1));
