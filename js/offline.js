@@ -2,7 +2,6 @@
 var offGameScene = new Phaser.Scene('Offline');
 
 offGameScene.init = function(){
-    this.winningScore = 10;
     this.hasEnded = false;
 
     this.caption;
@@ -69,8 +68,8 @@ offGameScene.create = function(){
     this.keyEnter = this.input.keyboard.addKey(13);
     
     //Inicializacion de jugadores
-    this.p1 = new Player(this, gameW/2-400, gameH/2, 'yellow', 'yellow', cp2, 'Jugador1', this.winningScore);
-    this.p2 = new Player(this, gameW/2+400, gameH/2, 'red', 'red', cp1, 'Jugador2', this.winningScore);    
+    this.p1 = new Player(this, gameW/2-400, gameH/2, 'yellow', 'yellow', cp2, 'Jugador1', winningScore);
+    this.p2 = new Player(this, gameW/2+400, gameH/2, 'red', 'red', cp1, 'Jugador2', winningScore);    
 
     this.attacks = this.add.group();
 

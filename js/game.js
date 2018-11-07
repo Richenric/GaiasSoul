@@ -31,6 +31,7 @@ let game = new Phaser.Game(config);
 
 //Declaración de variables globales
 var volumen = 1;
+var winningScore = 10;
 var gameW = window.innerWidth -15;
 var gameH = window.innerHeight -15;
 
