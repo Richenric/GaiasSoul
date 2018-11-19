@@ -1,7 +1,12 @@
 ﻿let mainMenuScene = new Phaser.Scene('mainMenu');//Create new scene
 var music;
-/*mainMenuScene.init = function(){
-    this.mSTw;this.opTw;this.bkTw;this.pLTw;    };*/
+mainMenuScene.init = function(){
+	item.nickname = prompt("Please enter your name", "Username");
+    if (item.nickname != null) {
+    	//createItem(item, function(id){console.log("mi id: " + id)});
+    	console.log(item.nickname);
+    }   
+};
 //load assets
 mainMenuScene.preload = function(){
     //Se cargan las imagenes para posteriormente crear los sprites
