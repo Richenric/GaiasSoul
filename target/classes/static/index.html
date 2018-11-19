@@ -12,6 +12,20 @@
 	</style>
 </head>
 <body>
+	<script type="application/javascript">
+      var myIp;
+	  function getIP() {
+		var ip = "10.10.144.136"
+		var startLine = 'http://'
+		var endLine = ':8080/items/'
+		myIp = startLine.concat(ip.concat(endLine));
+		document.write(myIp);
+		console.log("Esta es myIp: "+myIp)
+	  }
+	  getIP();
+	</script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="js/serverController.js"></script>
 	<script src="js/phaser.js"></script>
 	<script src="js/customClasses.js"></script>
     <script src="js/mainMenu.js"></script>
