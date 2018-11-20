@@ -38,8 +38,8 @@ public class ItemsController {
 		item.setId(id);
 		items.put(id, item);
 
-		//return item;
-		return id;
+		return item;
+		//return id;
 	}
 
 	@PutMapping("/{id}")

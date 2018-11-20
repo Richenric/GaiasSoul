@@ -18,9 +18,9 @@ function createItem(item, callback) {
         headers: {
             "Content-Type": "application/json"
         }
-    }).done(function (id) {
-        //console.log("Item created: " + JSON.stringify(item));
-        callback(id);
+    }).done(function (itemWithId) {
+        console.log("Item created: " + JSON.stringify(item));
+        callback(itemWithId);
     })
 }
 
@@ -35,7 +35,7 @@ function updateItem(item) {
             "Content-Type": "application/json"
         }
     }).done(function (item) {
-        //console.log("Updated item: " + JSON.stringify(item))
+        console.log("Updated item: " + JSON.stringify(item))
     })
 }
 
@@ -45,7 +45,7 @@ function deleteItem(itemId) {
         method: 'DELETE',
         url: myIp + itemId
     }).done(function (item) {
-        //console.log("Deleted item " + itemId)
+        console.log("Deleted item " + itemId)
     })
 }
 

@@ -35,9 +35,10 @@ var winningScore = 10;
 var gameW = window.innerWidth -15;
 var gameH = window.innerHeight -15;
 var item ={
-		nickname:"",
-		elemento:-1,
-		puntuacion:0
+    id: 0,
+	nickname:"",
+	elemento:-1,
+	puntuacion:0
 };
 var id;
 
