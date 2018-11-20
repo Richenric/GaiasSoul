@@ -1,10 +1,10 @@
 ﻿let mainMenuScene = new Phaser.Scene('mainMenu');//Create new scene
 var music;
 mainMenuScene.init = function(){
-	item.nickname = prompt("Please enter your name", "Username");
-    if (item.nickname != null) {
+	myItem.nickname = prompt("Please enter your name", "Username");
+    if (myItem.nickname != null) {
     	//createItem(item, function(itemWithId){console.log("Mi usuario: " + JSON.stringify(itemWithId))});
-    	console.log(item.nickname);
+    	console.log(myItem.nickname);
     }   
 };
 //load assets
@@ -105,7 +105,17 @@ mainMenuScene.create = function(){
         bOn.setAlpha(0);
     modSel.add(bOn);
     bOn.on('pointerdown', function (pointer) { 
-        mainMenuScene.scene.switch(lobbyScene);
+    	var numeroDeGente = 0;
+    	loadItems(function (items) {
+    		numeroDeGente = items.length;
+        });
+    	if(numeroDeGente<20){
+    		createItem(myItem, function(itemWithId){/*console.log("Mi usuario: " + JSON.stringify(itemWithId)); */myItem.id = itemWithId.id});
+    		mainMenuScene.scene.switch(lobbyScene);
+    	}
+    	else {
+    		console.log("El server está lleno!")
+    	}
     });
     
         //BACK//

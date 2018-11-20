@@ -1,26 +1,30 @@
 let lobbyScene = new Phaser.Scene('lobby');
 
 lobbyScene.init = function(){
-    createItem(item, function(itemWithId){console.log("Mi usuario: " + JSON.stringify(itemWithId))});
-	
-    //STYLES TEXTO//
-    this.caption0; /*this.caption1;*/
-    this.fireStyle = { 
-        fill: '#ff0000', fontFamily: 'verdana', lineSpacing: 4, fontSize: 50 };
-    this.metalStyle = { 
-        fill: '#d7dbdd', fontFamily: 'verdana', lineSpacing: 4, fontSize: 50 };
-    this.woodStyle = { 
-        fill: '#935116', fontFamily: 'verdana', lineSpacing: 4, fontSize: 50 };
-    this.earthStyle = { 
-        fill: '#2e4053', fontFamily: 'verdana', lineSpacing: 4, fontSize: 50 };
-    this.waterStyle = { 
-        fill: '#85c1e9', fontFamily: 'verdana', lineSpacing: 4, fontSize: 50 };
-    this.loadingStyle = { 
-        fill: '#000000', fontFamily: 'verdana', lineSpacing: 4, fontSize: 50 };
+    function initCaption() {
+    	var caption = {object: undefined, text: "", color: ""}
+    	return caption;
+    }
     
-    this.captionText = (
-        '01- '+'%1'
-    );
+    //STYLES TEXTO//
+    this.captions = [20];
+    this.textColors = [6];
+    
+    this.textColors[0] = '#ff0000'; //FIRE
+    this.textColors[1] = '#d7dbdd'; //METAL
+    this.textColors[2] = '#a8e157'; //WOOD
+    this.textColors[3] = '#e1a968'; //EARTH
+    this.textColors[4] = '#4974fe'; //WATER
+    this.textColors[5] = '#505050'; //DEFAULT
+    
+    this.textStyle = { //LOADING
+            fill: '#505050', fontFamily: 'verdana', lineSpacing: 4, fontSize: 30 };
+    
+    for(var i=0; i<20; i++){
+    	this.captions[i] = initCaption();
+    	this.captions[i].text = ((i+1)+'- '+'%1');
+    	this.captions[i].color = this.textColors[5];
+    }
 }
 
 lobbyScene.preload = function(){
@@ -34,6 +38,7 @@ lobbyScene.preload = function(){
 }
 
 lobbyScene.create = function(){
+	var that = this;
     //BACKGROUND//
     let bg = this.add.sprite(0,0, 'bg');
     bg.setPosition(gameW/2,gameH/2);
@@ -59,39 +64,12 @@ lobbyScene.create = function(){
     let bBack = this.add.sprite(0,0, 'bBack').setInteractive();
         bBack.setScale(0.75);
         bBack.setAlpha(1);
-        bBack.on('pointerdown', function (pointer) { 
+        bBack.on('pointerdown', function (pointer) {
+        	deleteItem(myItem.id);
             lobbyScene.scene.switch(mainMenuScene);
         });
     bBack.setRotation(6.15);
     idBck.add(bBack);
-    
-    /*let m1 = this.add.container(0,0);
-    let m2 = this.add.container(200,0);
-
-    //i+' - '+playerNick
-    var text1 = this.add.text(100, 100, '01-RICHENRIC5 ');     text1.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);      m1.add(text1);
-    var text2 = this.add.text(100, 125, '02- ');     text2.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);      m1.add(text2);
-    var text3 = this.add.text(100, 150, '03- ');     text3.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);      m1.add(text3);
-    var text4 = this.add.text(100, 175, '04- ');     text4.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);      m1.add(text4);
-    var text5 = this.add.text(100, 200, '05- ');     text5.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);      m1.add(text5);
-    var text6 = this.add.text(100, 225, '06- ');     text6.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);      m1.add(text6);
-    var text7 = this.add.text(100, 250, '07- ');     text7.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);      m1.add(text7);
-    var text8 = this.add.text(100, 275, '08- ');     text8.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);      m1.add(text8);
-    var text9 = this.add.text(100, 300, '09- ');     text9.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);      m1.add(text9);
-    var text10 = this.add.text(100, 325, '10- ');    text10.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);     m1.add(text10);
-
-    var text11 = this.add.text(100, 100, '11-RICHENRIC7');    text11.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);      m2.add(text11);
-    var text12 = this.add.text(100, 125, '12- ');    text12.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);      m2.add(text12);
-    var text13 = this.add.text(100, 150, '13- ');    text13.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);      m2.add(text13);
-    var text14 = this.add.text(100, 175, '14- ');    text14.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);      m2.add(text14);
-    var text15 = this.add.text(100, 200, '15- ');    text15.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);      m2.add(text15);
-    var text16 = this.add.text(100, 225, '16- ');    text16.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);      m2.add(text16);
-    var text17 = this.add.text(100, 250, '17- ');    text17.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);      m2.add(text17);
-    var text18 = this.add.text(100, 275, '18- ');    text18.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);      m2.add(text18);
-    var text19 = this.add.text(100, 300, '19- ');    text19.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);      m2.add(text19);
-    var text20 = this.add.text(100, 325, '20- ');    text20.setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);      m2.add(text20);*/
-    
-    
     
     //TABLA JUGADORES//W
     let plTbl = this.add.sprite(gameW/2,gameH/2+150, 'plTbl');
@@ -103,38 +81,18 @@ lobbyScene.create = function(){
     
     //ESTILO DE TEXTO SEGÚN ELEMENTO//
     //this.caption = this.captionStyle();
-    if(item.elemento==0) {//Fuego
-        this.caption0 = this.add.text(gameW/2-80, gameH-75, '', this.fireStyle)
-    }else if(item.elemento==1) {//Metal
-        this.caption0 = this.add.text(gameW/2-80, gameH-75, '', this.metalStyle)
-    }else if(item.elemento==2) {//Madera
-        this.caption0 = this.add.text(gameW/2-80, gameH-75, '', this.woodStyle)
-    }else if (item.elemento==3){//Tierra
-        this.caption0 = this.add.text(gameW/2-80, gameH-75, '', this.earthStyle)
-    }else if (item.elemento==4){//Agua
-        this.caption0 = this.add.text(gameW/2-80, gameH-75, '', this.waterStyle)
-    }else{//Cargando
-        this.caption0 = this.add.text(gameW/2-80, gameH-75, '', this.loadingStyle)
+    for(var i = 0; i<20; i++){
+    	if(i<10){
+    		this.captions[i].object = this.add.text(gameW/2-400, gameH/2-30 + (i%10)*35, this.captions[i].text, this.textStyle);
+    	} 
+    	else{
+    		this.captions[i].object = this.add.text(gameW/2+35, gameH/2-30 + (i%10)*35, this.captions[i].text, this.textStyle);
+    	}
     }
     
     //ARRAY DE ITEMS//
     this.auxItems = [];
 }
-/*lobbyScene.captionStyle=function(){
-    if(item.elemento==0) {//Fuego
-        this.caption = this.add.text(gameW/2-80, gameH-75, '', this.fireStyle)
-    }else if(item.elemento==1) {//Metal
-        this.caption = this.add.text(gameW/2-80, gameH-75, '', this.metalStyle)
-    }else if(item.elemento==2) {//Madera
-        this.caption = this.add.text(gameW/2-80, gameH-75, '', this.woodStyle)
-    }else if (item.elemento==3){//Tierra
-        this.caption = this.add.text(gameW/2-80, gameH-75, '', this.earthStyle)
-    }else if (item.elemento==4){//Agua
-        this.caption = this.add.text(gameW/2-80, gameH-75, '', this.waterStyle)
-    }else{//Cargando
-        this.caption = this.add.text(gameW/2-80, gameH-75, '', this.loadingStyle)
-    }
-}*/
 
         
 lobbyScene.update = function(){
@@ -147,22 +105,45 @@ lobbyScene.update = function(){
         bRdy.setAlpha(1);
     */
     //this.caption = this.captionStyle();
+	
     loadItems(function (items) {
         //When items are loaded from server
     	lobbyScene.auxItems=items;
     });
     
+    //ACTUALIZAR ELEMENTO
+    for(var i=0; i<20; i++){
+    	if(this.auxItems[i] != undefined){
+	    	if(this.auxItems[i].id == myItem.id){
+	    		if(this.auxItems[i-1] != undefined){
+	    			myItem.elemento = (lobbyScene.auxItems[i-1].elemento + 1)%5;
+	    		}
+	    		else {
+	        		myItem.elemento = 0;
+	        	}
+	    	}
+    	}
+    	else {
+    		myItem.color = 0;
+    	}
+    }
     
-    if(this.auxItems[0] != undefined){
-       this.caption0.setText(Phaser.Utils.String.Format(this.captionText, [
-        this.auxItems[0].nickname
-        ]));    
-    /*if(auxItems[1].nickname != null){
-       this.caption1.setText(Phaser.Utils.String.Format(this.captionText, [
-        this.auxItems[1].nickname
-        ]));*/
-    }else{
-        this.caption0.setText(Phaser.Utils.String.Format(this.captionText, [
-        '' ]));    
+    //ACTUALIZARME A MI
+    updateItem(myItem);
+    
+    //ACTUALIZAR JUGADORES
+    for(var i=0; i<20; i++){
+	    if(this.auxItems[i] != undefined){
+	    	var a = this.textColors[this.auxItems[i].elemento];
+	    	this.captions[i].color = a;
+	    	this.captions[i].object.setText(Phaser.Utils.String.Format(this.captions[i].text, [
+	    		this.auxItems[i].nickname
+	        ]));
+	    	this.captions[i].object.setColor(this.captions[i].color)
+	    }else{
+	        this.captions[i].object.setText(Phaser.Utils.String.Format(this.captions[i].text, [
+	        '' ]));    
+	        this.captions[i].object.setColor(this.textColors[5]);
+	    }
     }
 };

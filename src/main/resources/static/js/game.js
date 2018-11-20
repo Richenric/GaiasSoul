@@ -34,11 +34,10 @@ var volumen = 1;
 var winningScore = 10;
 var gameW = window.innerWidth -15;
 var gameH = window.innerHeight -15;
-var item ={
+var myItem ={
     id: 0,
-	nickname:"",
-	elemento:-1,
-	puntuacion:0
+	nickname: "",
+	elemento: 5,
+	puntuacion: 0
 };
-var id;
 
