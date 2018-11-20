@@ -1,6 +1,8 @@
 let lobbyScene = new Phaser.Scene('lobby');
+
 lobbyScene.init = function(){
-    
+    createItem(item, function(itemWithId){console.log("Mi usuario: " + JSON.stringify(itemWithId))});
+	
     //STYLES TEXTO//
     this.caption0; /*this.caption1;*/
     this.fireStyle = { 
@@ -17,7 +19,7 @@ lobbyScene.init = function(){
         fill: '#000000', fontFamily: 'verdana', lineSpacing: 4, fontSize: 50 };
     
     this.captionText = (
-        '01-'+'%1'
+        '01- '+'%1'
     );
 }
 
@@ -102,21 +104,21 @@ lobbyScene.create = function(){
     //ESTILO DE TEXTO SEGÚN ELEMENTO//
     //this.caption = this.captionStyle();
     if(item.elemento==0) {//Fuego
-        this.caption = this.add.text(gameW/2-80, gameH-75, '', this.fireStyle)
+        this.caption0 = this.add.text(gameW/2-80, gameH-75, '', this.fireStyle)
     }else if(item.elemento==1) {//Metal
-        this.caption = this.add.text(gameW/2-80, gameH-75, '', this.metalStyle)
+        this.caption0 = this.add.text(gameW/2-80, gameH-75, '', this.metalStyle)
     }else if(item.elemento==2) {//Madera
-        this.caption = this.add.text(gameW/2-80, gameH-75, '', this.woodStyle)
+        this.caption0 = this.add.text(gameW/2-80, gameH-75, '', this.woodStyle)
     }else if (item.elemento==3){//Tierra
-        this.caption = this.add.text(gameW/2-80, gameH-75, '', this.earthStyle)
+        this.caption0 = this.add.text(gameW/2-80, gameH-75, '', this.earthStyle)
     }else if (item.elemento==4){//Agua
-        this.caption = this.add.text(gameW/2-80, gameH-75, '', this.waterStyle)
+        this.caption0 = this.add.text(gameW/2-80, gameH-75, '', this.waterStyle)
     }else{//Cargando
-        this.caption = this.add.text(gameW/2-80, gameH-75, '', this.loadingStyle)
+        this.caption0 = this.add.text(gameW/2-80, gameH-75, '', this.loadingStyle)
     }
     
     //ARRAY DE ITEMS//
-    this.auxItems = new Array(20);
+    this.auxItems = [];
 }
 /*lobbyScene.captionStyle=function(){
     if(item.elemento==0) {//Fuego
@@ -144,17 +146,14 @@ lobbyScene.update = function(){
         srvDis.setAlpha(0);
         bRdy.setAlpha(1);
     */
-    
     //this.caption = this.captionStyle();
     loadItems(function (items) {
         //When items are loaded from server
-        for(var i = 0; i<items.length; i++){
-            this.auxItems[i]=items[i];
-        }
+    	lobbyScene.auxItems=items;
     });
     
     
-    if(auxItems[0].nickname != null){
+    if(this.auxItems[0] != undefined){
        this.caption0.setText(Phaser.Utils.String.Format(this.captionText, [
         this.auxItems[0].nickname
         ]));    
@@ -163,8 +162,7 @@ lobbyScene.update = function(){
         this.auxItems[1].nickname
         ]));*/
     }else{
-        this.caption.setText(Phaser.Utils.String.Format(this.captionText, [
+        this.caption0.setText(Phaser.Utils.String.Format(this.captionText, [
         '' ]));    
     }
-    
 };

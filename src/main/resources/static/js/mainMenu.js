@@ -3,7 +3,7 @@ var music;
 mainMenuScene.init = function(){
 	item.nickname = prompt("Please enter your name", "Username");
     if (item.nickname != null) {
-    	//createItem(item, function(id){console.log("mi id: " + id)});
+    	//createItem(item, function(itemWithId){console.log("Mi usuario: " + JSON.stringify(itemWithId))});
     	console.log(item.nickname);
     }   
 };

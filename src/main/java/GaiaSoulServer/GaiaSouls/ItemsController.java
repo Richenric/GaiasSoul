@@ -32,7 +32,7 @@ public class ItemsController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public long/*Item*/ nuevoItem(@RequestBody Item item) {
+	public /*long*/Item nuevoItem(@RequestBody Item item) {
 
 		long id = nextId.incrementAndGet();
 		item.setId(id);
