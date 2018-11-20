@@ -104,6 +104,9 @@ mainMenuScene.create = function(){
     let bOn = this.add.sprite(125,125, 'bOnline').setInteractive();
         bOn.setAlpha(0);
     modSel.add(bOn);
+    bOn.on('pointerdown', function (pointer) { 
+        mainMenuScene.scene.switch(lobbyScene);
+    });
     
         //BACK//
     let bBack = this.add.sprite(0,0, 'bBack').setInteractive();
