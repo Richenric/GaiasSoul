@@ -120,13 +120,9 @@ Mientras el jugador se encuentre en esta ventana estará a tiempo de abandonar la
 ![](https://cdn.discordapp.com/attachments/389557270783983617/514601233487495169/Diagrama_de_Claser_-_API_REST.png) </br>
 
 ## Instrucciones para ejecutar la aplicación
-* Utilizamos la versión 3.5.4 de **Maven** para indicarle al servidor que ha de ejecutarse sobre una IP, permitiendo que se pueda llegar a implementar un canal de comunicación entre el servidor y los clientes.
-* Para poder compilar correctamente la aplicación es necesario un **JDK** con una versión igual o superior a la 1.8.
-* Empleamos **Spring** como entorno de desarrollo para configurar la aplicación.
-* Creamos el **package**, para que el conjunto de archivos sea una aplicación, y se eliminan los targets. Todo ello ejecutando el comando 'mvn clean package' desde la carpeta del proyecto.
-* Para **ejecutar la aplicación** introducimos el comando 'java -jar gaiasSouls.jar' desde la carpeta del proyecto.
-* Cargamos la url 'localhost:8080' en el **servidor**.
-* Para que los **clientes** puedan cargar la url, primero se les tnedrá que proporcionar la IP del servidor, resultando en 'IP_del_servidor:8080'.
+* Para **ejecutar la aplicación** introducimos el comando 'java -jar gaiasSouls.jar' desde la carpeta target.
+* Cargamos la IP que nos devuelve el servidor en el navegador y accedemos al juego a través del puert 8080.
+* Para que los **clientes** puedan cargar los items del servidor, primero se les tendrá que proporcionar la IP del servidor, resultando en 'IP_del_servidor:8080'.
 
 
 ## Equipo de desarrollo
