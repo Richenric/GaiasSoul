@@ -77,7 +77,7 @@ lobbyScene.create = function(){
     //SERVIDOR DESCONECTADO//W
         //Condicionar en función de si 'server.isConected(false)'
     let srvDis = this.add.sprite(gameW/2,gameH/2, 'srvDis');
-    srvDis.setAlpha(0.25);
+    srvDis.setAlpha(0);
     
     //ESTILO DE TEXTO SEGÚN ELEMENTO//
     //this.caption = this.captionStyle();

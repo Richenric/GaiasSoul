@@ -1,5 +1,6 @@
 package GaiaSoulServer.GaiaSouls;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,6 +25,7 @@ public class ItemsController {
 	
 	Map<Long, Item> items = new ConcurrentHashMap<>(); 
 	AtomicLong nextId = new AtomicLong(0);
+	int maxPuntuacion = 0;
 	
 	@GetMapping
 	public Collection<Item> items() {
@@ -33,7 +35,6 @@ public class ItemsController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public /*long*/Item nuevoItem(@RequestBody Item item) {
-
 		long id = nextId.incrementAndGet();
 		item.setId(id);
 		items.put(id, item);
@@ -44,13 +45,15 @@ public class ItemsController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Item> actulizaItem(@PathVariable long id, @RequestBody Item itemActualizado) {
-
+		
 		Item savedItem = items.get(itemActualizado.getId());
 
 		if (savedItem != null) {
 
 			items.put(id, itemActualizado);
-
+			if(itemActualizado.getPuntuacion() > maxPuntuacion) {
+				maxPuntuacion = itemActualizado.getPuntuacion();
+			}
 			return new ResponseEntity<>(itemActualizado, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -81,5 +84,4 @@ public class ItemsController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
 }
