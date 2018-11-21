@@ -15,12 +15,12 @@
 </head>
 <body>
 	<script type="application/javascript">
-      var myIp, ip;
+      var myIp;
       
 	  function getIP() {
-		//ip = "10.10.105.197"
+		var ip = location.host
 		var startLine = 'http://'
-		var endLine = ':8080/items/'
+		var endLine = '/items/'
 		myIp = startLine.concat(ip.concat(endLine));
 		document.write(myIp);
 		console.log("Esta es myIp: "+myIp);
