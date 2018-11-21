@@ -65,53 +65,53 @@ En primer lugar mostramos los menús de que disponemos, para más adelante mostrar
 
 **Menú Principal** </br>
 Es el nexo inicial desde el que parte el juego. </br>
-Desde aquí el jugador tendrá acceso a la configuración del juego, la selección de moalidad de juego y una guía con los controles.
-![](https://cdn.discordapp.com/attachments/496417325961052203/514568719142354955/mainMenu.png)
+Desde aquí el jugador tendrá acceso a la configuración del juego, la selección de moalidad de juego y una guía con los controles. </br>
+![](https://cdn.discordapp.com/attachments/496417325961052203/514568719142354955/mainMenu.png) </br>
 
 **Menú Opciones** </br>
 El jugador accederá a este menú desde el menú principal, clicando sobre el icono con un engranaje en su interior. </br>
-Actualmente nos permite modificar el volumen de la música de los menús y el juego.
-![](https://cdn.discordapp.com/attachments/496417325961052203/514568729422725130/optionsMenu.png)
+Actualmente nos permite modificar el volumen de la música de los menús y el juego. </br>
+![](https://cdn.discordapp.com/attachments/496417325961052203/514568729422725130/optionsMenu.png) </br>
 
 **Guía de Controles** </br>
 El jugador accederá a este menú desde el menú principal, clicando sobre el icono con un mando en su interior. </br>
-Aquí el jugador podrá comprobar los controles de juego.
-![](https://cdn.discordapp.com/attachments/496417325961052203/514568705938817036/controlesMenu1.png)
-![](https://cdn.discordapp.com/attachments/496417325961052203/514568708237033472/controlesMenu2.png)
+Aquí el jugador podrá comprobar los controles de juego. </br>
+![](https://cdn.discordapp.com/attachments/496417325961052203/514568705938817036/controlesMenu1.png) </br>
+![](https://cdn.discordapp.com/attachments/496417325961052203/514568708237033472/controlesMenu2.png) </br>
 
 **Selección de Modo de Juego** </br>
-Al hacer clic en el menú principal sobre el botón central de play, el jugador accederá al menú de selección de modo de juego, desde donde decidirá entre las dos modalidades de que se dispondrá: offline y online.
-![](https://cdn.discordapp.com/attachments/496417325961052203/514568721071865869/modoMenu.png)
+Al hacer clic en el menú principal sobre el botón central de play, el jugador accederá al menú de selección de modo de juego, desde donde decidirá entre las dos modalidades de que se dispondrá: offline y online. </br>
+![](https://cdn.discordapp.com/attachments/496417325961052203/514568721071865869/modoMenu.png) </br>
 
 ## Menús e Interfaces Offline
 **Selección de Objetivo** </br>
-Si el jugador decide jugar offline, se tendrá que enfrentar a un segundo jugador en un 1 vs 1, para lo que antes tendrá que seleccionar el objetivo de puntuación que marcará el final de la partida, y por tanto al victorioso.
-![](https://cdn.discordapp.com/attachments/496417325961052203/514568728940380160/objetivoMenu.png)
+Si el jugador decide jugar offline, se tendrá que enfrentar a un segundo jugador en un 1 vs 1, para lo que antes tendrá que seleccionar el objetivo de puntuación que marcará el final de la partida, y por tanto al victorioso. </br>
+![](https://cdn.discordapp.com/attachments/496417325961052203/514568728940380160/objetivoMenu.png) </br>
 
 **Interfaz de juego** </br>
-Al principio de la partida un letrero advertirá a cada jugador de su ubicación en pantalla (P1 para el jugador 1 y P2 para el jugador 2).
-![](https://cdn.discordapp.com/attachments/496417325961052203/514568729330450432/offlineGame.png)
+Al principio de la partida un letrero advertirá a cada jugador de su ubicación en pantalla (P1 para el jugador 1 y P2 para el jugador 2). </br>
+![](https://cdn.discordapp.com/attachments/496417325961052203/514568729330450432/offlineGame.png) </br>
 En la zona inferior de la pantalla se verán los iconos de cada habilidad, siendo solo utilizables cuando estén resaltadas completamente del color del jugador. </br>
-![](https://cdn.discordapp.com/attachments/496417325961052203/514579787319083028/cargaDeHabilidades.gif)
+![](https://cdn.discordapp.com/attachments/496417325961052203/514579787319083028/cargaDeHabilidades.gif) </br>
 Entre los iconos del jugador 1 y 2 se muestra un contador de victorias. </br>
-![](https://cdn.discordapp.com/attachments/496417325961052203/514582704608509965/contadorVictorias.gif)
-Se sumará un punto cada vez que se destruya al contrincante, y la partida finalizará cuando cualquiera de los dos llegue a la puntuación objetivo.
-![](https://cdn.discordapp.com/attachments/496417325961052203/514584324725538816/theWinner.png)
-Una vez finalizada una partida, se puede empezar una nueva bajo las mismas condiciones con solo pulsar enter.
+![](https://cdn.discordapp.com/attachments/496417325961052203/514582704608509965/contadorVictorias.gif) </br>
+Se sumará un punto cada vez que se destruya al contrincante, y la partida finalizará cuando cualquiera de los dos llegue a la puntuación objetivo. </br>
+![](https://cdn.discordapp.com/attachments/496417325961052203/514584324725538816/theWinner.png) </br>
+Una vez finalizada una partida, se puede empezar una nueva bajo las mismas condiciones con solo pulsar enter. </br>
 
 **Menú Pausa** </br>
 Durante la partida esta se puede poner en pausa pulsando el botón en forma de anillo de la esquina superior izquierda. </br>
-En este menú de pausa tenemos tres posibilidades. 
-![](https://cdn.discordapp.com/attachments/496417325961052203/514568733612703746/pauseMenu.png)
-Volver al juego clicando el botón play, retroceder al menú de selección de objetivo para poder empezar una nueva partida, o acceder a la configuración de sonido con el botón de engranaje.
-![](https://cdn.discordapp.com/attachments/496417325961052203/514568736972341258/pauseSoundMenu.png)
+En este menú de pausa tenemos tres posibilidades. </br>
+![](https://cdn.discordapp.com/attachments/496417325961052203/514568733612703746/pauseMenu.png) </br>
+Volver al juego clicando el botón play, retroceder al menú de selección de objetivo para poder empezar una nueva partida, o acceder a la configuración de sonido con el botón de engranaje. </br>
+![](https://cdn.discordapp.com/attachments/496417325961052203/514568736972341258/pauseSoundMenu.png) </br>
 
 ## Menús e Interfaces Online
 **Lobby** </br>
 Al acceder a una partida online los jugadores serán redirigidos a esta sala de espera. </br>
 En ella se nos muestra un contador de jugadores conectados, una tabla que se irá actualizando con los jugadores conectados y el elemento al que pertenecerán. </br>
-Mientras el jugador se encuentre en esta ventana estará a tiempo de abandonar la partida antes de unirse definitivamente a esta clicando el botón de retorceso, o clicar en el botón 'Ready' y unirse definitivamente a la aprtida.
-![](https://cdn.discordapp.com/attachments/496417325961052203/514588178041012244/lobbyElements.png)
+Mientras el jugador se encuentre en esta ventana estará a tiempo de abandonar la partida antes de unirse definitivamente a esta clicando el botón de retorceso, o clicar en el botón 'Ready' y unirse definitivamente a la aprtida. </br>
+![](https://cdn.discordapp.com/attachments/496417325961052203/514588178041012244/lobbyElements.png) </br>
 
 ## Equipo de desarrollo
 |                  Nombre                 | Correo | Cuenta de Github |
