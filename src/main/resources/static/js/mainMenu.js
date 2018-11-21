@@ -1,7 +1,17 @@
 ﻿let mainMenuScene = new Phaser.Scene('mainMenu');//Create new scene
 var music;
 mainMenuScene.init = function(){
+	ip = prompt("Please enter the server ip");
+	
+    if (ip != null) {
+    	var startLine = 'http://'
+    		var endLine = ':8080/items/'
+    		myIp = startLine.concat(ip.concat(endLine));
+    	//createItem(item, function(itemWithId){console.log("Mi usuario: " + JSON.stringify(itemWithId))});
+    	console.log(myItem.nickname);
+    }   
 	myItem.nickname = prompt("Please enter your name", "Username");
+	
     if (myItem.nickname != null) {
     	//createItem(item, function(itemWithId){console.log("Mi usuario: " + JSON.stringify(itemWithId))});
     	console.log(myItem.nickname);

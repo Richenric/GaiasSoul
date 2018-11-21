@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8" />
+	<title>Gaia's Souls</title>
+	<link rel="icon" href="assets/sprites/icon.png">
+	<body bgcolor="#000000">
+	<style>
+		canvas {
+			width: 100%;
+		}
+	</style>
+
+
+</head>
+<body>
+	<script type="application/javascript">
+      var myIp, ip;
+      
+	  function getIP() {
+		//ip = "10.10.105.197"
+		var startLine = 'http://'
+		var endLine = ':8080/items/'
+		myIp = startLine.concat(ip.concat(endLine));
+		document.write(myIp);
+		console.log("Esta es myIp: "+myIp);
+	  }
+	  getIP();
+	</script>
+	<script src="js/serverController.js"></script>
+	<script src="js/phaser.js"></script>
+	<script src="js/customClasses.js"></script>
+    <script src="js/mainMenu.js"></script>
+    <script src="js/lobby.js"></script>
+    <script src="js/pauseMenu.js"></script>
+    <script src="js/offInterface.js"></script>
+	<script src="js/offline.js"></script>
+	<script src="js/game.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script type='text/javascript'>
+    $(window).on('beforeunload', function(){
+    	alert("lalalaalla");
+        console.log("beforeUnload event!");
+        deleteItem(myItem.id);
+     });
+</script>
+</body>
+</html>
