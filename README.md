@@ -113,6 +113,15 @@ En ella se nos muestra un contador de jugadores conectados, una tabla que se irá
 Mientras el jugador se encuentre en esta ventana estará a tiempo de abandonar la partida antes de unirse definitivamente a esta clicando el botón de retorceso, o clicar en el botón 'Ready' y unirse definitivamente a la aprtida. </br>
 ![](https://cdn.discordapp.com/attachments/496417325961052203/514588178041012244/lobbyElements.png) </br>
 
+## Diagrama de Navegabilidad
+![](https://cdn.discordapp.com/attachments/389557270783983617/514602873351438336/DiagramaDeNavegabilidad.png) </br>
+
+## Diagrama de clases y API REST
+![](https://cdn.discordapp.com/attachments/389557270783983617/514601233487495169/Diagrama_de_Claser_-_API_REST.png) </br>
+
+
+
+
 ## Equipo de desarrollo
 |                  Nombre                 | Correo | Cuenta de Github |
 |:---------------------------------------:|:------:|:----------------:|
