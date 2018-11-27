@@ -19,12 +19,15 @@ lobbyScene.init = function(){
     
     this.textStyle = { //LOADING
             fill: '#505050', fontFamily: 'verdana', lineSpacing: 4, fontSize: 30 };
+    this.textStyleNumPlayers = { //LOADING
+            fill: '#fae994', fontFamily: 'verdana', lineSpacing: 4, fontSize: 40 };
     
     for(var i=0; i<20; i++){
     	this.captions[i] = initCaption();
     	this.captions[i].text = ((i+1)+'- '+'%1');
     	this.captions[i].color = this.textColors[5];
     }
+	this.numplayerText = ('%1' + ' / 20');
 }
 
 lobbyScene.preload = function(){
@@ -75,7 +78,6 @@ lobbyScene.create = function(){
     //TABLA JUGADORES//W
     let plTbl = this.add.sprite(gameW/2,gameH/2+150, 'plTbl');
 
-    
     //ESTILO DE TEXTO SEGÚN ELEMENTO//
     //this.caption = this.captionStyle();
     for(var i = 0; i<20; i++){
@@ -86,6 +88,8 @@ lobbyScene.create = function(){
     		this.captions[i].object = this.add.text(gameW/2+35, gameH/2-30 + (i%10)*35, this.captions[i].text, this.textStyle);
     	}
     }
+    
+    this.numPlayerCaption = this.add.text(gameW/2-175,gameH/2-150, "", this.textStyleNumPlayers);
     
     //SERVIDOR DESCONECTADO//W
     //Condicionar en función de si 'server.isConected(false)'
@@ -110,6 +114,12 @@ lobbyScene.update = function(){
         	lobbyScene.auxUsers=users;
         });
     }
+    
+    //this.auxUsers.length;
+    
+    //this.numPlayerCaption.text = this.auxUsers.length;
+   
+   
     
     //ACTUALIZAR ELEMENTO
     for(var i=0; i<20; i++){
@@ -140,6 +150,11 @@ lobbyScene.update = function(){
 	        '' ]));    
 	        this.captions[i].object.setColor(this.textColors[5]);
 	    }
+    }
+    if(connection){
+    	this.numPlayerCaption.setText(Phaser.Utils.String.Format(this.numplayerText, [this.auxUsers.length]));	
+    }else{
+    	this.numPlayerCaption.setText(Phaser.Utils.String.Format(this.numplayerText, ['-']));
     }
     
     //ACTUALIZARME A MI

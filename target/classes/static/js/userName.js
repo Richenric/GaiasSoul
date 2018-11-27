@@ -3,6 +3,8 @@ let userScene = new Phaser.Scene('enterUser');
 userScene.init = function(){
 	this.nicknamesTaken = [];
 	that = this;
+	this.textStyle = { //LOADING
+        fill: '#ff0000', fontFamily: 'verdana', lineSpacing: 4, fontSize: 30 };
 }
 
 userScene.preload = function(){
@@ -27,7 +29,9 @@ userScene.create = function(){
  
     //ENTER TEX HERE//
     let introName = this.add.sprite(gameW/2-175,gameH/2, 'introName');
- 
+    
+    var warningText = this.add.text(gameW/2-375,gameH/2+100, "", this.textStyle);
+    
     //BACK//
         //BACK OUT//
     let bBack = this.add.sprite(gameW/2+635,gameH/2+245, 'bBack').setInteractive();
@@ -80,23 +84,29 @@ userScene.create = function(){
         okOnB.on('pointerdown', function (pointer) {
         	myUser.nickname = textEntry.text;
         	takenNicknames(function (names) {this.nicknamesTaken = names;});
+        	if(!connection){
+				warningText.setText(Phaser.Utils.String.Format('Oh no! Server not online!'));
+			}
         	loadUsers(function (users) {
         		that.numeroDeGente = users.length;
         		if(that.numeroDeGente < 20 && !this.nicknamesTaken.includes(myUser.nickname) && myUser.nickname != null && myUser.nickname != ''){
         			
         			createUser(myUser, function(userWithId){myUser = userWithId; myUser.id = userWithId.id;});
         			//console.log(myUser);
-        			
+        			warningText.setText(Phaser.Utils.String.Format(''));
         			userScene.scene.switch(lobbyScene);
             	}
         		
         		else {
         			if(that.numeroDeGente >= 20){
+        				warningText.setText(Phaser.Utils.String.Format('Oh no! The server has no place for you!'));
         				console.log("El server está lleno!");
         			}else if(this.nicknamesTaken.includes(myUser.nickname)){
+        				warningText.setText(Phaser.Utils.String.Format('Oh no! The nickname is being used!'));
         				console.log("QUE POCO ORIGINAL ERES!");
         				//myUser.nickname = prompt("HIJO DE MI VIDA pon otro nombre... porfa", "Username");
         			}else if(myUser.nickname == null || myUser.nickname == ''){
+        				warningText.setText(Phaser.Utils.String.Format('Oh no! Type a valid nickname!'));
         				console.log("Muy null te veo");
         				//myUser.nickname = prompt("Mas null tu nombre no podia ser... pon otro anda... ", "Username");
         			}
