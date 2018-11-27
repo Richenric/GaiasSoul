@@ -65,7 +65,8 @@ lobbyScene.create = function(){
         bBack.setScale(0.75);
         bBack.setAlpha(1);
         bBack.on('pointerdown', function (pointer) {
-        	deleteItem(myItem.id);
+        	deleteUser(myUser.id); 
+        	
             lobbyScene.scene.switch(mainMenuScene);
         });
     bBack.setRotation(6.15);
@@ -74,10 +75,6 @@ lobbyScene.create = function(){
     //TABLA JUGADORES//W
     let plTbl = this.add.sprite(gameW/2,gameH/2+150, 'plTbl');
 
-    //SERVIDOR DESCONECTADO//W
-        //Condicionar en función de si 'server.isConected(false)'
-    let srvDis = this.add.sprite(gameW/2,gameH/2, 'srvDis');
-    srvDis.setAlpha(0);
     
     //ESTILO DE TEXTO SEGÚN ELEMENTO//
     //this.caption = this.captionStyle();
@@ -90,54 +87,52 @@ lobbyScene.create = function(){
     	}
     }
     
-    //ARRAY DE ITEMS//
-    this.auxItems = [];
+    //SERVIDOR DESCONECTADO//W
+    //Condicionar en función de si 'server.isConected(false)'
+    this.srvDis = this.add.sprite(gameW/2,gameH/2+140, 'srvDis');
+    this.srvDis.setAlpha(0);
+
+    //ARRAY DE USERS//
+    this.auxUsers = [];
+    this.serverDesactivado = false;
 }
 
         
 lobbyScene.update = function(){
-    /*if(!server.isConected)
-        srvDis.setAlpha(0.75);
-        bRdy.setAlpha(0);
-        
-    else
-        srvDis.setAlpha(0);
-        bRdy.setAlpha(1);
-    */
-    //this.caption = this.captionStyle();
-	
-    loadItems(function (items) {
-        //When items are loaded from server
-    	lobbyScene.auxItems=items;
-    });
+    if(!connection){
+		this.srvDis.setAlpha(1);
+    }else{
+		this.srvDis.setAlpha(0);
+    }
+    
+    if(connection){
+    	loadUsers(function (users) {//When users are loaded from server
+        	lobbyScene.auxUsers=users;
+        });
+    }
     
     //ACTUALIZAR ELEMENTO
     for(var i=0; i<20; i++){
-    	if(this.auxItems[i] != undefined){
-	    	if(this.auxItems[i].id == myItem.id){
-	    		if(this.auxItems[i-1] != undefined){
-	    			myItem.elemento = (lobbyScene.auxItems[i-1].elemento + 1)%5;
-	    		}
-	    		else {
-	        		myItem.elemento = 0;
+    	if(this.auxUsers[i] != undefined){
+	    	if(this.auxUsers[i].id == myUser.id){
+	    		if(this.auxUsers[i-1] != undefined){
+	    			myUser.elemento = (lobbyScene.auxUsers[i-1].elemento + 1)%5;
+	    		}else {
+	        		myUser.elemento = 0;
 	        	}
 	    	}
-    	}
-    	else {
-    		myItem.color = 0;
+    	}else {
+    		myUser.color = 0;
     	}
     }
     
-    //ACTUALIZARME A MI
-    updateItem(myItem);
-    
     //ACTUALIZAR JUGADORES
     for(var i=0; i<20; i++){
-	    if(this.auxItems[i] != undefined){
-	    	var a = this.textColors[this.auxItems[i].elemento];
+	    if(this.auxUsers[i] != undefined && connection){
+	    	var a = this.textColors[this.auxUsers[i].elemento];
 	    	this.captions[i].color = a;
 	    	this.captions[i].object.setText(Phaser.Utils.String.Format(this.captions[i].text, [
-	    		this.auxItems[i].nickname
+	    		this.auxUsers[i].nickname
 	        ]));
 	    	this.captions[i].object.setColor(this.captions[i].color)
 	    }else{
@@ -146,4 +141,10 @@ lobbyScene.update = function(){
 	        this.captions[i].object.setColor(this.textColors[5]);
 	    }
     }
+    
+    //ACTUALIZARME A MI
+    //if(connection){
+        updateUser(myUser);
+    //}
+    
 };

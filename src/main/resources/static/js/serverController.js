@@ -1,51 +1,82 @@
-//Load items from server
-function loadItems(callback) {
+//Load users from server
+var connection = true;
+function loadUsers(callback) {
     $.ajax({
         url: myIp
-    }).done(function (items) {
-        //console.log('Items loaded: ' + JSON.stringify(items));
-        callback(items);
+    }).done(function (users) {
+    	//connection = true;
+        //console.log('Users loaded: ' + JSON.stringify(items));
+        callback(users);
+    }).fail(function(){
+    	connection = false;
+    	console.error("No se ha podido cargar la lista de usuarios");
+    	
     })
 }
 
 //Create item in server
-function createItem(item, callback) {
+function createUser(user, callback) {
     $.ajax({
         method: "POST",
         url: myIp,
-        data: JSON.stringify(item),
+        data: JSON.stringify(user),
         processData: false,
         headers: {
             "Content-Type": "application/json"
         }
-    }).done(function (itemWithId) {
-        console.log("Item created: " + JSON.stringify(item));
-        callback(itemWithId);
+    }).done(function (userWithId) {
+    	connection = true;
+        console.log("User created: " + JSON.stringify(userWithId));
+        callback(userWithId);
+    }).fail(function(){
+    	connection = false;
+    	console.error("No se ha podido crear el usuario");
     })
 }
 
-//Update item in server
-function updateItem(item) {
+//Update user in server
+function updateUser(user) {
     $.ajax({
         method: 'PUT',
-        url: myIp + item.id,
-        data: JSON.stringify(item),
+        url: myIp + user.id,
+        data: JSON.stringify(user),
         processData: false,
         headers: {
             "Content-Type": "application/json"
         }
-    }).done(function (item) {
-        console.log("Updated item: " + JSON.stringify(item))
+    }).done(function (user) {
+    	connection = true;
+        console.log("Updated user: " + JSON.stringify(user))
+    }).fail(function(){
+    	connection = false;
+    	console.error("No se ha podido actualizar el usuario");
     })
 }
 
-//Delete item from server
-function deleteItem(itemId) {
+//Delete user from server
+function deleteUser(userId) {
     $.ajax({
         method: 'DELETE',
-        url: myIp + itemId
-    }).done(function (item) {
-        console.log("Deleted item " + itemId)
+        url: myIp + userId
+    }).done(function (user) {
+    	connection = true;
+        console.log("Deleted user " + userId)
+    }).fail(function(){
+    	connection = false;
+    	console.error("No se ha podido borrar el usuario");
+    })
+}
+
+function takenNicknames(callback) {
+    $.ajax({
+        url: myIp + "/takennames"
+    }).done(function (names) {
+    	connection = true;
+        callback(names);
+    }).fail(function(){
+    	connection = false;
+    	console.error("No se ha podido cargar la lista de nicknames ocupados");
+    	
     })
 }
 

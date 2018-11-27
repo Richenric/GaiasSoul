@@ -6,8 +6,7 @@
 	<link rel="icon" href="assets/sprites/icon.png">
 	<body bgcolor="#000000">
 	<style>
-		canvas {
-			width: 100%;
+		canvas { width: 100%;
 		}
 	</style>
 
@@ -18,9 +17,9 @@
       var myIp;
       
 	  function getIP() {
-		var ip = location.host
-		var startLine = 'http://'
-		var endLine = '/items/'
+		var ip = location.host;
+		var startLine = 'http://';
+		var endLine = '/users/';
 		myIp = startLine.concat(ip.concat(endLine));
 		document.write(myIp);
 		console.log("Esta es myIp: "+myIp);
@@ -41,7 +40,7 @@
     $(window).on('beforeunload', function(){
     	alert("lalalaalla");
         console.log("beforeUnload event!");
-        deleteItem(myItem.id);
+        deleteUser(myUser.id); 
      });
 </script>
 </body>

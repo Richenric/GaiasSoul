@@ -1,11 +1,19 @@
 ﻿let mainMenuScene = new Phaser.Scene('mainMenu');//Create new scene
 var music;
 mainMenuScene.init = function(){
-	myItem.nickname = prompt("Please enter your name", "Username");
-	if (myItem.nickname != null) {
-    	//createItem(item, function(itemWithId){console.log("Mi usuario: " + JSON.stringify(itemWithId))});
-    	console.log(myItem.nickname);
-    }   
+
+	this.nicknamesTaken = [];
+	myUser.nickname = prompt("Please enter your name", "Username");
+	/*while(myUser.nickname == null){
+		myUser.nickname = prompt("Please enter your name", "Username");
+		createUser(myUser,function(UserWithId){myUser = UserWithId});
+		console.log(myUser.nickname); 
+	} */
+	takenNicknames(function (names) {this.nicknamesTaken = names;});
+    if (myUser.nickname != null) {
+    	//createUser(user, function(UserWithId){console.log("Mi usuario: " + JSON.stringify(UserWithId))});
+    	console.log(myUser.nickname);
+    }  
 };
 //load assets
 mainMenuScene.preload = function(){
@@ -39,6 +47,9 @@ mainMenuScene.create = function(){
     var that = this;
     this.allVolButtons = [];
     this.volumen;
+    
+    this.numeroDeGente = 0;
+    
     function volBinit(posX,posY,imageN,imageAct){
         let normal = that.add.sprite(posX,posY, imageN).setInteractive();
         let accion = that.add.sprite(posX,posY, imageAct);
@@ -104,18 +115,30 @@ mainMenuScene.create = function(){
     let bOn = this.add.sprite(125,125, 'bOnline').setInteractive();
         bOn.setAlpha(0);
     modSel.add(bOn);
-    bOn.on('pointerdown', function (pointer) { 
-    	var numeroDeGente = 0;
-    	loadItems(function (items) {
-    		numeroDeGente = items.length;
+    bOn.on('pointerdown', function (pointer) {
+    	loadUsers(function (users) {
+    		that.numeroDeGente = users.length;
+    		if(that.numeroDeGente < 20 && !this.nicknamesTaken.includes(myUser.nickname) && myUser.nickname != null){
+    			
+    			createUser(myUser, function(userWithId){myUser = userWithId; myUser.id = userWithId.id;});
+    			//console.log(myUser);
+    			
+        		mainMenuScene.scene.switch(lobbyScene);
+        	}
+    		
+    		else {
+    			if(that.numeroDeGente >= 20){
+    				console.log("El server está lleno!");
+    			}else if(this.nicknamesTaken.includes(myUser.nickname)){
+    				console.log("QUE POCO ORIGINAL ERES!");
+    				myUser.nickname = prompt("HIJO DE MI VIDA pon otro nombre... porfa", "Username");
+    			}else if(myUser.nickname == null){
+    				console.log("Muy null te veo");
+    				myUser.nickname = prompt("Mas null tu nombre no podia ser... pon otro anda... ", "Username");
+    			}
+        	}
         });
-    	if(numeroDeGente<20){
-    		createItem(myItem, function(itemWithId){/*console.log("Mi usuario: " + JSON.stringify(itemWithId)); */myItem.id = itemWithId.id});
-    		mainMenuScene.scene.switch(lobbyScene);
-    	}
-    	else {
-    		console.log("El server está lleno!")
-    	}
+    	//console.log(that.numeroDeGente);
     });
     
         //BACK//
@@ -292,4 +315,5 @@ mainMenuScene.create = function(){
     });
 };
 mainMenuScene.update = function(){//this is called up to 60 times per second
+	takenNicknames(function (names) {this.nicknamesTaken = names;});
 };

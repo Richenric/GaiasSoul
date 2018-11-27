@@ -34,9 +34,9 @@ var volumen = 1;
 var winningScore = 10;
 var gameW = window.innerWidth -15;
 var gameH = window.innerHeight -15;
-var myItem ={
+var myUser ={
     id: 0,
-	nickname: "",
+	nickname: null,
 	elemento: 5,
 	puntuacion: 0
 };
