@@ -1,19 +1,18 @@
 ﻿let mainMenuScene = new Phaser.Scene('mainMenu');//Create new scene
 var music;
 mainMenuScene.init = function(){
-
-	this.nicknamesTaken = [];
+	/*this.nicknamesTaken = [];
 	myUser.nickname = prompt("Please enter your name", "Username");
 	/*while(myUser.nickname == null){
 		myUser.nickname = prompt("Please enter your name", "Username");
 		createUser(myUser,function(UserWithId){myUser = UserWithId});
 		console.log(myUser.nickname); 
 	} */
-	takenNicknames(function (names) {this.nicknamesTaken = names;});
+	/*takenNicknames(function (names) {this.nicknamesTaken = names;});
     if (myUser.nickname != null) {
     	//createUser(user, function(UserWithId){console.log("Mi usuario: " + JSON.stringify(UserWithId))});
     	console.log(myUser.nickname);
-    }  
+    }  */
 };
 //load assets
 mainMenuScene.preload = function(){
@@ -116,7 +115,7 @@ mainMenuScene.create = function(){
         bOn.setAlpha(0);
     modSel.add(bOn);
     bOn.on('pointerdown', function (pointer) {
-    	loadUsers(function (users) {
+    	/*loadUsers(function (users) {
     		that.numeroDeGente = users.length;
     		if(that.numeroDeGente < 20 && !this.nicknamesTaken.includes(myUser.nickname) && myUser.nickname != null){
     			
@@ -137,8 +136,8 @@ mainMenuScene.create = function(){
     				myUser.nickname = prompt("Mas null tu nombre no podia ser... pon otro anda... ", "Username");
     			}
         	}
-        });
-    	//console.log(that.numeroDeGente);
+        });*/
+    	mainMenuScene.scene.switch(userScene);
     });
     
         //BACK//

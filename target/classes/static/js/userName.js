@@ -1,5 +1,9 @@
 let userScene = new Phaser.Scene('enterUser');
-userScene.init = function(){}
+
+userScene.init = function(){
+	this.nicknamesTaken = [];
+	that = this;
+}
 
 userScene.preload = function(){
     this.load.image('userNW','assets/sprites/enterUsernameWindow.png'); 
@@ -74,7 +78,32 @@ userScene.create = function(){
         okOnB.setAlpha(0);
             //CLICK//
         okOnB.on('pointerdown', function (pointer) {
-            userScene.scene.switch(lobbyScene);});
+        	myUser.nickname = textEntry.text;
+        	takenNicknames(function (names) {this.nicknamesTaken = names;});
+        	loadUsers(function (users) {
+        		that.numeroDeGente = users.length;
+        		if(that.numeroDeGente < 20 && !this.nicknamesTaken.includes(myUser.nickname) && myUser.nickname != null && myUser.nickname != ''){
+        			
+        			createUser(myUser, function(userWithId){myUser = userWithId; myUser.id = userWithId.id;});
+        			//console.log(myUser);
+        			
+        			userScene.scene.switch(lobbyScene);
+            	}
+        		
+        		else {
+        			if(that.numeroDeGente >= 20){
+        				console.log("El server está lleno!");
+        			}else if(this.nicknamesTaken.includes(myUser.nickname)){
+        				console.log("QUE POCO ORIGINAL ERES!");
+        				//myUser.nickname = prompt("HIJO DE MI VIDA pon otro nombre... porfa", "Username");
+        			}else if(myUser.nickname == null || myUser.nickname == ''){
+        				console.log("Muy null te veo");
+        				//myUser.nickname = prompt("Mas null tu nombre no podia ser... pon otro anda... ", "Username");
+        			}
+            	}
+            });
+            //userScene.scene.switch(lobbyScene);
+        });
             //OVER//
         okOnB.on('pointerover', function (pointer, gameObject) {
             this.setAlpha(1);
