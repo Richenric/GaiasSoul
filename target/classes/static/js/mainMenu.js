@@ -1,11 +1,12 @@
 ﻿let mainMenuScene = new Phaser.Scene('mainMenu');//Create new scene
 var music;
 mainMenuScene.init = function(){
-	/*this.nicknamesTaken = [];
-	myUser.nickname = prompt("Please enter your name", "Username");
+	//this.nicknamesTaken = [];
+	myUser.puntuacion = prompt("Please enter your score", "0");
+	console.log("Your score: " + myUser.puntuacion);
 	/*while(myUser.nickname == null){
 		myUser.nickname = prompt("Please enter your name", "Username");
-		createUser(myUser,function(UserWithId){myUser = UserWithId});
+		//createUser(myUser,function(UserWithId){myUser = UserWithId});
 		console.log(myUser.nickname); 
 	} */
 	/*takenNicknames(function (names) {this.nicknamesTaken = names;});

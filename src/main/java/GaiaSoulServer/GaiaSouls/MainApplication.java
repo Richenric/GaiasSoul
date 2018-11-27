@@ -2,17 +2,20 @@ package GaiaSoulServer.GaiaSouls;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.io.FileNotFoundException;
-import javax.servlet.http.HttpServletRequest;
 
-//import java.io.PrintWriter;
+import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 @SpringBootApplication
 public class MainApplication {
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws IOException {
 		SpringApplication.run(MainApplication.class, args);
 		
 		InetAddress ip;
@@ -23,12 +26,9 @@ public class MainApplication {
 			System.out.println("The ip address: " + ip);
 			System.out.println("hostaddress: " + hostaddress);
 			
-			/*
-			try(PrintWriter out = new PrintWriter("address.txt")){
-				out.println(hostaddress);
-			}catch(FileNotFoundException w){
-				
-			} */
+			BufferedReader br = new BufferedReader(new FileReader("maxpuntuacion.txt")); 
+			ItemsController.setMaxScore(Integer.parseInt(br.readLine()));
+			br.close();
 			
 		
 		}catch(UnknownHostException e){

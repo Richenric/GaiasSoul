@@ -27,7 +27,14 @@ public class ItemsController {
 	private static Map<Long, User> users = new ConcurrentHashMap<>(); 
 	AtomicLong nextId = new AtomicLong(0);
 	private static List<String> takenUsernames = new ArrayList<>();
-	int maxPuntuacion = 0;
+	private static int maxPuntuacion = 0;
+	
+	public static int getMaxScore() {
+		return maxPuntuacion;
+	}
+	public static void setMaxScore(int maxP) {
+		maxPuntuacion = maxP;
+	}
 	
 	@GetMapping
 	public static Collection<User> users() {
@@ -39,6 +46,10 @@ public class ItemsController {
 		return takenUsernames;	
 	} 
 	
+	@GetMapping("/maxscore") 
+	public int maxPuntuacion(){
+		return maxPuntuacion;	
+	} 
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)

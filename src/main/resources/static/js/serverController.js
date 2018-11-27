@@ -79,3 +79,15 @@ function takenNicknames(callback) {
     	
     })
 }
+
+function maxScore(callback) {
+    $.ajax({
+        url: myIp + "/maxscore"
+    }).done(function (maxScore) {
+    	connection = true;
+        callback(maxScore);
+    }).fail(function(){
+    	connection = false;
+    	console.error("No se ha podido cargar la puntuación máxima");
+    })
+}
