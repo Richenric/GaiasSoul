@@ -1,7 +1,5 @@
 package GaiaSoulServer.GaiaSouls;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.Stack;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -33,11 +31,6 @@ public class ClientManager {
 			
 			while (!disconnect.empty()) {
 				UserController.borraUser(disconnect.pop().getId());
-			}
-			try (PrintWriter out = new PrintWriter("maxpuntuacion.txt");) {
-				out.println(UserController.getMaxScore());
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
 			}
 
 		},

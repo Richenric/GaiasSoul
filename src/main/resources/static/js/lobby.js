@@ -39,7 +39,7 @@ lobbyScene.preload = function(){
     this.load.image('bRdy','assets/sprites/readyButton.png');
     this.load.image('srvDis','assets/sprites/serverDisconected.png');
     this.load.image('bg','assets/sprites/background3.png');
-    this.load.image('maxScore','assets/sprites/maxscore.png');
+    this.load.image('maxScore','assets/sprites/MaxScore.png');
 }
 
 lobbyScene.create = function(){

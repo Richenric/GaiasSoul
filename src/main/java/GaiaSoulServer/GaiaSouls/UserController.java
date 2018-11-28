@@ -3,6 +3,8 @@ package GaiaSoulServer.GaiaSouls;
 import java.util.Collection;
 import java.util.Map;
 import java.util.List;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -76,6 +78,12 @@ public class UserController {
 			savedUser.resetIdle();
 			if(userActualizado.getPuntuacion() > maxPuntuacion) {
 				maxPuntuacion = userActualizado.getPuntuacion();
+				try (PrintWriter pw = new PrintWriter ("classes/maxpuntuacion.txt");){
+					pw.print(UserController.getMaxScore());
+					pw.close();
+				}catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
 			}
 			return new ResponseEntity<>(userActualizado, HttpStatus.OK);
 		} else {
@@ -108,4 +116,31 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	/*public static void updateSaveFile() {
+        String path = getMaxScoreFilePath();
+        File scoreFileFolder = new File(path);
+        File scoreFile = new File(path + "/maxpuntuacion.txt");
+
+        try {
+            if(!scoreFile.exists()) {
+            	scoreFileFolder.mkdirs();
+                scoreFile.createNewFile();
+            }
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(scoreFile));
+                
+            writer.write(UserController.getMaxScore());
+            
+            writer.close();
+        } catch(IOException e) {
+            System.out.println("No se ha podido guardar el chat ("+e.getMessage()+").");
+        }
+    }
+	
+	static String getMaxScoreFilePath() {
+        String ret;
+        ret = "/tmp/GaiaSoulServer";
+        return ret;
+    }*/
 }

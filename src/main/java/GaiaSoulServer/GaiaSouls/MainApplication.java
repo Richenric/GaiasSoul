@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -22,10 +23,12 @@ public class MainApplication {
 			System.out.println("The ip address: " + ip);
 			System.out.println("hostaddress: " + hostaddress);
 			
-			BufferedReader br = new BufferedReader(new FileReader("maxpuntuacion.txt")); 
-			UserController.setMaxScore(Integer.parseInt(br.readLine()));
-			br.close();
-			
+			File maxpuntuacion = new File("classes/maxpuntuacion.txt");
+			if(maxpuntuacion.exists()) {
+				BufferedReader input = new BufferedReader (new FileReader (maxpuntuacion));
+				UserController.setMaxScore(Integer.parseInt(input.readLine()));
+				input.close();
+			}
 		
 		}catch(UnknownHostException e){
 			e.printStackTrace();
