@@ -61,6 +61,10 @@ Visual actual:
 *todos las habilidades han sido desarrolladas para ambos jugadores aunque aqui solo se muestren las del jugador 1.
 
 ## Menús e Interfaces de Juego
+El dato persistente que hemos elegido es la máxima puntuación, al ser esta una variable interna que el jugador no podrá editar y los métodos de asignación aún no han sido creados, utilizaremos un prompt para insertar una puntuación al ejecutar la aplicación.
+Si la cifra introducida es mayor que la que ya hay en el txt, esta sobreescribirá a la del txt. Si la puntuación introducida es menor a la del txt, será ignorada y se mantendrá la que ya hay en el txt.
+![](https://cdn.discordapp.com/attachments/496417325961052203/517114314713202691/enterScore.png)</br>
+
 En primer lugar mostramos los menús de que disponemos, para más adelante mostrar un diagrama de navegación.
 
 **Menú Principal** </br>
@@ -107,17 +111,23 @@ Volver al juego clicando el botón play, retroceder al menú de selección de objet
 ![](https://cdn.discordapp.com/attachments/496417325961052203/514568736972341258/pauseSoundMenu.png) </br>
 
 ## Menús e Interfaces Online
+**Login Menu** </br>
+Al iniciar una partida online se le solicitará al jugador que inserte un nombre de usuario con un máximo de 12 caracteres, y tendrá que clicar en el botón 'ok'. </br>
+Hay tres situaciones que provocarán un mensaje de alerta en rojo como se muestra en la imagen: que el servidor ya esté lleno (20 jugadores), que el nombre de usuario ya esté en uso o sea nulo, o que el servidor esté desconectado. </br>
+En este menú se ha empezado a implementar que los botones cambien de color cuando el ratón esté sobre él. Aunque el puntero no se ve en la captura, se encuentra sobre el botón de retroceso, motivo por el que en vez de ser el clásico botón que hemos visto en los demás menús, su interior es rojo. Del mismo modo, si el ratón estuviera sobre el botón 'Ok', este se vería de color verde.</br>
+![](https://cdn.discordapp.com/attachments/496417325961052203/517116328721645588/EnterUsername.png) </br>
 **Lobby** </br>
-Al acceder a una partida online los jugadores serán redirigidos a esta sala de espera. </br>
-En ella se nos muestra un contador de jugadores conectados, una tabla que se irá actualizando con los jugadores conectados y el elemento al que pertenecerán. </br>
-Mientras el jugador se encuentre en esta ventana estará a tiempo de abandonar la partida antes de unirse definitivamente a esta clicando el botón de retorceso, o clicar en el botón 'Ready' y unirse definitivamente a la aprtida. </br>
-![](https://cdn.discordapp.com/attachments/496417325961052203/514588178041012244/lobbyElements.png) </br>
+Al confirmar el nombre de usuario el jugador se habrá conectado a una partida online, y los jugadores serán redirigidos a esta sala de espera. </br>
+En ella se nos muestra un contador de jugadores conectados, y una tabla que se irá actualizando con los jugadores conectados y el elemento al que pertenecerán. Como el control sobre los jugadores conectados y que se desconectan es bastante visual ya con estos elementos, hemos optado por no lanzar mensajes de alerta cuando los jugadores se conecten o desconecten.</br>
+También se mostrará la puntuación máxima que ha registrado el servidor y que, como ya dijimos anteriormente, es el dato persistente que guardamos en el txt.</br>
+Mientras el jugador se encuentre en esta ventana estará a tiempo de abandonar la partida antes de unirse definitivamente a esta clicando el botón de retorceso, o clicar en el botón 'Ready' y unirse definitivamente a la partida. </br>
+![](https://cdn.discordapp.com/attachments/453581461371486210/517135711959384075/unknown.png) </br>
 
 ## Diagrama de Navegabilidad
-![](https://cdn.discordapp.com/attachments/389557270783983617/514602873351438336/DiagramaDeNavegabilidad.png) </br>
+![](https://cdn.discordapp.com/attachments/453581461371486210/517136110812528640/indice.png) </br>
 
 ## Diagrama de clases y API REST
-![](https://cdn.discordapp.com/attachments/389557270783983617/514601233487495169/Diagrama_de_Claser_-_API_REST.png) </br>
+![](https://cdn.discordapp.com/attachments/453581461371486210/517133580254707753/Diagrama_de_Claser_-_API_REST.png) </br>
 
 ## Instrucciones para ejecutar la aplicación
 * Para **ejecutar la aplicación** introducimos el comando 'java -jar gaiasSouls.jar' desde la carpeta target.
