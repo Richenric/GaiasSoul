@@ -2,12 +2,8 @@ package GaiaSoulServer.GaiaSouls;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-
-import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -27,7 +23,7 @@ public class MainApplication {
 			System.out.println("hostaddress: " + hostaddress);
 			
 			BufferedReader br = new BufferedReader(new FileReader("maxpuntuacion.txt")); 
-			ItemsController.setMaxScore(Integer.parseInt(br.readLine()));
+			UserController.setMaxScore(Integer.parseInt(br.readLine()));
 			br.close();
 			
 		

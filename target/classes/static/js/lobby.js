@@ -28,6 +28,7 @@ lobbyScene.init = function(){
     	this.captions[i].color = this.textColors[5];
     }
 	this.numplayerText = ('%1' + ' / 20');
+	this.scoreText = ('%1');
 }
 
 lobbyScene.preload = function(){
@@ -38,6 +39,7 @@ lobbyScene.preload = function(){
     this.load.image('bRdy','assets/sprites/readyButton.png');
     this.load.image('srvDis','assets/sprites/serverDisconected.png');
     this.load.image('bg','assets/sprites/background3.png');
+    this.load.image('maxScore','assets/sprites/maxscore.png');
 }
 
 lobbyScene.create = function(){
@@ -88,8 +90,11 @@ lobbyScene.create = function(){
     		this.captions[i].object = this.add.text(gameW/2+35, gameH/2-30 + (i%10)*35, this.captions[i].text, this.textStyle);
     	}
     }
+
+    let maxScorePanel = this.add.sprite(gameW/2+gameW/3,gameH/2-gameW/5,'maxScore');
     
     this.numPlayerCaption = this.add.text(gameW/2-175,gameH/2-150, "", this.textStyleNumPlayers);
+    this.scoreCaption = this.add.text(gameW/2+gameW/3,gameH/2-gameW/5, "", this.textStyleNumPlayers);
     
     //SERVIDOR DESCONECTADO//W
     //Condicionar en función de si 'server.isConected(false)'
@@ -99,6 +104,7 @@ lobbyScene.create = function(){
     //ARRAY DE USERS//
     this.auxUsers = [];
     this.serverDesactivado = false;
+    this.maxScore = 0;
 }
 
         
@@ -113,14 +119,8 @@ lobbyScene.update = function(){
     	loadUsers(function (users) {//When users are loaded from server
         	lobbyScene.auxUsers=users;
         });
+    	maxScore(function(score){lobbyScene.maxScore = score;});
     }
-    
-    //this.auxUsers.length;
-    
-    //this.numPlayerCaption.text = this.auxUsers.length;
-   
-   
-    
     //ACTUALIZAR ELEMENTO
     for(var i=0; i<20; i++){
     	if(this.auxUsers[i] != undefined){
@@ -153,6 +153,7 @@ lobbyScene.update = function(){
     }
     if(connection){
     	this.numPlayerCaption.setText(Phaser.Utils.String.Format(this.numplayerText, [this.auxUsers.length]));	
+    	this.scoreCaption.setText(Phaser.Utils.String.Format(this.scoreText, [this.maxScore]));
     }else{
     	this.numPlayerCaption.setText(Phaser.Utils.String.Format(this.numplayerText, ['-']));
     }

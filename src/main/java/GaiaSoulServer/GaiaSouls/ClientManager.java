@@ -24,7 +24,7 @@ public class ClientManager {
 		
 		scheduler.scheduleWithFixedDelay(() -> {
 			Stack<User> disconnect = new Stack<>();
-			for(User user : ItemsController.users()) {
+			for(User user : UserController.users()) {
 				user.increaseIdle();
 				if(user.idleTime() > maxIdleAllowed) {
 					disconnect.push(user);
@@ -32,10 +32,10 @@ public class ClientManager {
 			}
 			
 			while (!disconnect.empty()) {
-				ItemsController.borraUser(disconnect.pop().getId());
+				UserController.borraUser(disconnect.pop().getId());
 			}
 			try (PrintWriter out = new PrintWriter("maxpuntuacion.txt");) {
-				out.println(ItemsController.getMaxScore());
+				out.println(UserController.getMaxScore());
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
