@@ -91,10 +91,10 @@ lobbyScene.create = function(){
     	}
     }
 
-    let maxScorePanel = this.add.sprite(gameW/2+gameW/3,gameH/2-gameW/5,'maxScore');
+    let maxScorePanel = this.add.sprite(gameW/2+350,gameH/2-125,'maxScore');
     
     this.numPlayerCaption = this.add.text(gameW/2-175,gameH/2-150, "", this.textStyleNumPlayers);
-    this.scoreCaption = this.add.text(gameW/2+gameW/3,gameH/2-gameW/5, "", this.textStyleNumPlayers);
+    this.scoreCaption = this.add.text(gameW/2+350,gameH/2-125, "", this.textStyleNumPlayers);
     
     //SERVIDOR DESCONECTADO//W
     //Condicionar en función de si 'server.isConected(false)'
