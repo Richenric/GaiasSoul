@@ -18,10 +18,9 @@
       
 	  function getIP() {
 		var ip = location.host;
-		var startLine = 'http://';
+		var startLine = 'https://';
 		var endLine = '/users/';
 		myIp = startLine.concat(ip.concat(endLine));
-		document.write(myIp);
 		console.log("Esta es myIp: "+myIp);
 	  }
 	  getIP();

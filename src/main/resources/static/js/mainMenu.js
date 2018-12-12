@@ -2,8 +2,8 @@
 var music;
 mainMenuScene.init = function(){
 	//this.nicknamesTaken = [];
-	myUser.puntuacion = prompt("Please enter your score", "0");
-	console.log("Your score: " + myUser.puntuacion);
+	//myUser.puntuacion = prompt("Please enter your score", "0");
+	//console.log("Your score: " + myUser.puntuacion);
 	/*while(myUser.nickname == null){
 		myUser.nickname = prompt("Please enter your name", "Username");
 		//createUser(myUser,function(UserWithId){myUser = UserWithId});

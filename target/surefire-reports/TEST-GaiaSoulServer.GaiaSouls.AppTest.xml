@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="GaiaSoulServer.GaiaSouls.AppTest" time="0.002" tests="1" errors="0" skipped="0" failures="0">
+<testsuite name="GaiaSoulServer.GaiaSouls.AppTest" time="0" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_172\jre\bin"/>
     <property name="java.vm.version" value="25.172-b11"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
-    <property name="maven.multiModuleProjectDirectory" value="C:\Users\la.munoz.2016\Downloads\GaiasSoul"/>
+    <property name="maven.multiModuleProjectDirectory" value="E:\AA LukasA Stuff\ETSII 3\Cutrimestre 1\Juegos en Red\GaiasSoul"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
     <property name="path.separator" value=";"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -16,7 +16,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value=""/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Users\la.munoz.2016\Downloads\GaiasSoul"/>
+    <property name="user.dir" value="E:\AA LukasA Stuff\ETSII 3\Cutrimestre 1\Juegos en Red\GaiasSoul"/>
     <property name="java.runtime.version" value="1.8.0_172-b11"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_172\jre\lib\endorsed"/>
@@ -28,7 +28,7 @@
     <property name="os.name" value="Windows 10"/>
     <property name="classworlds.conf" value="E:\AA LukasA Stuff\ETSII 3\Cutrimestre 1\Juegos en Red\apache-maven-3.5.4-bin\bin\..\bin\m2.conf"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_172\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\MinGW\bin;C:\MinGW\msys\1.0\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\libnvvp;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\CCM;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Temp\OpenGL\freeglut-MinGW\bin;C:\Temp\OpenGL\glew-MinGW\lib;C:\Program Files\dotnet\;C:\opencv24\build\x64\vc14;C:\opencv24\build\x86\vc14;C:\opencv34\build\x64\vc14;C:\opencv34\build\x64\vc15\bin;C:\Program Files\Common Files\Autodesk Shared\;C:\Users\la.munoz.2016\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Java\jdk1.8.0_172\bin;E:\AA LukasA Stuff\ETSII 3\Cutrimestre 1\Juegos en Red\apache-maven-3.5.4-bin\bin;C:\Users\la.munoz.2016\AppData\Local\GitHubDesktop\bin;;."/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_172\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\MinGW\bin;C:\MinGW\msys\1.0\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\libnvvp;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\CCM;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Temp\OpenGL\freeglut-MinGW\bin;C:\Temp\OpenGL\glew-MinGW\lib;C:\Program Files\dotnet\;C:\opencv24\build\x64\vc14;C:\opencv24\build\x86\vc14;C:\opencv34\build\x64\vc14;C:\opencv34\build\x64\vc15\bin;C:\Program Files\Common Files\Autodesk Shared\;C:\Users\la.munoz.2016\AppData\Local\Microsoft\WindowsApps;C:\Users\la.munoz.2016\AppData\Local\GitHubDesktop\bin;C:\Program Files\Java\jdk1.8.0_172\bin;E:\AA LukasA Stuff\ETSII 3\Cutrimestre 1\Juegos en Red\apache-maven-3.5.4-bin\bin;;."/>
     <property name="maven.conf" value="E:\AA LukasA Stuff\ETSII 3\Cutrimestre 1\Juegos en Red\apache-maven-3.5.4-bin\bin\../conf"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="52.0"/>
@@ -64,5 +64,5 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase name="testApp" classname="GaiaSoulServer.GaiaSouls.AppTest" time="0.002"/>
+  <testcase name="testApp" classname="GaiaSoulServer.GaiaSouls.AppTest" time="0"/>
 </testsuite>
