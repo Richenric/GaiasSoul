@@ -138,7 +138,7 @@ mainMenuScene.create = function(){
     			}
         	}
         });*/
-    	mainMenuScene.scene.switch(userScene);
+    	//mainMenuScene.scene.switch(userScene); !! BLOQUEO DEL ONLINE
     });
     
         //BACK//
