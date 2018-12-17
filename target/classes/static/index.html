@@ -18,7 +18,7 @@
       
 	  function getIP() {
 		var ip = location.host;
-		var startLine = 'https://';
+		var startLine = 'http://';
 		var endLine = '/users/';
 		myIp = startLine.concat(ip.concat(endLine));
 		console.log("Esta es myIp: "+myIp);
@@ -38,7 +38,6 @@
 	<script src="js/game.js"></script>
 	<script type='text/javascript'>
     $(window).on('beforeunload', function(){
-    	alert("lalalaalla");
         console.log("beforeUnload event!");
         deleteUser(myUser.id); 
      });

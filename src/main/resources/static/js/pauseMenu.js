@@ -96,6 +96,7 @@ pauseMenuScene.create = function(){
             music.play('loop', { delay: 0 });
             music.setVolume(volumen);
             this.scene.stop('offInterface');
+            this.input.setDefaultCursor('url(assets/cursors/CustomCursor.cur), pointer');
             this.scene.switch('mainMenu');
             this.scene.stop('pauseMenu');
         }, this);

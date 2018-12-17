@@ -138,7 +138,7 @@ mainMenuScene.create = function(){
     			}
         	}
         });*/
-    	//mainMenuScene.scene.switch(userScene); !! BLOQUEO DEL ONLINE
+    	mainMenuScene.scene.switch(userScene);
     });
     
         //BACK//
@@ -315,5 +315,4 @@ mainMenuScene.create = function(){
     });
 };
 mainMenuScene.update = function(){//this is called up to 60 times per second
-	takenNicknames(function (names) {this.nicknamesTaken = names;});
 };

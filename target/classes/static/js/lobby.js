@@ -71,7 +71,7 @@ lobbyScene.create = function(){
         bBack.setAlpha(1);
         bBack.on('pointerdown', function (pointer) {
         	deleteUser(myUser.id); 
-        	
+        	console.clear();
             lobbyScene.scene.switch(mainMenuScene);
         });
     bBack.setRotation(6.15);
@@ -116,10 +116,15 @@ lobbyScene.update = function(){
     }
     
     if(connection){
-    	loadUsers(function (users) {//When users are loaded from server
-        	lobbyScene.auxUsers=users;
-        });
-    	maxScore(function(score){lobbyScene.maxScore = score;});
+    	if(loadUsersProcessed){
+	    	loadUsers(function (users) {//When users are loaded from server
+	        	lobbyScene.auxUsers=users;
+	        });
+	    	loadUsersProcessed = false;
+    	}
+    	if(maxScoreProcessed){
+    		maxScore(function(score){lobbyScene.maxScore = score;});
+    	}
     }
     //ACTUALIZAR ELEMENTO
     for(var i=0; i<20; i++){
@@ -160,7 +165,10 @@ lobbyScene.update = function(){
     
     //ACTUALIZARME A MI
     //if(connection){
-        updateUser(myUser);
+	    if(updateUserProcessed){
+	        updateUser(myUser);
+	        updateUserProcessed = false;
+	    }
     //}
     
 };
