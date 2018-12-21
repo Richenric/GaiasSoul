@@ -144,4 +144,4 @@ Mientras el jugador se encuentre en esta ventana estará a tiempo de abandonar la
 
 |                  Trello de desarrollo                 |
 |:---------------------------------------:|
-|          https://trello.com/b/B6S8UT7g/a-%C3%BAltima-hora          |
+|          [Trello Gaia's Souls](https://trello.com/b/B6S8UT7g/a-%C3%BAltima-hora)          |
