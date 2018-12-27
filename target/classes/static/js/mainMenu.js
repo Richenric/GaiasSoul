@@ -1,5 +1,5 @@
 ﻿let mainMenuScene = new Phaser.Scene('mainMenu');//Create new scene
-var music;
+
 mainMenuScene.init = function(){
 	//this.nicknamesTaken = [];
 	//myUser.puntuacion = prompt("Please enter your score", "0");

@@ -30,6 +30,7 @@ console.log(window.innerHeight -15); //Testeo del tamaño de ventana
 let game = new Phaser.Game(config);
 
 //Declaración de variables globales
+var music;
 var volumen = 1;
 var winningScore = 10;
 var gameW = window.innerWidth -15;
@@ -38,6 +39,7 @@ var myUser ={
     id: 0,
 	nickname: null,
 	elemento: 5,
+	elementoMemoria: 5,
 	puntuacion: 0
 };
 
