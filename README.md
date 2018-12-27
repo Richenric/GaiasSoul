@@ -141,3 +141,7 @@ Mientras el jugador se encuentre en esta ventana estará a tiempo de abandonar la
 |          Enrique Rico González          |    Rickenric@gmail.com    |         https://github.com/Richenric         |
 | María de los Ángeles Saint-Mard Álvarez |    mawyn.lovegood@gmail.com    |         https://github.com/MawynNeko         |
 |           Lucas A. Muñoz Muñoz          |    Lukasa707@gmail.com    |         https://github.com/Lukasha707         |
+
+|                  Trello de desarrollo                 |
+|:---------------------------------------:|
+|          [Trello Gaia's Souls](https://trello.com/b/B6S8UT7g/a-%C3%BAltima-hora)          |

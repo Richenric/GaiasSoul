@@ -6,8 +6,7 @@ class Disparo extends Phaser.Physics.Arcade.Sprite{
         this.setCircle(50);
 
         this.tag = tag;
-        this.isZonal = false;
-        //console.log(this.tag);
+        this.spellType = 0;
 
         this.emmi = scene.add.particles('sparks').createEmitter({
             frame: frame,
@@ -64,7 +63,7 @@ class Escudo extends Phaser.Physics.Arcade.Sprite{
         this.alpha = 0;
 
         this.tag = tag;
-        this.isDefense = true;
+        this.spellType = 2;
         this.lifeTime = 120;
         this.iMayDie = false;
     };
@@ -103,7 +102,7 @@ class Zonal extends Phaser.Physics.Arcade.Sprite{
         this.alpha = 0;
 
         this.tag = tag;
-        this.isZonal = true;
+        this.spellType = 1;
         this.lifeTime = 30;
         this.iMayDie = false;
     };
@@ -148,9 +147,110 @@ class Muerte extends Phaser.GameObjects.Sprite{
     };
 }
 
+class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
+
+    constructor (scene, x, y, texture){ //create player sprite (depth 1) if you don't set the body as active it won't collide with the world bounds
+        super(scene, x, y, texture);//create player sprite (depth 1)
+        scene.add.existing(this);
+        scene.physics.add.existing(this);
+        this.setCircle(50);
+        
+        this.tex = texture;
+        this.tag;
+        this.elemento;
+        
+        this.isDefense = false;
+        this.isDead = false;
+
+        this.spells = scene.add.group();
+        this.effects = scene.add.group();
+
+        this.depth = 1;
+        this.alpha = 0;
+        this.setScale(0.5,0.5);
+        this.setBlendMode('ADD'),
+        this.setCollideWorldBounds(true);
+
+    	disableBody(true, true);
+    }
+    muero(){
+        var effectoMuerte = new Muerte(this.scene, this.x, this.y, this.text, this.frpost);
+        this.effects.add(effectoMuerte);
+    }
+    activate(elemento, tag){
+    	this.enable = true;
+    	this.active = true;
+
+        this.tag = tag;
+        this.elemento = elemento;
+        
+        this.isDefense = false;
+        this.isDead = false;
+        
+        this.emmi = scene.add.particles('sparks').createEmitter({
+            frame: elemento,                                                                             
+            lifespan: 750,
+            speed: { min: 10, max: 25 },
+            scale: { start: 0.5, end: 0, ease: 'Quad.easeOut' },
+            //alpha: { start: 1, end: 0, ease: 'Circ.easeIn'},
+            quantity: 2,
+            blendMode: 'ADD',
+            quantity: 2,
+            follow: this
+        });
+    }
+    deactivate(){
+    	disableBody(true, true);
+    	this.emmi.destroy();
+    	this.tag = undefined;
+        this.elemento = undefined;
+    	
+    	this.spells.children.iterate(function (child) {
+    	    child.destroy();
+    	});
+
+    	this.spells.clear(true);
+    	
+    	this.effects.children.iterate(function (child) {
+    	    child.destroy();
+    	});
+
+    	this.effects.clear(true);
+    }
+    update(posX, posY, isDefense, isDead, spells){
+    	this.setPosition(posX, posY);
+    	this.isDefense = isDefense;
+    	this.isDead = isDead;
+    	
+    	for(var i = 0; i<spells.lenght; i++){
+    		if(this.spells.children[i] != undefined){
+    			this.spells.children[i].x = spells[i].x;
+    			this.spells.children[i].y = spells[i].y;
+    		}
+    		else {
+    			if(spells[i].tipo = 0){
+    				var disparo = new Disparo(this.scene, spells[i].x, spells[i].y, 'enemy', this.elemento, this.tag)
+    				this.spells.add(disparo);
+    			}else if(spells[i].tipo = 1){
+    				var escudo = new Escudo(this.scene, spells[i].x, spells[i].y, 'enemy', this.elemento, this.tag);
+    	            this.spells.add(escudo);
+    			}else if(spells[i].tipo = 2){
+    				var zonal = new Zonal(this.scene, spells[i].x, spells[i].y, 'enemy', this.elemento, this.tag);
+    				this.spells.add(zonal);
+    			}
+    		}
+    	}
+    	if(this.spells.children.lenght > spells.lenght){
+    		for(var i = spells.lenght; i<this.spells.lenght; i++){
+    			this.spells.children[i].destroy();
+    		}
+    	}
+    }
+}
+    
 class Player extends Phaser.Physics.Arcade.Sprite{
 
-    constructor (scene, x, y, texture, frame, cp, tag, life){ //create player sprite (depth 1) if you don't set the body as active it won't collide with the world bounds
+    constructor (scene, x, y, texture, frame, tag, usesMouse, cp, life){ //create player sprite (depth 1) if you don't set the body as active it won't collide with the world bounds
         super(scene, x, y, texture);//create player sprite (depth 1)
         scene.add.existing(this);
         scene.physics.add.existing(this);
@@ -158,12 +258,13 @@ class Player extends Phaser.Physics.Arcade.Sprite{
 
         this.tag = tag;
         this.isDefense = false;
+        this.usesMouse = usesMouse;
 
         this.score = 0;
         this.life = life;
         this.isDead = false;
 
-        this.defenses = scene.add.group();
+        this.spells = scene.add.group();
         this.effects = scene.add.group();
 
         this.emmi = scene.add.particles('sparks').createEmitter({
@@ -187,7 +288,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.text = texture;
 
         this.depth = 1;
-        this.alpha = 1;
+        this.alpha = 0;
         this.setScale(0.5,0.5);
         this.setBlendMode('ADD'),
         this.controlers = cp;
@@ -248,30 +349,30 @@ class Player extends Phaser.Physics.Arcade.Sprite{
                     disparo.setVelocityY(Math.max(Math.min((this.velocityY*3), -10), -900));
                 }
                 //disparo.setVelocityY(Math.max((offGameScene.p1.velocityY*3),50));
-                this.scene.attacks.add(disparo);
+                this.spells.add(disparo);
                 this.allCd[1] = 0;
             }
         }
         //ESCUDO
         if (this.controlers[4].isDown && this.allCd[2] >=480){ //ESCUDO
             var escudo = new Escudo(this.scene, this.x, this.y, 'enemy', this.frpost, this.tag);
-            this.defenses.add(escudo);
+            this.spells.add(escudo);
             this.isDefense = true;
             this.allCd[2] = 0;
         }
         //ZONAL
         if (this.controlers[5].isDown && this.allCd[0] >=120){ //ZONAL
             var zonal = new Zonal(this.scene, this.x, this.y, 'enemy', this.frpost, this.tag);
-            this.scene.attacks.add(zonal);
+            this.spells.add(zonal);
             this.allCd[0] = 0;
         }
 
         //ACTUALIZACION GRUPOS
-        this.defenses.children.each(function (deff) {
-            if(deff.iMayDie){
-                this.defenses.remove(deff,offGameScene,true);
-                this.isDefense = false;}
-            else{ deff.update(this.x, this.y); }
+        this.spells.children.each(function (spe) {
+            if(spe.iMayDie){
+                this.spells.remove(spe,offGameScene,true);
+                if(spe.spellType = 2)this.isDefense = false;}
+            else{ spe.update(this.x, this.y); }
         },this);
 
         this.effects.children.each(function (eff) {
