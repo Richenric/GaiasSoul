@@ -40,6 +40,25 @@ lobbyScene.preload = function(){
     this.load.image('srvDis','assets/sprites/serverDisconected.png');
     this.load.image('bg','assets/sprites/background3.png');
     this.load.image('maxScore','assets/sprites/MaxScore.png');
+    //////////////ME-SELECELEM////////////////////////////////////////////////////////
+    this.load.image('selectFrame','assets/sprites/Select-ElementFrame.png');
+    this.load.image('notFire','assets/sprites/Select-FireNot.png');
+    this.load.image('selectFire','assets/sprites/Select-Fire.png');
+    this.load.image('fireBg','assets/sprites/Select-FireBg.png');
+    this.load.image('notEarth','assets/sprites/Select-EarthNot.png');
+    this.load.image('selectEarth','assets/sprites/Select-Earth.png');
+    this.load.image('earthBg','assets/sprites/Select-EarthBg.png');
+    this.load.image('notMetal','assets/sprites/Select-MetalNot.png');
+    this.load.image('selectMetal','assets/sprites/Select-Metal.png');
+    this.load.image('metalBg','assets/sprites/Select-MetalBg.png');
+    this.load.image('notWater','assets/sprites/Select-WaterNot.png');
+    this.load.image('selectWater','assets/sprites/Select-Water.png');
+    this.load.image('waterBg','assets/sprites/Select-WaterBg.png');
+    this.load.image('notWood','assets/sprites/Select-WoodNot.png');
+    this.load.image('selectWood','assets/sprites/Select-Wood.png');
+    this.load.image('woodBg','assets/sprites/Select-WoodBg.png');
+    this.load.image('selectRing','assets/sprites/Select-ElementRing.png');
+    //////////////END-ME////////////////////////////////////////////////////////
 }
 
 lobbyScene.create = function(){
@@ -51,6 +70,9 @@ lobbyScene.create = function(){
     
     //CONTENTEDORES//
     let idBck = this.add.container(gameW/1.09,gameH/1.2);//Botón de retroceso//
+    //////////////ME-SELECELEM////////////////////////////////////////////////////////
+    let idSelectElem = this.add.container(gameW/2+360,gameH/2-125);//Selector elemento//
+    //////////////END-ME////////////////////////////////////////////////////////
     
     //CONTADOR DE JUGADORES//W
     let plCnt = this.add.sprite(gameW/2-120,gameH/2-125, 'plCnt');
@@ -64,6 +86,160 @@ lobbyScene.create = function(){
         bRdy.on('pointerdown', function (pointer) { 
             //lobbyScene.scene.switch(onGame);
         });
+    
+    //////////////ME-SELECELEM////////////////////////////////////////////////////////
+    //fondo del boton negro
+    let selectFrame = this.add.sprite(0,0, 'selectFrame');
+        selectFrame.setAlpha(1);
+    
+    //Fondo del boton con el tema del elemento seleccinado
+    let fireBg = this.add.sprite(0,0, 'fireBg');
+        fireBg.setAlpha(0);
+    let earthBg = this.add.sprite(0,0, 'earthBg');
+        earthBg.setAlpha(0);
+    let metalBg = this.add.sprite(0,0, 'metalBg');
+        metalBg.setAlpha(0);
+    let waterBg = this.add.sprite(0,0, 'waterBg');
+        waterBg.setAlpha(0);
+    let woodBg = this.add.sprite(0,0, 'woodBg');
+        woodBg.setAlpha(0);
+    
+    //Selección de FUEGO
+    let notFire = this.add.sprite(0,-56, 'notFire').setInteractive();
+        notFire.setAlpha(1);
+        notFire.on('pointerover', function (pointer) { 
+            this.setAlpha(0);
+            fireBg.setAlpha(1);
+            selectFire.setAlpha(1);});
+        notFire.on('pointerout', function (pointer) { 
+            this.setAlpha(1);
+            fireBg.setAlpha(0);
+            selectFire.setAlpha(0);});
+    let selectFire = this.add.sprite(0,-56, 'selectFire').setInteractive();
+        selectFire.setAlpha(0);
+        selectFire.on('pointerover', function (pointer) { 
+            this.setAlpha(1);
+            fireBg.setAlpha(1);
+            notFire.setAlpha(0);});
+        selectFire.on('pointerout', function (pointer) { 
+            this.setAlpha(0);
+            fireBg.setAlpha(0);
+            notFire.setAlpha(1);});
+        selectFire.on('pointerdown', function (pointer) {
+            myUser.elemento = 0;});////////////////////////////////////////////////////////
+    
+    //Seleccion de TIERRA
+    let notEarth = this.add.sprite(52,-17, 'notEarth').setInteractive();
+        notEarth.setAlpha(1);
+        notEarth.on('pointerover', function (pointer) { 
+            this.setAlpha(0);
+            earthBg.setAlpha(1);
+            selectEarth.setAlpha(1);});
+        notEarth.on('pointerout', function (pointer) { 
+            this.setAlpha(1);
+            earthBg.setAlpha(0);
+            selectEarth.setAlpha(0);});
+    let selectEarth = this.add.sprite(52,-17, 'selectEarth').setInteractive();
+        selectEarth.setAlpha(0);
+        selectEarth.on('pointerover', function (pointer) { 
+            this.setAlpha(1);
+            earthBg.setAlpha(1);
+            notEarth.setAlpha(0);});
+        selectEarth.on('pointerout', function (pointer) { 
+            this.setAlpha(0);
+            earthBg.setAlpha(0);
+            notEarth.setAlpha(1);});
+        selectEarth.on('pointerdown', function (pointer) {
+            myUser.elemento = 1;});////////////////////////////////////////////////////////
+    
+    //Seleccion de METAL
+    let notMetal = this.add.sprite(32,44, 'notMetal').setInteractive();
+        notMetal.setAlpha(1);
+        notMetal.on('pointerover', function (pointer) { 
+            this.setAlpha(0);
+            metalBg.setAlpha(1);
+            selectMetal.setAlpha(1);});
+        notMetal.on('pointerout', function (pointer) { 
+            this.setAlpha(1);
+            metalBg.setAlpha(0);
+            selectMetal.setAlpha(0);});
+    let selectMetal = this.add.sprite(32,44, 'selectMetal').setInteractive();
+        selectMetal.setAlpha(0);
+        selectMetal.on('pointerover', function (pointer) { 
+            this.setAlpha(1);
+            metalBg.setAlpha(1);
+            notMetal.setAlpha(0);});
+        selectMetal.on('pointerout', function (pointer) { 
+            this.setAlpha(0);
+            metalBg.setAlpha(0);
+            notMetal.setAlpha(1);});
+        selectMetal.on('pointerdown', function (pointer) {
+            myUser.elemento = 2;});////////////////////////////////////////////////////////
+    
+    //Seleccion de AGUA
+    let notWater = this.add.sprite(-33,44, 'notWater').setInteractive();
+        notWater.setAlpha(1);
+        notWater.on('pointerover', function (pointer) { 
+            this.setAlpha(0);
+            waterBg.setAlpha(1);
+            selectWater.setAlpha(1);});
+        notWater.on('pointerout', function (pointer) { 
+            this.setAlpha(1);
+            waterBg.setAlpha(0);
+            selectWater.setAlpha(0);});
+    let selectWater = this.add.sprite(-33,44, 'selectWater').setInteractive();
+        selectWater.setAlpha(0);
+        selectWater.on('pointerover', function (pointer) { 
+            this.setAlpha(1);
+            waterBg.setAlpha(1);
+            notWater.setAlpha(0);});
+        selectWater.on('pointerout', function (pointer) { 
+            this.setAlpha(0);
+            waterBg.setAlpha(0);
+            notWater.setAlpha(1);});
+        selectWater.on('pointerdown', function (pointer) {
+            myUser.elemento = 3;});////////////////////////////////////////////////////////
+    
+    //Seleccion de MADERA
+    let notWood = this.add.sprite(-52,-17, 'notWood').setInteractive();
+        notWood.setAlpha(1);
+        notWood.on('pointerover', function (pointer) { 
+            this.setAlpha(0);
+            woodBg.setAlpha(1);
+            selectWood.setAlpha(1);});
+        notWood.on('pointerout', function (pointer) { 
+            this.setAlpha(1);
+            woodBg.setAlpha(0);
+            selectWood.setAlpha(0);});
+    let selectWood = this.add.sprite(-52,-17, 'selectWood').setInteractive();
+        selectWood.setAlpha(0);
+        selectWood.on('pointerover', function (pointer) { 
+            this.setAlpha(1);
+            woodBg.setAlpha(1);
+            notWood.setAlpha(0);});
+        selectWood.on('pointerout', function (pointer) { 
+            this.setAlpha(0);
+            woodBg.setAlpha(0);
+            notWood.setAlpha(1);});
+        selectWood.on('pointerdown', function (pointer) {
+            myUser.elemento = 4;});////////////////////////////////////////////////////////
+    
+    //Anillo que enmarca el boton
+    let selectRing = this.add.sprite(0,0, 'selectRing');
+        selectRing.setAlpha(1);
+    
+    //Introducimos todos los elementos en el contenedor
+    idSelectElem.add(selectFrame);
+        idSelectElem.add(fireBg);   idSelectElem.add(earthBg);  
+        idSelectElem.add(metalBg);   idSelectElem.add(waterBg);
+        idSelectElem.add(woodBg);
+        idSelectElem.add(notFire);      idSelectElem.add(selectFire);
+        idSelectElem.add(notEarth);     idSelectElem.add(selectEarth);
+        idSelectElem.add(notMetal);     idSelectElem.add(selectMetal);
+        idSelectElem.add(notWater);     idSelectElem.add(selectWater);
+        idSelectElem.add(notWood);      idSelectElem.add(selectWood);
+    idSelectElem.add(selectRing);       idSelectElem.setScale(0.75);
+    //////////////END-ME////////////////////////////////////////////////////////
     
     //BACK//B
     let bBack = this.add.sprite(0,0, 'bBack').setInteractive();
@@ -126,6 +302,7 @@ lobbyScene.update = function(){
     		maxScore(function(score){lobbyScene.maxScore = score;});
     	}
     }
+    //////////////SE CAMBIARA////////////////////////////////////////////////////////
     //ACTUALIZAR ELEMENTO
     for(var i=0; i<20; i++){
     	if(this.auxUsers[i] != undefined){
@@ -140,6 +317,7 @@ lobbyScene.update = function(){
     		myUser.color = 0;
     	}
     }
+    ////////////////////////////////////////////////////////
     
     //ACTUALIZAR JUGADORES
     for(var i=0; i<20; i++){
