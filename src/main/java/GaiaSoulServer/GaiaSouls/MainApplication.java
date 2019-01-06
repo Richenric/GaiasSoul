@@ -2,6 +2,13 @@ package GaiaSoulServer.GaiaSouls;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.messaging.simp.stomp.StompSession; /////////
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.io.BufferedReader;
@@ -10,7 +17,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 @SpringBootApplication
-public class MainApplication {
+@EnableWebSocket
+public class MainApplication implements WebSocketConfigurer {
 
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(MainApplication.class, args);
@@ -35,4 +43,16 @@ public class MainApplication {
 		}
 		ClientManager.initialize();
 	}
+
+	@Override
+	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+		registry.addHandler(onlineHandler(), "/online")
+				.setAllowedOrigins("*");
+	}
+	
+	@Bean
+	public ManejadorWS onlineHandler() {
+		return new ManejadorWS();
+	}
+	
 }

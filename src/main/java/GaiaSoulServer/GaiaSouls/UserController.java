@@ -116,31 +116,4 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	/*public static void updateSaveFile() {
-        String path = getMaxScoreFilePath();
-        File scoreFileFolder = new File(path);
-        File scoreFile = new File(path + "/maxpuntuacion.txt");
-
-        try {
-            if(!scoreFile.exists()) {
-            	scoreFileFolder.mkdirs();
-                scoreFile.createNewFile();
-            }
-
-            BufferedWriter writer = new BufferedWriter(new FileWriter(scoreFile));
-                
-            writer.write(UserController.getMaxScore());
-            
-            writer.close();
-        } catch(IOException e) {
-            System.out.println("No se ha podido guardar el chat ("+e.getMessage()+").");
-        }
-    }
-	
-	static String getMaxScoreFilePath() {
-        String ret;
-        ret = "/tmp/GaiaSoulServer";
-        return ret;
-    }*/
 }
