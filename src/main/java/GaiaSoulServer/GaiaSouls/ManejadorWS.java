@@ -29,31 +29,37 @@ public class ManejadorWS extends TextWebSocketHandler{
 		
 		switch(typePeticion) {
 			case 0://cliente first conection
-				playersOnline.put(session.getId(), new PLayer());
-				break;
-			case 1: //cliente pasa a servidor coord del propio player
 				int x = node.get("x").asInt();
 				int y = node.get("y").asInt();
+				String tag = node.get("tag").asText();
+				int elemento = node.get("elemento").asInt();
+				playersOnline.put(Long.parseLong(session.getId()), new Player(x,y,tag,elemento));
+				break;
+			case 1: //cliente pasa a servidor coord del propio player
+				int x1 = node.get("x").asInt();
+				int y1 = node.get("y").asInt();
+				Player p = playersOnline.get(Long.parseLong(session.getId()));
+				p.setX(x1);
+				p.setY(y1);
 				break;
 			case 2: //cliente -> array hechizos
+				String aHechizos = node.get("arrayHechizos").asText();
 				break;
 			case 3:
 				break;
 			case 4:
 				break;
 		}
-		
 		//servidor a cliente --> pos de othersplayers othersspells
 		
+		ObjectNode responseNode = mapper.createObjectNode(); /*
+		int i = 0;
+		for (Player player : playersOnline.values()) {
+			responseNode.put("otherP" + i, player.toString());
+		} */
+		responseNode.put("otherPlayerArray", playersOnline.values().toString());
+		//System.out.println("Message sent: " + responseNode.toString());
 		
-		
-		String content = node.get("message").asText();
-
-		ObjectNode responseNode = mapper.createObjectNode();
-		responseNode.put("name", "server");
-		responseNode.put("message", content);
-		
-		System.out.println("Message sent: " + responseNode.toString());
 		session.sendMessage(new TextMessage(responseNode.toString()));
 	}
 }
