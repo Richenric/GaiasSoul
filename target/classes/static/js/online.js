@@ -38,7 +38,7 @@ onGameScene.create = function(){
     this.physics.world.setBounds(0, 0, sceneW, sceneH);
     
     //Lanzamos la escena de interfaz sobre la de juego
-    this.scene.launch(onInterface);
+    //this.scene.launch(onInterface);
     
     //Ampliación del Background
     let bg11 = this.add.image(0,0, 'background').setOrigin(0);
@@ -89,15 +89,17 @@ onGameScene.create = function(){
     //REINICIO JUEGO
     //this.keyEnter = this.input.keyboard.addKey(13);
     //Inicializacion de jugadores
-    this.pseudoPlayers;
+    this.pseudoPlayers = [];
     
     this.player = new Player(this, gameW/2-400, gameH/2, 'yellow', 'yellow',myPlayer.tag, true, cp);
     this.physics.world.enable(this.player);
     //PARA RELLENAR CON LOS JUGADORES QUE LLEGUEN DE ALGÚN LUGAR
-    for (var i = 0; i < 19; i++) {
-        this.pseudoPlayers[i] = new PseudoPlayer(this, 0,0,'player');
-        this.physics.world.enable(pseudoPlayers[i]);
-        this.physics.add.overlap(this.player, this.pseudoPlayer[i].spells, this.checkCollision, null, this);
+    if(this.pseudoPlayers.length !== 0){
+		for (var i = 0; i < 19; i++) {
+	        this.pseudoPlayers[i] = new PseudoPlayer(this, 0,0,'player');
+	        this.physics.world.enable(pseudoPlayers[i]);
+	        this.physics.add.overlap(this.player, this.pseudoPlayer[i].spells, this.checkCollision, null, this);
+	    }
     }
     //MUSIC
     music = this.sound.add('theme2');
@@ -114,7 +116,7 @@ onGameScene.create = function(){
     music.play('loop', { delay: 0 });
     music.setVolume(volumen);
     
-    this.cameras.main.startFollow(this.p1, true, 1, 1);
+    this.cameras.main.startFollow(this.player, true, 1, 1);
 }
 
 onGameScene.checkCollision=function(object1, object2){
@@ -137,9 +139,10 @@ onGameScene.checkCollision=function(object1, object2){
 }
 //this is called up to 60 times per second
 onGameScene.update = function(){
-	
     if(!this.player.isDead){
         this.player.update();
+        myPlayer.x = this.player.x;
+        myPlayer.y = this.player.y;
     }else{
         this.player.effects.children.each(function (eff) {
             eff.emmi.on = false;
@@ -163,11 +166,11 @@ WSconnection.onopen = function () { // primera conexion del jugador
 	WSconnection.send(JSON.stringify(obj));
 	console.log(JSON.stringify(obj));
 }
-
 WSconnection.onerror = function(e) {
 	console.log("WS error: " + e);
 }
-
 WSconnection.onmessage = function(msg) {
 	console.log("WS message: " + msg.data);
+	this.pseudoPlayers = JSON.parse(msg.data);
+	console.log(this.pseudoPlayers);
 };

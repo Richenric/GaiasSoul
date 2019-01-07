@@ -86,7 +86,7 @@ lobbyScene.create = function(){
     let bRdy = this.add.sprite(gameW/2+120,gameH/2-125, 'bRdy').setInteractive();
         bRdy.setAlpha(1);
         bRdy.on('pointerdown', function (pointer) { 
-            //lobbyScene.scene.switch(onGame);
+            lobbyScene.scene.switch(onGameScene);
         });
     
     //////////////ME-SELECELEM////////////////////////////////////////////////////////

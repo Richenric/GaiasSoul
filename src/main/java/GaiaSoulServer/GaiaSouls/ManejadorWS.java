@@ -70,7 +70,6 @@ public class ManejadorWS extends TextWebSocketHandler{
 				break;
 		}
 		//servidor a cliente --> pos de othersplayers othersspells
-		
 		ObjectNode responseNode = mapper.createObjectNode();
 		
 		int i = 0;
@@ -84,8 +83,8 @@ public class ManejadorWS extends TextWebSocketHandler{
 					.put("elemento", player.getElemento())
 					.put("isDead", player.isDead())
 					.put("isDefense", player.isDefense());
+				i++;
 			}
-			
 		}
 		session.sendMessage(new TextMessage(responseNode.toString()));
 	}

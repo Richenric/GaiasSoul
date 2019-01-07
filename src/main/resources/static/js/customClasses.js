@@ -174,7 +174,7 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
         this.setBlendMode('ADD'),
         this.setCollideWorldBounds(true);
 
-    	disableBody(true, true);
+    	//disableBody(true, true);
     }
     muero(){
         var effectoMuerte = new Muerte(this.scene, this.x, this.y, this.text, this.frpost);
@@ -340,7 +340,6 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             //this.input.mouse.requestPointerLock();
             if(this.velocityX !== 0 || this.velocityY !== 0){
                 var disparo = new Disparo(this.scene, this.x, this.y, 'enemy', this.frpost, this.tag);
-                
                 if (this.velocityX > 0) {
                     disparo.setVelocityX(Math.min(Math.max((this.velocityX*3), 10), 900));
                 }else if (this.velocityX < 0){

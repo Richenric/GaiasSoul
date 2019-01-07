@@ -123,7 +123,7 @@ onInterface.create = function(){
     
     this.player1 = this.add.sprite(gameW/2-400, gameH/2-100, 'player1').setAlpha(1);
     this.player1wins = this.add.sprite(gameW/2, gameH/2-20, 'player1wins').setAlpha(0);
-    this.player2wins = this.add.sprite(gameW/2, gameH/2-20, 'player2wins').setAlpha(0);////GAMEOVER
+    //this.player2wins = this.add.sprite(gameW/2, gameH/2-20, 'player2wins').setAlpha(0);////GAMEOVER
     onGameScene.caption = this.add.text(gameW/2-80, gameH-75, '', this.captionStyle);
 };
 
@@ -135,12 +135,10 @@ onInterface.update = function(){
         }
         this.presentation--;
     }
-
-    if(onGameScene.p1.isDead){
-        this.player2wins.setAlpha(1);////GAMEOVER
-    }else if(onGameScene.p2.isDead){
-        this.player1wins.setAlpha(1);
-    }
+/*
+    if(onGameScene.player.isDead){
+        ////GAMEOVER
+    }*/
 
     onGameScene.caption.setText(Phaser.Utils.String.Format(this.captionTextFormat, [
         onGameScene.p1.score,
