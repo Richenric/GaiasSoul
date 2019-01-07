@@ -47,7 +47,7 @@ var myPlayer = {
 	typePeticion:1,	
 	x:0,
 	y:0,
-	tag: "",
+	tag: "Pepe",
 	elemento: 5,
 	isDefense: false,
 	isDead: false,

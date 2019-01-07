@@ -43,7 +43,7 @@ public class ManejadorWS extends TextWebSocketHandler{
 			case 0://cliente first conection
 				int x = node.get("x").asInt();
 				int y = node.get("y").asInt();
-				String tag = node.get("tag").asText();
+				String tag = node.get("tag").toString();
 				int elemento = node.get("elemento").asInt();
 				playersOnline.put(pId, new Player(x,y,tag,elemento));
 				break;
@@ -53,13 +53,12 @@ public class ManejadorWS extends TextWebSocketHandler{
 				p.setY(node.get("y").asInt());
 				p.setDead(node.get("isDead").asBoolean());
 				p.setDefense(node.get("isDefense").asBoolean());
-				p.setTag(node.get("tag").asText());
 				break;
 			case 2: //cliente -> array hechizos
 				String aHechizos = node.get("arrayHechizos").asText();
 				break;
 			case 3: //SUMAR LA VARIABLE SCORE
-				String tag1 = node.get("tag").asText();
+				String tag1 = node.get("tag").toString();
 				for (Player player : playersOnline.values()) {
 					if(player.getTag() == tag1) {
 						player.setScore(player.getScore()+1);

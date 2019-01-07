@@ -158,9 +158,23 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
         scene.physics.add.existing(this);
         this.setCircle(50);
         
+        this.scene = scene;
+        this.emmi = this.scene.add.particles('sparks').createEmitter({
+            frame: 'red',                                                                             
+            lifespan: 750,
+            speed: { min: 10, max: 25 },
+            scale: { start: 0.5, end: 0, ease: 'Quad.easeOut' },
+            //alpha: { start: 1, end: 0, ease: 'Circ.easeIn'},
+            quantity: 2,
+            blendMode: 'ADD',
+            quantity: 2,
+            follow: this
+        });
+        
         this.tex = texture;
         this.tag;
         this.elemento;
+        this.isActive = false;
         
         this.isDefense = false;
         this.isDead = false;
@@ -187,28 +201,20 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
     	this.frame = frame;
         this.tag = tag;
         this.elemento = elemento;
+        this.isActive = true;
         
         this.isDefense = false;
         this.isDead = false;
         
-        this.emmi = scene.add.particles('sparks').createEmitter({
-            frame: frame,                                                                             
-            lifespan: 750,
-            speed: { min: 10, max: 25 },
-            scale: { start: 0.5, end: 0, ease: 'Quad.easeOut' },
-            //alpha: { start: 1, end: 0, ease: 'Circ.easeIn'},
-            quantity: 2,
-            blendMode: 'ADD',
-            quantity: 2,
-            follow: this
-        });
+        this.emmi.on = true;
     }
     deactivate(){
-    	disableBody(true, true);
-    	this.emmi.destroy();
+    	this.emmi.on = false;
+    	this.disableBody(true, true);
     	this.tag = undefined;
         this.elemento = undefined;
     	this.frame = undefined;
+        this.isActive = false;
         
     	this.spells.children.iterate(function (child) {
     	    child.destroy();

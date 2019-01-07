@@ -1,1 +1,7 @@
-META-INF\MANIFEST.MF
+GaiaSoulServer\GaiaSouls\ClientManager.class
+GaiaSoulServer\GaiaSouls\User.class
+GaiaSoulServer\GaiaSouls\Player.class
+GaiaSoulServer\GaiaSouls\UserController.class
+GaiaSoulServer\GaiaSouls\Spell.class
+GaiaSoulServer\GaiaSouls\MainApplication.class
+GaiaSoulServer\GaiaSouls\ManejadorWS.class

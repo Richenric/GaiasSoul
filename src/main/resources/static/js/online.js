@@ -94,12 +94,11 @@ onGameScene.create = function(){
     this.player = new Player(this, gameW/2-400, gameH/2, 'yellow', 'yellow',myPlayer.tag, true, cp);
     this.physics.world.enable(this.player);
     //PARA RELLENAR CON LOS JUGADORES QUE LLEGUEN DE ALGÚN LUGAR
-    if(this.pseudoPlayers.length !== 0){
-		for (var i = 0; i < 19; i++) {
-	        this.pseudoPlayers[i] = new PseudoPlayer(this, 0,0,'player');
-	        this.physics.world.enable(pseudoPlayers[i]);
-	        this.physics.add.overlap(this.player, this.pseudoPlayer[i].spells, this.checkCollision, null, this);
-	    }
+	for (var i = 0; i < 19; i++) {
+        this.pseudoPlayers[i] = new PseudoPlayer(this, 0,0,'player');
+        this.pseudoPlayers[i].deactivate();
+        this.physics.world.enable(this.pseudoPlayers[i]);
+        this.physics.add.overlap(this.player, this.pseudoPlayers[i].spells, this.checkCollision, null, this);
     }
     //MUSIC
     music = this.sound.add('theme2');
@@ -117,6 +116,15 @@ onGameScene.create = function(){
     music.setVolume(volumen);
     
     this.cameras.main.startFollow(this.player, true, 1, 1);
+    var obj = {
+    		typePeticion: 0,
+    		x: myPlayer.x,
+    		y: myPlayer.y,
+    		tag: myUser.nickname,
+    		elemento: myPlayer.elemento
+	}
+	WSconnection.send(JSON.stringify(obj));
+	console.log(JSON.stringify(obj));
 }
 
 onGameScene.checkCollision=function(object1, object2){
@@ -152,10 +160,17 @@ onGameScene.update = function(){
 	    this.player.destroy();
 	    hasEnded = true;
     }
-    WSconnection.send(JSON.stringify(myPlayer));
+    var obj = {
+    		typePeticion: 1,
+    		x: myPlayer.x,
+    		y: myPlayer.y,
+    		isDead: myUser.isDead,
+    		isDefense: myPlayer.isDefense
+	}
+    WSconnection.send(JSON.stringify(obj));
 };
 
-WSconnection.onopen = function () { // primera conexion del jugador
+/*WSconnection.onopen = function () { // primera conexion del jugador
 	var obj = {
 		typePeticion: 0,
 		x: myPlayer.x,
@@ -165,12 +180,33 @@ WSconnection.onopen = function () { // primera conexion del jugador
 	}
 	WSconnection.send(JSON.stringify(obj));
 	console.log(JSON.stringify(obj));
-}
+}*/
 WSconnection.onerror = function(e) {
 	console.log("WS error: " + e);
 }
 WSconnection.onmessage = function(msg) {
 	console.log("WS message: " + msg.data);
-	this.pseudoPlayers = JSON.parse(msg.data);
-	console.log(this.pseudoPlayers);
+	for(var i=0; i<20; i++){
+		if(msg.data[i]!=undefined && msg.data[i].tag != myUser.nickname){
+			if(onGameScene.pseudoPlayers[i].isActive){
+				onGameScene.pseudoPlayers[i].update(msg.data[i].x,msg.data[i].y,msg.data[i].isDefense,msg.data[i].isDead/*, msg.data[i].spells*/)
+				if(onGameScene.pseudoPlayers[i].isDead){
+					onGameScene.pseudoPlayers[i].muero();
+					onGameScene.pseudoPlayers[i].deactivate();
+				}
+			}else{
+				var frame = 'red';
+				/*switch(msg.data[i].elemento) {
+				  case 0:
+				    frame = 'red'
+				    break;
+				  case 1:
+				    // code block
+				    break;
+				    //ETC
+				}*/
+				onGameScene.pseudoPlayers[i].activate(msg.data[i].elemento, msg.data[i].tag, frame);
+			}
+		}
+	}
 };
