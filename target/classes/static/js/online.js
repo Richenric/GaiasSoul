@@ -27,7 +27,6 @@ onGameScene.preload = function(){
     this.load.image('sanctuaryWood','assets/sprites/sanctuaryWood.png');
     //////////////END-ME////////////////////////////////////////////////////////    
 };
-
 //called once after the preload ends
 onGameScene.create = function(){
     var that = this;
@@ -67,7 +66,7 @@ onGameScene.create = function(){
     let sacredWood = this.add.sprite(sceneW/31, sceneH/3, 'sanctuaryWood');
     sacredWood.setScale(1.5);
     sacredWood.setRotation(1.58);
-    //Create controls//Pasan a ser parte de la clase del jugador ... nombre por definir??
+    //Create controls//Pasan a ser parte de la clase del player
        //PLAYER 1: B->escudo V->zonal Espacio->Disparo
     keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A); 
     keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -87,22 +86,19 @@ onGameScene.create = function(){
             onGameScene.scene.pause();
             onGameScene.scene.launch(pauseMenuScene);
         });
-    
     //REINICIO JUEGO
     //this.keyEnter = this.input.keyboard.addKey(13);
-    
-        //Inicializacion de jugadores
+    //Inicializacion de jugadores
     this.pseudoPlayers;
     
     this.player = new Player(this, gameW/2-400, gameH/2, 'yellow', 'yellow',myPlayer.tag, true, cp);
     this.physics.world.enable(this.player);
-    //PARA RELLENAR CON LOS JUGADORES QUE LELLEGUEN DE ALGÚN LUGAR
+    //PARA RELLENAR CON LOS JUGADORES QUE LLEGUEN DE ALGÚN LUGAR
     for (var i = 0; i < 19; i++) {
         this.pseudoPlayers[i] = new PseudoPlayer(this, 0,0,'player');
         this.physics.world.enable(pseudoPlayers[i]);
         this.physics.add.overlap(this.player, this.pseudoPlayer[i].spells, this.checkCollision, null, this);
     }
-    
     //MUSIC
     music = this.sound.add('theme2');
     //0.37
@@ -119,12 +115,11 @@ onGameScene.create = function(){
     music.setVolume(volumen);
     
     this.cameras.main.startFollow(this.p1, true, 1, 1);
-    
 }
 
 onGameScene.checkCollision=function(object1, object2){
     if(myPlayer.elemento != object2.elemento && !object1.isDefense && object2.spellType != 2){
-        this.player.muero(); ///////////////
+        this.player.muero(); 
         var obj = {
         	typePeticion:3,
         	tag:object2.tag
@@ -154,7 +149,6 @@ onGameScene.update = function(){
 	    this.player.destroy();
 	    hasEnded = true;
     }
-    
     WSconnection.send(JSON.stringify(myPlayer));
 };
 
@@ -167,7 +161,7 @@ WSconnection.onopen = function () { // primera conexion del jugador
 		elemento: myPlayer.elemento
 	}
 	WSconnection.send(JSON.stringify(obj));
-	//connection.send('HOLIWI');
+	console.log(JSON.stringify(obj));
 }
 
 WSconnection.onerror = function(e) {

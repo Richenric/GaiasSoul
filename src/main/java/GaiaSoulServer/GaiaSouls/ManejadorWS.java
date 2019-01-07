@@ -1,5 +1,7 @@
 package GaiaSoulServer.GaiaSouls;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -8,8 +10,17 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonPointer;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.core.ObjectCodec;
+import com.fasterxml.jackson.core.JsonParser.NumberType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
+import com.fasterxml.jackson.databind.node.JsonNodeType;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import GaiaSoulServer.GaiaSouls.Player;
 
@@ -26,6 +37,7 @@ public class ManejadorWS extends TextWebSocketHandler{
 		//tipo.peticion, x,y,def, array habilidades
 		JsonNode node = mapper.readTree(message.getPayload());
 		int typePeticion = node.get("typePeticion").asInt();
+		long pId = Long.parseLong(session.getId()); //Id de la session
 		
 		switch(typePeticion) {
 			case 0://cliente first conection
@@ -33,10 +45,10 @@ public class ManejadorWS extends TextWebSocketHandler{
 				int y = node.get("y").asInt();
 				String tag = node.get("tag").asText();
 				int elemento = node.get("elemento").asInt();
-				playersOnline.put(Long.parseLong(session.getId()), new Player(x,y,tag,elemento));
+				playersOnline.put(pId, new Player(x,y,tag,elemento));
 				break;
 			case 1: //cliente pasa a servidor coord del propio player
-				Player p = playersOnline.get(Long.parseLong(session.getId()));
+				Player p = playersOnline.get(pId);
 				p.setX(node.get("x").asInt());
 				p.setY(node.get("y").asInt());
 				p.setDead(node.get("isDead").asBoolean());
@@ -59,14 +71,22 @@ public class ManejadorWS extends TextWebSocketHandler{
 		}
 		//servidor a cliente --> pos de othersplayers othersspells
 		
-		ObjectNode responseNode = mapper.createObjectNode(); /*
+		ObjectNode responseNode = mapper.createObjectNode();
+		
 		int i = 0;
 		for (Player player : playersOnline.values()) {
-			responseNode.put("otherP" + i, player.toString());
-		} */
-		responseNode.put("otherPlayerArray", playersOnline.values().toString());
-		//System.out.println("Message sent: " + responseNode.toString());
-		
+			if(player != playersOnline.get(pId)) {
+				ObjectNode playerNode = (responseNode).putObject("player" + i); 
+				playerNode
+					.put("x", player.getX())
+					.put("y", player.getY())
+					.put("tag", player.getTag())
+					.put("elemento", player.getElemento())
+					.put("isDead", player.isDead())
+					.put("isDefense", player.isDefense());
+			}
+			
+		}
 		session.sendMessage(new TextMessage(responseNode.toString()));
 	}
 }
