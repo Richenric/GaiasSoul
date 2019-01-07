@@ -186,10 +186,12 @@ WSconnection.onerror = function(e) {
 }
 WSconnection.onmessage = function(msg) {
 	console.log("WS message: " + msg.data);
-	for(var i=0; i<20; i++){
+	var obj = JSON.parse(msg.data);
+	console.log(obj);
+	 /*for(var i=0; i<20; i++){
 		if(msg.data[i]!=undefined && msg.data[i].tag != myUser.nickname){
 			if(onGameScene.pseudoPlayers[i].isActive){
-				onGameScene.pseudoPlayers[i].update(msg.data[i].x,msg.data[i].y,msg.data[i].isDefense,msg.data[i].isDead/*, msg.data[i].spells*/)
+				onGameScene.pseudoPlayers[i].update(msg.data[i].x,msg.data[i].y,msg.data[i].isDefense,msg.data[i].isDead/*, msg.data[i].spells)
 				if(onGameScene.pseudoPlayers[i].isDead){
 					onGameScene.pseudoPlayers[i].muero();
 					onGameScene.pseudoPlayers[i].deactivate();
@@ -204,9 +206,9 @@ WSconnection.onmessage = function(msg) {
 				    // code block
 				    break;
 				    //ETC
-				} */
+				} 
 				onGameScene.pseudoPlayers[i].activate(msg.data[i].elemento, msg.data[i].tag, frame);
 			}
 		}
-	}
+	} */
 };
