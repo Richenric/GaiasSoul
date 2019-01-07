@@ -232,8 +232,8 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
     	this.setPosition(posX, posY);
     	this.isDefense = isDefense;
     	this.isDead = isDead;
-    	
-    	for(var i = 0; i<spells.lenght; i++){
+    	/*
+    	for(var i = 0; i<spells.length; i++){
     		if(this.spells.children[i] != undefined){
     			this.spells.children[i].x = spells[i].x;
     			this.spells.children[i].y = spells[i].y;
@@ -255,7 +255,7 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
     		for(var i = spells.lenght; i<this.spells.lenght; i++){
     			this.spells.children[i].destroy();
     		}
-    	}
+    	} */
     }
 }
     

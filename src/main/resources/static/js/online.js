@@ -164,7 +164,7 @@ onGameScene.update = function(){
     		typePeticion: 1,
     		x: myPlayer.x,
     		y: myPlayer.y,
-    		isDead: myUser.isDead,
+    		isDead: myPlayer.isDead,
     		isDefense: myPlayer.isDefense
 	}
     WSconnection.send(JSON.stringify(obj));
@@ -204,7 +204,7 @@ WSconnection.onmessage = function(msg) {
 				    // code block
 				    break;
 				    //ETC
-				}*/
+				} */
 				onGameScene.pseudoPlayers[i].activate(msg.data[i].elemento, msg.data[i].tag, frame);
 			}
 		}
