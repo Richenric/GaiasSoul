@@ -35,6 +35,7 @@ var volumen = 1;
 var winningScore = 10;
 var gameW = window.innerWidth -15;
 var gameH = window.innerHeight -15;
+var WSconnection;
 var myUser ={
     id: 0,
 	nickname: null,
@@ -42,4 +43,13 @@ var myUser ={
 	elementoMemoria: 5,
 	puntuacion: 0
 };
-
+var myPlayer = {
+	typePeticion:1,	
+	x:0,
+	y:0,
+	tag: null,
+	elemento: 5,
+	isDefense: false,
+	isDead: false,
+	habilidades: null
+};

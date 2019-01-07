@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-	private int x,y,elemento;
+	private int x,y,elemento,score;
 	private boolean isDead, isDefense;
 	private String tag;
 	private List<Spell> spellArray;
@@ -13,19 +13,12 @@ public class Player {
 	public Player (int x, int y, String tag, int elemento) {
 		this.x = x;
 		this.y = y;
+		this.score = 0;
 		this.isDead = false;
 		this.isDefense = false;
-		this.tag = tag;
+		this.tag = tag; //nickname
 		this.spellArray = new ArrayList<Spell>();
-	} /*
-	public Player () {
-		this.x = 0;
-		this.y = 0;
-		this.isDead = false;
-		this.isDefense = false;
-		this.tag = "";
-		this.spellArray = new ArrayList<Spell>();
-	} */
+	}
 	public int getX() {
 		return this.x;
 	}
@@ -47,6 +40,9 @@ public class Player {
 	public List<Spell> getSpellArray(){
 		return this.spellArray;
 	}
+	public int getScore() {
+		return score;
+	}
 	public void setX(int x) {
 		this.x = x;
 	}
@@ -67,5 +63,8 @@ public class Player {
 	}
 	public void setSpellArray(List<Spell> sa) {
 		this.spellArray = sa;
+	}
+	public void setScore(int score) {
+		this.score = score;
 	}
 }

@@ -36,16 +36,23 @@ public class ManejadorWS extends TextWebSocketHandler{
 				playersOnline.put(Long.parseLong(session.getId()), new Player(x,y,tag,elemento));
 				break;
 			case 1: //cliente pasa a servidor coord del propio player
-				int x1 = node.get("x").asInt();
-				int y1 = node.get("y").asInt();
 				Player p = playersOnline.get(Long.parseLong(session.getId()));
-				p.setX(x1);
-				p.setY(y1);
+				p.setX(node.get("x").asInt());
+				p.setY(node.get("y").asInt());
+				p.setDead(node.get("isDead").asBoolean());
+				p.setDefense(node.get("isDefense").asBoolean());
+				p.setTag(node.get("tag").asText());
 				break;
 			case 2: //cliente -> array hechizos
 				String aHechizos = node.get("arrayHechizos").asText();
 				break;
-			case 3:
+			case 3: //SUMAR LA VARIABLE SCORE
+				String tag1 = node.get("tag").asText();
+				for (Player player : playersOnline.values()) {
+					if(player.getTag() == tag1) {
+						player.setScore(player.getScore()+1);
+					}
+				}
 				break;
 			case 4:
 				break;

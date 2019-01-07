@@ -1,11 +1,12 @@
 class Disparo extends Phaser.Physics.Arcade.Sprite{
-    constructor (scene, x, y, texture, frame, tag){
+    constructor (scene, x, y, texture, frame, tag, elemento){
         super(scene, x, y, texture);
         scene.add.existing(this).setScale(0.25,0.25);
         scene.physics.add.existing(this);
         this.setCircle(50);
 
         this.tag = tag;
+        this.elemento = elemento;
         this.spellType = 0;
 
         this.emmi = scene.add.particles('sparks').createEmitter({
@@ -37,7 +38,7 @@ class Disparo extends Phaser.Physics.Arcade.Sprite{
 };
 
 class Escudo extends Phaser.Physics.Arcade.Sprite{
-    constructor(scene,x, y, texture,frame, tag){
+    constructor(scene,x, y, texture,frame, tag, elemento){
         super(scene, x, y, texture);
         scene.add.existing(this).setOrigin(0.5);
         scene.physics.add.existing(this);
@@ -63,6 +64,7 @@ class Escudo extends Phaser.Physics.Arcade.Sprite{
         this.alpha = 0;
 
         this.tag = tag;
+        this.elemento = elemento;
         this.spellType = 2;
         this.lifeTime = 120;
         this.iMayDie = false;
@@ -79,7 +81,7 @@ class Escudo extends Phaser.Physics.Arcade.Sprite{
 }
 
 class Zonal extends Phaser.Physics.Arcade.Sprite{
-    constructor(scene,x, y, texture,frame, tag){
+    constructor(scene,x, y, texture,frame, tag, elemento){
         super(scene, x, y, texture);
         scene.add.existing(this).setOrigin(0.5);
         scene.physics.add.existing(this);
@@ -102,6 +104,7 @@ class Zonal extends Phaser.Physics.Arcade.Sprite{
         this.alpha = 0;
 
         this.tag = tag;
+        this.elemento = elemento;
         this.spellType = 1;
         this.lifeTime = 30;
         this.iMayDie = false;
@@ -177,10 +180,11 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
         var effectoMuerte = new Muerte(this.scene, this.x, this.y, this.text, this.frpost);
         this.effects.add(effectoMuerte);
     }
-    activate(elemento, tag){
+    activate(elemento, tag, frame){
     	this.enable = true;
     	this.active = true;
 
+    	this.frame = frame;
         this.tag = tag;
         this.elemento = elemento;
         
@@ -188,7 +192,7 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
         this.isDead = false;
         
         this.emmi = scene.add.particles('sparks').createEmitter({
-            frame: elemento,                                                                             
+            frame: frame,                                                                             
             lifespan: 750,
             speed: { min: 10, max: 25 },
             scale: { start: 0.5, end: 0, ease: 'Quad.easeOut' },
@@ -204,7 +208,8 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
     	this.emmi.destroy();
     	this.tag = undefined;
         this.elemento = undefined;
-    	
+    	this.frame = undefined;
+        
     	this.spells.children.iterate(function (child) {
     	    child.destroy();
     	});
@@ -229,13 +234,13 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
     		}
     		else {
     			if(spells[i].tipo = 0){
-    				var disparo = new Disparo(this.scene, spells[i].x, spells[i].y, 'enemy', this.elemento, this.tag)
+    				var disparo = new Disparo(this.scene, spells[i].x, spells[i].y, 'enemy', this.frame, this.tag, this.elemento)
     				this.spells.add(disparo);
     			}else if(spells[i].tipo = 1){
-    				var escudo = new Escudo(this.scene, spells[i].x, spells[i].y, 'enemy', this.elemento, this.tag);
+    				var escudo = new Escudo(this.scene, spells[i].x, spells[i].y, 'enemy', this.frame, this.tag, this.elemento);
     	            this.spells.add(escudo);
     			}else if(spells[i].tipo = 2){
-    				var zonal = new Zonal(this.scene, spells[i].x, spells[i].y, 'enemy', this.elemento, this.tag);
+    				var zonal = new Zonal(this.scene, spells[i].x, spells[i].y, 'enemy', this.frame, this.tag, this.elemento);
     				this.spells.add(zonal);
     			}
     		}
@@ -288,7 +293,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.text = texture;
 
         this.depth = 1;
-        this.alpha = 0;
+        this.alpha = 1;
         this.setScale(0.5,0.5);
         this.setBlendMode('ADD'),
         this.controlers = cp;
