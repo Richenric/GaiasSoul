@@ -19,6 +19,15 @@ public class Player {
 		this.tag = tag; //nickname
 		this.spellArray = new ArrayList<Spell>();
 	}
+	public Player () {
+		this.x = 0;
+		this.y = 0;
+		this.score = 0;
+		this.isDead = false;
+		this.isDefense = false;
+		this.tag = ""; //nickname
+		this.spellArray = null;
+	}
 	public int getX() {
 		return this.x;
 	}

@@ -35,6 +35,7 @@ public class ManejadorWS extends TextWebSocketHandler{
 		System.out.println("Message received: " + message.getPayload());
 		//ConcurrentHashMap<Integer,TextMessage> sessions = new ConcurrentHashMap<Integer,TextMessage>();
 		//tipo.peticion, x,y,def, array habilidades
+		
 		JsonNode node = mapper.readTree(message.getPayload());
 		int typePeticion = node.get("typePeticion").asInt();
 		long pId = Long.parseLong(session.getId()); //Id de la session
@@ -69,12 +70,14 @@ public class ManejadorWS extends TextWebSocketHandler{
 				break;
 		}
 		//servidor a cliente --> pos de othersplayers othersspells
-		ObjectNode responseNode = mapper.createObjectNode();
-		
+		//ObjectNode responseNode = mapper.createObjectNode();
+		ObjectNode []arrayaux = new ObjectNode [20];
 		int i = 0;
 		for (Player player : playersOnline.values()) {
 			if(player != playersOnline.get(pId)) {
-				ObjectNode playerNode = (responseNode).putObject("player" + i); 
+				//responseNode.arrayNode(20);
+				//ObjectNode auxNode = (responseNode).a
+				ObjectNode playerNode = mapper.createObjectNode();
 				playerNode
 					.put("x", player.getX())
 					.put("y", player.getY())
@@ -82,9 +85,10 @@ public class ManejadorWS extends TextWebSocketHandler{
 					.put("elemento", player.getElemento())
 					.put("isDead", player.isDead())
 					.put("isDefense", player.isDefense());
+				arrayaux[i] = playerNode;
 				i++;
 			}
 		}
-		session.sendMessage(new TextMessage(responseNode.toString()));
+		session.sendMessage(new TextMessage(arrayaux.toString()));
 	}
 }
