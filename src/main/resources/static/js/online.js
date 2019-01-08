@@ -184,17 +184,17 @@ onGameScene.update = function(){
 WSconnection.onerror = function(e) {
 	console.log("WS error: " + e);
 }
-function actualizacionPseudoPlayer(obj, playernum,num){
-	if(obj.playernum !=undefined && obj.playernum.tag != myUser.nickname){
+function actualizacionPseudoPlayer(playernum,num){
+	if(playernum !=undefined && playernum.tag != myUser.nickname){
 		if(onGameScene.pseudoPlayers[num].isActive){
-			onGameScene.pseudoPlayers[num].update(obj.playernum.x,obj.playernum.y,obj.playernum.isDefense,obj.playernum.isDead/*, msg.data[i].spells*/)
+			onGameScene.pseudoPlayers[num].update(playernum.x,playernum.y,playernum.isDefense,playernum.isDead/*, msg.data[i].spells*/)
 			if(onGameScene.pseudoPlayers[num].isDead){
 				onGameScene.pseudoPlayers[num].muero();
 				onGameScene.pseudoPlayers[num].deactivate();
 			}
 		}else{
 			var frame;
-			switch(obj.playernum.elemento) {
+			switch(playernum.elemento) {
 			  	case 0: frame = 'redDeadRedemption';
 			    	break;
 			  	case 1: frame = 'grey';
@@ -207,33 +207,54 @@ function actualizacionPseudoPlayer(obj, playernum,num){
 			  		break;
 			  	case 5: frame = 'red';
 			}
-			onGameScene.pseudoPlayers[num].activate(obj.playernum.elemento, obj.playernum.tag, frame);
+			onGameScene.pseudoPlayers[num].activate(playernum.elemento, playernum.tag, frame);
 		}
 	}
 }
 
 WSconnection.onmessage = function(msg) {
-	console.log("WS message: " + msg.data);
+	//console.log("WS message: " + msg.data);
 	var obj = JSON.parse(msg.data);
-	//console.log(obj);
-	actualizacionPseudoPlayer(obj,player0,0);
-	actualizacionPseudoPlayer(obj,player1,1);
-	actualizacionPseudoPlayer(obj,player2,2);
-	actualizacionPseudoPlayer(obj,player3,3);
-	actualizacionPseudoPlayer(obj,player4,4);
-	actualizacionPseudoPlayer(obj,player5,5);
-	actualizacionPseudoPlayer(obj,player6,6);
-	actualizacionPseudoPlayer(obj,player7,7);
-	actualizacionPseudoPlayer(obj,player8,8);
-	actualizacionPseudoPlayer(obj,player9,9);
-	actualizacionPseudoPlayer(obj,player10,10);
-	actualizacionPseudoPlayer(obj,player11,11);
-	actualizacionPseudoPlayer(obj,player12,12);
-	actualizacionPseudoPlayer(obj,player13,13);
-	actualizacionPseudoPlayer(obj,player14,14);
-	actualizacionPseudoPlayer(obj,player15,15);
-	actualizacionPseudoPlayer(obj,player16,16);
-	actualizacionPseudoPlayer(obj,player17,17);
-	actualizacionPseudoPlayer(obj,player18,18);
-	actualizacionPseudoPlayer(obj,player19,19);
+	console.log(obj);
+	if(obj.player0 !=undefined){
+		actualizacionPseudoPlayer(obj.player0,0);
+	}if(obj.player1 !=undefined){
+		actualizacionPseudoPlayer(obj.player1,1);
+	} if(obj.player2 !=undefined){
+		actualizacionPseudoPlayer(obj.player2,2);
+	}if(obj.player3 !=undefined){
+		actualizacionPseudoPlayer(obj.player3,3);
+	}if(obj.player4 !=undefined){
+		actualizacionPseudoPlayer(obj.player4,4);
+	}if(obj.player5 !=undefined){
+		actualizacionPseudoPlayer(obj.player5,5);
+	}if(obj.player6 !=undefined){
+		actualizacionPseudoPlayer(obj.player6,6);
+	}if(obj.player7 !=undefined){
+		actualizacionPseudoPlayer(obj.player7,7);
+	}if(obj.player8 !=undefined){
+		actualizacionPseudoPlayer(obj.player8,8);
+	}if(obj.player9 !=undefined){
+		actualizacionPseudoPlayer(obj.player9,9);
+	}if(obj.player10 !=undefined){
+		actualizacionPseudoPlayer(obj.player10,10);
+	}if(obj.player11 !=undefined){
+		actualizacionPseudoPlayer(obj.player11,11);
+	}if(obj.player12 !=undefined){
+		actualizacionPseudoPlayer(obj.player12,12);
+	}if(obj.player13 !=undefined){
+		actualizacionPseudoPlayer(obj.player13,13);
+	}if(obj.player14 !=undefined){
+		actualizacionPseudoPlayer(obj.player14,14);
+	}if(obj.player15 !=undefined){
+		actualizacionPseudoPlayer(obj.player15,15);
+	}if(obj.player16 !=undefined){
+		actualizacionPseudoPlayer(obj.player16,16);
+	}if(obj.player17 !=undefined){
+		actualizacionPseudoPlayer(obj.player17,17);
+	}if(obj.player18 !=undefined){
+		actualizacionPseudoPlayer(obj.player18,18);
+	}if(obj.player19 !=undefined){
+		actualizacionPseudoPlayer(obj.player19,19);
+	} 
 };

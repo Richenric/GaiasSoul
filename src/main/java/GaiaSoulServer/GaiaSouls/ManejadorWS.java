@@ -33,7 +33,7 @@ public class ManejadorWS extends TextWebSocketHandler{
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		System.out.println("Message received: " + message.getPayload());
+		//System.out.println("Message received: " + message.getPayload());
 		//ConcurrentHashMap<Integer,TextMessage> sessions = new ConcurrentHashMap<Integer,TextMessage>();
 		//tipo.peticion, x,y,def, array habilidades
 		
