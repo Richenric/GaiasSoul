@@ -189,7 +189,7 @@ WSconnection.onmessage = function(msg) {
 	var obj = JSON.parse(msg.data);
 	//console.log(obj);
 		 
-	if(obj.player0 !=undefined && obj.pActual.tag != myUser.nickname){
+	if(obj.player0 !=undefined && obj.player0.tag != myUser.nickname){
 		if(onGameScene.pseudoPlayers[0].isActive){
 			onGameScene.pseudoPlayers[0].update(obj.player0.x,obj.player0.y,obj.player0.isDefense,obj.player0.isDead/*, msg.data[i].spells*/)
 			if(onGameScene.pseudoPlayers[0].isDead){
