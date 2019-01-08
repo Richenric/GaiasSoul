@@ -184,17 +184,13 @@ onGameScene.update = function(){
 WSconnection.onerror = function(e) {
 	console.log("WS error: " + e);
 }
-WSconnection.onmessage = function(msg) {
-	console.log("WS message: " + msg.data);
-	var obj = JSON.parse(msg.data);
-	//console.log(obj);
-		 
-	if(obj.player0 !=undefined && obj.player0.tag != myUser.nickname){
-		if(onGameScene.pseudoPlayers[0].isActive){
-			onGameScene.pseudoPlayers[0].update(obj.player0.x,obj.player0.y,obj.player0.isDefense,obj.player0.isDead/*, msg.data[i].spells*/)
-			if(onGameScene.pseudoPlayers[0].isDead){
-				onGameScene.pseudoPlayers[0].muero();
-				onGameScene.pseudoPlayers[0].deactivate();
+function actualizacionPseudoPlayer(playernum, num){
+	if(obj.playernum !=undefined && obj.playernum.tag != myUser.nickname){
+		if(onGameScene.pseudoPlayers[num].isActive){
+			onGameScene.pseudoPlayers[num].update(obj.playernum.x,obj.playernum.y,obj.playernum.isDefense,obj.playernum.isDead/*, msg.data[i].spells*/)
+			if(onGameScene.pseudoPlayers[num].isDead){
+				onGameScene.pseudoPlayers[num].muero();
+				onGameScene.pseudoPlayers[num].deactivate();
 			}
 		}else{
 			var frame = 'red';
@@ -207,7 +203,33 @@ WSconnection.onmessage = function(msg) {
 			    break;
 			    //ETC
 			}  */
-			onGameScene.pseudoPlayers[0].activate(obj.player0.elemento, obj.player0.tag, frame);
+			onGameScene.pseudoPlayers[num].activate(obj.playernum.elemento, obj.playernum.tag, frame);
 		}
-	} 
+	}
+}
+
+WSconnection.onmessage = function(msg) {
+	console.log("WS message: " + msg.data);
+	var obj = JSON.parse(msg.data);
+	//console.log(obj);
+	actualizacionPseudoPlayer(player0,0);
+	actualizacionPseudoPlayer(player1,1);
+	actualizacionPseudoPlayer(player2,2);
+	actualizacionPseudoPlayer(player3,3);
+	actualizacionPseudoPlayer(player4,4);
+	actualizacionPseudoPlayer(player5,5);
+	actualizacionPseudoPlayer(player6,6);
+	actualizacionPseudoPlayer(player7,7);
+	actualizacionPseudoPlayer(player8,8);
+	actualizacionPseudoPlayer(player9,9);
+	actualizacionPseudoPlayer(player10,10);
+	actualizacionPseudoPlayer(player11,11);
+	actualizacionPseudoPlayer(player12,12);
+	actualizacionPseudoPlayer(player13,13);
+	actualizacionPseudoPlayer(player14,14);
+	actualizacionPseudoPlayer(player15,15);
+	actualizacionPseudoPlayer(player16,16);
+	actualizacionPseudoPlayer(player17,17);
+	actualizacionPseudoPlayer(player18,18);
+	actualizacionPseudoPlayer(player19,19);
 };
