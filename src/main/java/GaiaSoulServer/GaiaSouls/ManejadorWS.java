@@ -30,6 +30,7 @@ public class ManejadorWS extends TextWebSocketHandler{
 	
 	private Map<Long, Player> playersOnline = new ConcurrentHashMap<Long,Player>();
 	
+	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		System.out.println("Message received: " + message.getPayload());

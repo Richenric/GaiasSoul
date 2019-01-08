@@ -184,7 +184,7 @@ onGameScene.update = function(){
 WSconnection.onerror = function(e) {
 	console.log("WS error: " + e);
 }
-function actualizacionPseudoPlayer(playernum, num){
+function actualizacionPseudoPlayer(obj, playernum,num){
 	if(obj.playernum !=undefined && obj.playernum.tag != myUser.nickname){
 		if(onGameScene.pseudoPlayers[num].isActive){
 			onGameScene.pseudoPlayers[num].update(obj.playernum.x,obj.playernum.y,obj.playernum.isDefense,obj.playernum.isDead/*, msg.data[i].spells*/)
@@ -193,16 +193,20 @@ function actualizacionPseudoPlayer(playernum, num){
 				onGameScene.pseudoPlayers[num].deactivate();
 			}
 		}else{
-			var frame = 'red';
-			/*switch(msg.data[i].elemento) {
-			  case 0:
-			    frame = 'red'
-			    break;
-			  case 1:
-			    // code block
-			    break;
-			    //ETC
-			}  */
+			var frame;
+			switch(obj.playernum.elemento) {
+			  	case 0: frame = 'redDeadRedemption';
+			    	break;
+			  	case 1: frame = 'grey';
+			  		break;
+			  	case 2: frame = 'green';
+			  		break;
+			  	case 3: frame = 'brown';
+			  		break;
+			  	case 4: frame = 'blue';
+			  		break;
+			  	case 5: frame = 'red';
+			}
 			onGameScene.pseudoPlayers[num].activate(obj.playernum.elemento, obj.playernum.tag, frame);
 		}
 	}
@@ -212,24 +216,24 @@ WSconnection.onmessage = function(msg) {
 	console.log("WS message: " + msg.data);
 	var obj = JSON.parse(msg.data);
 	//console.log(obj);
-	actualizacionPseudoPlayer(player0,0);
-	actualizacionPseudoPlayer(player1,1);
-	actualizacionPseudoPlayer(player2,2);
-	actualizacionPseudoPlayer(player3,3);
-	actualizacionPseudoPlayer(player4,4);
-	actualizacionPseudoPlayer(player5,5);
-	actualizacionPseudoPlayer(player6,6);
-	actualizacionPseudoPlayer(player7,7);
-	actualizacionPseudoPlayer(player8,8);
-	actualizacionPseudoPlayer(player9,9);
-	actualizacionPseudoPlayer(player10,10);
-	actualizacionPseudoPlayer(player11,11);
-	actualizacionPseudoPlayer(player12,12);
-	actualizacionPseudoPlayer(player13,13);
-	actualizacionPseudoPlayer(player14,14);
-	actualizacionPseudoPlayer(player15,15);
-	actualizacionPseudoPlayer(player16,16);
-	actualizacionPseudoPlayer(player17,17);
-	actualizacionPseudoPlayer(player18,18);
-	actualizacionPseudoPlayer(player19,19);
+	actualizacionPseudoPlayer(obj,player0,0);
+	actualizacionPseudoPlayer(obj,player1,1);
+	actualizacionPseudoPlayer(obj,player2,2);
+	actualizacionPseudoPlayer(obj,player3,3);
+	actualizacionPseudoPlayer(obj,player4,4);
+	actualizacionPseudoPlayer(obj,player5,5);
+	actualizacionPseudoPlayer(obj,player6,6);
+	actualizacionPseudoPlayer(obj,player7,7);
+	actualizacionPseudoPlayer(obj,player8,8);
+	actualizacionPseudoPlayer(obj,player9,9);
+	actualizacionPseudoPlayer(obj,player10,10);
+	actualizacionPseudoPlayer(obj,player11,11);
+	actualizacionPseudoPlayer(obj,player12,12);
+	actualizacionPseudoPlayer(obj,player13,13);
+	actualizacionPseudoPlayer(obj,player14,14);
+	actualizacionPseudoPlayer(obj,player15,15);
+	actualizacionPseudoPlayer(obj,player16,16);
+	actualizacionPseudoPlayer(obj,player17,17);
+	actualizacionPseudoPlayer(obj,player18,18);
+	actualizacionPseudoPlayer(obj,player19,19);
 };
