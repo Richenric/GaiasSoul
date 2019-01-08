@@ -188,15 +188,13 @@ WSconnection.onmessage = function(msg) {
 	console.log("WS message: " + msg.data);
 	var obj = JSON.parse(msg.data);
 	//console.log(obj);
-	for(var i=0; i<20; i++){
-		 var pActual = 'player' + i;
 		 
-		 if(obj.pActual!=undefined && obj.pActual.tag != myUser.nickname){
-			if(onGameScene.pseudoPlayers[i].isActive){
-				onGameScene.pseudoPlayers[i].update(obj.pActual.x,obj.pActual.y,obj.pActual.isDefense,obj.pActual.isDead/*, msg.data[i].spells*/)
-				if(onGameScene.pseudoPlayers[i].isDead){
-					onGameScene.pseudoPlayers[i].muero();
-					onGameScene.pseudoPlayers[i].deactivate();
+		 if(obj.player0 !=undefined && obj.pActual.tag != myUser.nickname){
+			if(onGameScene.pseudoPlayers[0].isActive){
+				onGameScene.pseudoPlayers[0].update(obj.player0.x,obj.player0.y,obj.player0.isDefense,obj.player0.isDead/*, msg.data[i].spells*/)
+				if(onGameScene.pseudoPlayers[0].isDead){
+					onGameScene.pseudoPlayers[0].muero();
+					onGameScene.pseudoPlayers[0].deactivate();
 				}
 			}else{
 				var frame = 'red';
@@ -209,7 +207,7 @@ WSconnection.onmessage = function(msg) {
 				    break;
 				    //ETC
 				}  */
-				onGameScene.pseudoPlayers[i].activate(obj.pActual.elemento, obj.pActual.tag, frame);
+				onGameScene.pseudoPlayers[0].activate(obj.player0.elemento, obj.player0.tag, frame);
 			}
 		} 
 	} 

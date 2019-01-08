@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import GaiaSoulServer.GaiaSouls.Player;
 
 public class ManejadorWS extends TextWebSocketHandler{
-	
+
 	private ObjectMapper mapper = new ObjectMapper();
 	
 	private Map<Long, Player> playersOnline = new ConcurrentHashMap<Long,Player>();
@@ -70,14 +70,15 @@ public class ManejadorWS extends TextWebSocketHandler{
 				break;
 		}
 		//servidor a cliente --> pos de othersplayers othersspells
-		//ObjectNode responseNode = mapper.createObjectNode();
-		ObjectNode []arrayaux = new ObjectNode [20];
+		ObjectNode responseNode = mapper.createObjectNode();
+		//ObjectNode []arrayaux = new ObjectNode [20];
 		int i = 0;
 		for (Player player : playersOnline.values()) {
 			if(player != playersOnline.get(pId)) {
 				//responseNode.arrayNode(20);
 				//ObjectNode auxNode = (responseNode).a
-				ObjectNode playerNode = mapper.createObjectNode();
+				//ObjectNode playerNode = mapper.createObjectNode();
+				ObjectNode playerNode = (responseNode).putObject("player" + i);
 				playerNode
 					.put("x", player.getX())
 					.put("y", player.getY())
@@ -85,10 +86,11 @@ public class ManejadorWS extends TextWebSocketHandler{
 					.put("elemento", player.getElemento())
 					.put("isDead", player.isDead())
 					.put("isDefense", player.isDefense());
-				arrayaux[i] = playerNode;
+				
+				//arrayaux[i] = (playerNode);
 				i++;
 			}
 		}
-		session.sendMessage(new TextMessage(arrayaux.toString()));
+		session.sendMessage(new TextMessage(responseNode.toString()));
 	}
 }
