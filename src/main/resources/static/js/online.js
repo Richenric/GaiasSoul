@@ -189,26 +189,25 @@ WSconnection.onmessage = function(msg) {
 	var obj = JSON.parse(msg.data);
 	//console.log(obj);
 		 
-		 if(obj.player0 !=undefined && obj.pActual.tag != myUser.nickname){
-			if(onGameScene.pseudoPlayers[0].isActive){
-				onGameScene.pseudoPlayers[0].update(obj.player0.x,obj.player0.y,obj.player0.isDefense,obj.player0.isDead/*, msg.data[i].spells*/)
-				if(onGameScene.pseudoPlayers[0].isDead){
-					onGameScene.pseudoPlayers[0].muero();
-					onGameScene.pseudoPlayers[0].deactivate();
-				}
-			}else{
-				var frame = 'red';
-				/*switch(msg.data[i].elemento) {
-				  case 0:
-				    frame = 'red'
-				    break;
-				  case 1:
-				    // code block
-				    break;
-				    //ETC
-				}  */
-				onGameScene.pseudoPlayers[0].activate(obj.player0.elemento, obj.player0.tag, frame);
+	if(obj.player0 !=undefined && obj.pActual.tag != myUser.nickname){
+		if(onGameScene.pseudoPlayers[0].isActive){
+			onGameScene.pseudoPlayers[0].update(obj.player0.x,obj.player0.y,obj.player0.isDefense,obj.player0.isDead/*, msg.data[i].spells*/)
+			if(onGameScene.pseudoPlayers[0].isDead){
+				onGameScene.pseudoPlayers[0].muero();
+				onGameScene.pseudoPlayers[0].deactivate();
 			}
-		} 
+		}else{
+			var frame = 'red';
+			/*switch(msg.data[i].elemento) {
+			  case 0:
+			    frame = 'red'
+			    break;
+			  case 1:
+			    // code block
+			    break;
+			    //ETC
+			}  */
+			onGameScene.pseudoPlayers[0].activate(obj.player0.elemento, obj.player0.tag, frame);
+		}
 	} 
 };
