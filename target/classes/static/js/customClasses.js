@@ -35,6 +35,16 @@ class Disparo extends Phaser.Physics.Arcade.Sprite{
             this.iMayDie = true;
         }
     };
+    serialize(){
+    	var obj = {
+    			x: this.x,
+    			y: this.y,
+    			type: this.spellType,
+    			tag: this.tag,
+    			elemento: this.elemento
+    	}
+    	return obj;
+    }
 };
 
 class Escudo extends Phaser.Physics.Arcade.Sprite{
@@ -78,6 +88,16 @@ class Escudo extends Phaser.Physics.Arcade.Sprite{
             this.iMayDie = true;//y se permite la creacion de otro zonal
         }
     };
+    serialize(){
+    	var obj = {
+    			x: this.x,
+    			y: this.y,
+    			type: this.spellType,
+    			tag: this.tag,
+    			elemento: this.elemento
+    	}
+    	return obj;
+    }
 }
 
 class Zonal extends Phaser.Physics.Arcade.Sprite{
@@ -117,6 +137,16 @@ class Zonal extends Phaser.Physics.Arcade.Sprite{
             this.iMayDie = true;//y se permite la creacion de otro zonal
         }
     };
+    serialize(){
+    	var obj = {
+    			x: this.x,
+    			y: this.y,
+    			type: this.spellType,
+    			tag: this.tag,
+    			elemento: this.elemento
+    	}
+    	return obj;
+    }
 }
 
 class Muerte extends Phaser.GameObjects.Sprite{
@@ -207,6 +237,7 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
         this.isDead = false;
         
         this.emmi.on = true;
+        this.emmi.frame = frame;
     }
     deactivate(){
     	this.emmi.on = false;
@@ -299,7 +330,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.text = texture;
 
         this.depth = 1;
-        this.alpha = 1;
+        this.alpha = 0;
         this.setScale(0.5,0.5);
         this.setBlendMode('ADD'),
         this.controlers = cp;
@@ -308,6 +339,13 @@ class Player extends Phaser.Physics.Arcade.Sprite{
     muero(){
         var effectoMuerte = new Muerte(this.scene, this.x, this.y, this.text, this.frpost);
         this.effects.add(effectoMuerte);
+    }
+    createSerializedArray(){
+    	var array = [];
+    	this.spells.children.each(function (spe) {
+    		array.push(spe.serialize());
+        },this);
+    	return array;
     }
     update(){
         this.velocityX = Math.min(this.velocityX, 300);

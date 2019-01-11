@@ -90,8 +90,21 @@ onGameScene.create = function(){
     //this.keyEnter = this.input.keyboard.addKey(13);
     //Inicializacion de jugadores
     this.pseudoPlayers = [];
-    
-    this.player = new Player(this, gameW/2-400, gameH/2, 'yellow', 'yellow',myPlayer.tag, true, cp);
+    var frame;
+    switch(myUser.elemento) {
+	  	case 0: frame = 'redDeadRedemption';
+	    	break;
+	  	case 1: frame = 'grey';
+	  		break;
+	  	case 2: frame = 'green';
+	  		break;
+	  	case 3: frame = 'brown';
+	  		break;
+	  	case 4: frame = 'blue';
+	  		break;
+	  	case 5: frame = 'red';
+	}
+    this.player = new Player(this, gameW/2-400, gameH/2, 'yellow', frame, myPlayer.tag, true, cp);
     this.physics.world.enable(this.player);
     //PARA RELLENAR CON LOS JUGADORES QUE LLEGUEN DE ALGÚN LUGAR
 	for (var i = 0; i < 19; i++) {
@@ -165,7 +178,8 @@ onGameScene.update = function(){
     		x: myPlayer.x,
     		y: myPlayer.y,
     		isDead: myPlayer.isDead,
-    		isDefense: myPlayer.isDefense
+    		isDefense: myPlayer.isDefense,
+    		habilidades: this.player.createSerializedArray()
 	}
     WSconnection.send(JSON.stringify(obj));
 };

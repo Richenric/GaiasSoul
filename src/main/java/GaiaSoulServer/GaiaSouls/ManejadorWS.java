@@ -1,6 +1,7 @@
 package GaiaSoulServer.GaiaSouls;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -45,7 +46,7 @@ public class ManejadorWS extends TextWebSocketHandler{
 			case 0://cliente first conection
 				int x = node.get("x").asInt();
 				int y = node.get("y").asInt();
-				String tag = node.get("tag").toString();
+				String tag = node.get("tag").asText();
 				int elemento = node.get("elemento").asInt();
 				playersOnline.put(pId, new Player(x,y,tag,elemento));
 				break;
@@ -55,12 +56,16 @@ public class ManejadorWS extends TextWebSocketHandler{
 				p.setY(node.get("y").asInt());
 				p.setDead(node.get("isDead").asBoolean());
 				p.setDefense(node.get("isDefense").asBoolean());
+				List<Spell> spellArray = mapper.convertValue(node.get("habilidades"), ArrayList.class); //!!!!
+				p.setSpellArray(spellArray);
 				break;
 			case 2: //cliente -> array hechizos
-				String aHechizos = node.get("arrayHechizos").asText();
+				/*Player pp = playersOnline.get(pId);
+				List<Spell> spellArray = mapper.convertValue(node.get("habilidades"), ArrayList.class);
+				pp.setSpellArray(spellArray);*/
 				break;
 			case 3: //SUMAR LA VARIABLE SCORE
-				String tag1 = node.get("tag").toString();
+				String tag1 = node.get("tag").asText();
 				for (Player player : playersOnline.values()) {
 					if(player.getTag() == tag1) {
 						player.setScore(player.getScore()+1);
@@ -86,7 +91,8 @@ public class ManejadorWS extends TextWebSocketHandler{
 					.put("tag", player.getTag())
 					.put("elemento", player.getElemento())
 					.put("isDead", player.isDead())
-					.put("isDefense", player.isDefense());
+					.put("isDefense", player.isDefense())
+					.put("Spells",mapper.valueToTree(player.getSpellArray()));
 				
 				//arrayaux[i] = (playerNode);
 				i++;

@@ -152,7 +152,7 @@ lobbyScene.create = function(){
             earthBg.setAlpha(0);
             notEarth.setAlpha(1);});
         selectEarth.on('pointerdown', function (pointer) {
-            myUser.elemento = 1;});////////////////////////////////////////////////////////
+            myUser.elemento = 3;});////////////////////////////////////////////////////////
     
     //Seleccion de METAL
     let notMetal = this.add.sprite(32,44, 'notMetal').setInteractive();
@@ -176,7 +176,7 @@ lobbyScene.create = function(){
             metalBg.setAlpha(0);
             notMetal.setAlpha(1);});
         selectMetal.on('pointerdown', function (pointer) {
-            myUser.elemento = 2;});////////////////////////////////////////////////////////
+            myUser.elemento = 1;});////////////////////////////////////////////////////////
     
     //Seleccion de AGUA
     let notWater = this.add.sprite(-33,44, 'notWater').setInteractive();
@@ -200,7 +200,7 @@ lobbyScene.create = function(){
             waterBg.setAlpha(0);
             notWater.setAlpha(1);});
         selectWater.on('pointerdown', function (pointer) {
-            myUser.elemento = 3;});////////////////////////////////////////////////////////
+            myUser.elemento = 4;});////////////////////////////////////////////////////////
     
     //Seleccion de MADERA
     let notWood = this.add.sprite(-52,-17, 'notWood').setInteractive();
@@ -224,7 +224,7 @@ lobbyScene.create = function(){
             woodBg.setAlpha(0);
             notWood.setAlpha(1);});
         selectWood.on('pointerdown', function (pointer) {
-            myUser.elemento = 4;});////////////////////////////////////////////////////////
+            myUser.elemento = 2;});////////////////////////////////////////////////////////
     
     //Anillo que enmarca el boton
     let selectRing = this.add.sprite(0,0, 'selectRing');
@@ -306,7 +306,7 @@ lobbyScene.update = function(){
     }
     //////////////SE CAMBIARA////////////////////////////////////////////////////////
     //ACTUALIZAR ELEMENTO
-    for(var i=0; i<20; i++){
+    /*for(var i=0; i<20; i++){
     	if(this.auxUsers[i] != undefined){
 	    	if(this.auxUsers[i].id == myUser.id){
 	    		if(this.auxUsers[i-1] != undefined){
@@ -318,7 +318,7 @@ lobbyScene.update = function(){
     	}else {
     		myUser.color = 0;
     	}
-    }
+    }*/
     ////////////////////////////////////////////////////////
     
     //ACTUALIZAR JUGADORES

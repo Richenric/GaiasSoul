@@ -4,6 +4,8 @@ import GaiaSoulServer.GaiaSouls.Spell;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 public class Player {
 	private int x,y,elemento,score;
 	private boolean isDead, isDefense;
@@ -47,7 +49,7 @@ public class Player {
 		return elemento;
 	}
 	public List<Spell> getSpellArray(){
-		return this.spellArray;
+		return spellArray;
 	}
 	public int getScore() {
 		return score;
