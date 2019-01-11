@@ -94,3 +94,4 @@ onInterface.update = function(){
     this.shieldContainer.getAt(2).setScale(Math.min((onGameScene.p1.allCd[2]/480)/2,0.5),Math.min((onGameScene.p1.allCd[2]/480)/2,0.5));
     this.zonalContainer.getAt(2).setScale(Math.min((onGameScene.p1.allCd[0]/120)/2,0.5),Math.min((onGameScene.p1.allCd[0]/120)/2,0.5));
 };
+
