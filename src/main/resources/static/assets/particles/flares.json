@@ -56,7 +56,7 @@
 },
  "brown":
 {
-	"frame": {"x":780,"y":2,"w":128,"h":128},
+	"frame": {"x":782,"y":2,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -68,7 +68,7 @@
 	"version": "1.0",
 	"image": "flares.png",
 	"format": "RGBA8888",
-	"size": {"w":652,"h":132},
+	"size": {"w":913,"h":132},
 	"scale": "1",
 	"smartupdate": "$TexturePacker:SmartUpdate:f2781d89823d5a67fc31381af364b421:da82646b19b2f0c08684086824b1e581:71625947cf221c10549b852c13ffedc7$"
 }
