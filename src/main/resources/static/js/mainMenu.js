@@ -91,7 +91,7 @@ mainMenuScene.create = function(){
     
     for(i=0; i<limW; i++){
         for(j=0; j<limH; j++){
-            let bg = this.add.sprite(i*bgPos,j*bgPos,'background');
+            let bg = this.add.sprite(i*bgPos,j*bgPos,'bg');
             bg.setDepth(0);}}
     
     this.input.setDefaultCursor('url(assets/cursors/CustomCursor.cur), pointer');
