@@ -263,30 +263,39 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
     	this.setPosition(posX, posY);
     	this.isDefense = isDefense;
     	this.isDead = isDead;
-    	/*
-    	for(var i = 0; i<spells.length; i++){
-    		if(this.spells.children[i] != undefined){
-    			this.spells.children[i].x = spells[i].x;
-    			this.spells.children[i].y = spells[i].y;
-    		}
-    		else {
-    			if(spells[i].tipo = 0){
-    				var disparo = new Disparo(this.scene, spells[i].x, spells[i].y, 'enemy', this.frame, this.tag, this.elemento)
-    				this.spells.add(disparo);
-    			}else if(spells[i].tipo = 1){
-    				var escudo = new Escudo(this.scene, spells[i].x, spells[i].y, 'enemy', this.frame, this.tag, this.elemento);
-    	            this.spells.add(escudo);
-    			}else if(spells[i].tipo = 2){
-    				var zonal = new Zonal(this.scene, spells[i].x, spells[i].y, 'enemy', this.frame, this.tag, this.elemento);
-    				this.spells.add(zonal);
-    			}
-    		}
+    	
+    	if(spells != undefined){
+	    	for(var i = 0; i<spells.length; i++){
+	    		if(this.spells.children[i] != undefined){
+	    			console.log("actualizo");
+	    			this.spells.children[i].x = spells[i].x;
+	    			this.spells.children[i].y = spells[i].y;
+	    		}
+	    		else {
+	    			console.log("creo");
+	    			if(spells[i].tipo = 0){
+	    				var disparo = new Disparo(this.scene, spells[i].x, spells[i].y, 'enemy', this.frame, this.tag, this.elemento)
+	    				this.spells.add(disparo);
+	    			}else if(spells[i].tipo = 1){
+	    				var escudo = new Escudo(this.scene, spells[i].x, spells[i].y, 'enemy', this.frame, this.tag, this.elemento);
+	    	            this.spells.add(escudo);
+	    			}else if(spells[i].tipo = 2){
+	    				var zonal = new Zonal(this.scene, spells[i].x, spells[i].y, 'enemy', this.frame, this.tag, this.elemento);
+	    				this.spells.add(zonal);
+	    			}
+	    		}
+	    	}
+	    	if(this.spells.children.lenght > spells.lenght){
+	    		for(var i = spells.lenght; i<this.spells.lenght; i++){
+	    			this.spells.children[i].destroy();
+	    		}
+	    	}
     	}
-    	if(this.spells.children.lenght > spells.lenght){
-    		for(var i = spells.lenght; i<this.spells.lenght; i++){
-    			this.spells.children[i].destroy();
-    		}
-    	} */
+    	this.spells.children.each(function (spe) {
+            if(spe.iMayDie){
+                this.effects.remove(spe,this.scene,true);}
+            else{ eff.update(); }
+        },this);
     }
 }
     
@@ -418,14 +427,14 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         //ACTUALIZACION GRUPOS
         this.spells.children.each(function (spe) {
             if(spe.iMayDie){
-                this.spells.remove(spe,offGameScene,true);
+                this.spells.remove(spe,this.scene,true);
                 if(spe.spellType = 2)this.isDefense = false;}
             else{ spe.update(this.x, this.y); }
         },this);
 
         this.effects.children.each(function (eff) {
             if(eff.iMayDie){
-                this.effects.remove(eff,offGameScene,true);}
+                this.effects.remove(eff,this.scene,true);}
             else{ eff.update(); }
         },this);
     }
