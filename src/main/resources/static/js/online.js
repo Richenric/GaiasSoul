@@ -52,18 +52,18 @@ onGameScene.create = function(){
             let bg = this.add.sprite(i*bgPos,j*bgPos,'background');
             bg.setDepth(0);}}
     
-    let sacredFire = this.add.sprite(sceneW/2, sceneH/17.25, 'sanctuaryFire');
-    sacredFire.setScale(1.5);
-    let sacredEarth = this.add.sprite(sceneW/1.034, sceneH/3, 'sanctuaryEarth');
-    sacredEarth.setScale(1.5);
-    sacredEarth.setRotation(1.58);
-    let sacredMetal = this.add.sprite(sceneW/1.5, sceneH/1.062, 'sanctuaryMetal');
-    sacredMetal.setScale(1.5);
-    let sacredWater = this.add.sprite(sceneW/3, sceneH/1.062, 'sanctuaryWater');
-    sacredWater.setScale(1.5);
-    let sacredWood = this.add.sprite(sceneW/31, sceneH/3, 'sanctuaryWood');
-    sacredWood.setScale(1.5);
-    sacredWood.setRotation(1.58);
+    this.sacredFire = this.add.sprite(sceneW/2, sceneH/17.25, 'sanctuaryFire');
+    this.sacredFire.setScale(1.5);
+    this.sacredEarth = this.add.sprite(sceneW/1.034, sceneH/3, 'sanctuaryEarth');
+    this.sacredEarth.setScale(1.5);
+    this.sacredEarth.setRotation(1.58);
+    this.sacredMetal = this.add.sprite(sceneW/1.5, sceneH/1.062, 'sanctuaryMetal');
+    this.sacredMetal.setScale(1.5);
+    this.sacredWater = this.add.sprite(sceneW/3, sceneH/1.062, 'sanctuaryWater');
+    this.sacredWater.setScale(1.5);
+    this.sacredWood = this.add.sprite(sceneW/31, sceneH/3, 'sanctuaryWood');
+    this.sacredWood.setScale(1.5);
+    this.sacredWood.setRotation(1.58);
     //Create controls//Pasan a ser parte de la clase del player
        //PLAYER 1: B->escudo V->zonal Espacio->Disparo
     keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A); 
@@ -91,24 +91,24 @@ onGameScene.create = function(){
     var frame,x,y;
     switch(myUser.elemento) {
 	  	case 0: frame = 'redDeadRedemption';
-	  		x = sacredFire.x;
-	  		y = sacredFire.y;
+	  		x = this.sacredFire.x;
+	  		y = this.sacredFire.y;
 	    	break;
 	  	case 1: frame = 'grey';
-	  		x = sacredMetal.x;
-	  		y = sacredMetal.y;
+	  		x = this.sacredMetal.x;
+	  		y = this.sacredMetal.y;
 	  		break;
 	  	case 2: frame = 'green';
-			x = sacredWood.x;
-  			y = sacredWood.y;
+			x = this.sacredWood.x;
+  			y = this.sacredWood.y;
 	  		break;
 	  	case 3: frame = 'brown';
-	  		x = sacredEarth.x;
-			y = sacredEarth.y;
+	  		x = this.sacredEarth.x;
+			y = this.sacredEarth.y;
 	  		break;
 	  	case 4: frame = 'blue';
-	  		x = sacredWater.x;
-			y = sacredWater.y;
+	  		x = this.sacredWater.x;
+			y = this.sacredWater.y;
 	  		break;
 	  	case 5: frame = 'red';
 	  		x = gameW/2-400;
@@ -191,24 +191,24 @@ onGameScene.update = function(){
 	    //this.player.destroy();
 	    switch(myUser.elemento) {
 		  	case 0:
-		  		this.player.x = sacredFire.x;
-		  		this.player.y = sacredFire.y;
+		  		this.player.x = this.sacredFire.x;
+		  		this.player.y = this.sacredFire.y;
 		    	break;
 		  	case 1:
-		  		this.player.x = sacredMetal.x;
-		  		this.player.y = sacredMetal.y;
+		  		this.player.x = this.sacredMetal.x;
+		  		this.player.y = this.sacredMetal.y;
 		  		break;
 		  	case 2:
-		  		this.player.x = sacredWood.x;
-		  		this.player.y = sacredWood.y;
+		  		this.player.x = this.sacredWood.x;
+		  		this.player.y = this.sacredWood.y;
 		  		break;
 		  	case 3:
-		  		this.player.x = sacredEarth.x;
-		  		this.player.y = sacredEarth.y;
+		  		this.player.x = this.sacredEarth.x;
+		  		this.player.y = this.sacredEarth.y;
 		  		break;
 		  	case 4:
-		  		this.player.x = sacredWater.x;
-		  		this.player.y = sacredWater.y;
+		  		this.player.x = this.sacredWater.x;
+		  		this.player.y = this.sacredWater.y;
 		  		break;
 		  	case 5:
 		  		this.player.x = gameW/2-400;
