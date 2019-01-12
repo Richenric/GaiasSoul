@@ -209,17 +209,12 @@ function actualizacionPseudoPlayer(playernum,num){
 		}else{
 			var frame;
 			switch(playernum.elemento) {
-			  	case 0: frame = 'redDeadRedemption';
-			    	break;
-			  	case 1: frame = 'grey';
-			  		break;
-			  	case 2: frame = 'green';
-			  		break;
-			  	case 3: frame = 'brown';
-			  		break;
-			  	case 4: frame = 'blue';
-			  		break;
-			  	case 5: frame = 'red';
+			  	case 0: frame = 'redDeadRedemption'; break;
+			  	case 1: frame = 'grey' ;             break;
+			  	case 2: frame = 'green';         	 break;
+			  	case 3: frame = 'brown';      		 break;
+			  	case 4: frame = 'blue' ;			 break;
+			  	case 5: frame = 'red';				 break;
 			}
 			onGameScene.pseudoPlayers[num].activate(playernum.elemento, playernum.tag, frame);
 		}
@@ -229,7 +224,6 @@ function actualizacionPseudoPlayer(playernum,num){
 WSconnection.onmessage = function(msg) {
 	//console.log("WS message: " + msg.data);
 	var obj = JSON.parse(msg.data);
-	//console.log(obj);
 	if(obj.player0 !=undefined){
 		actualizacionPseudoPlayer(obj.player0,0);
 	}if(obj.player1 !=undefined){
