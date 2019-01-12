@@ -187,7 +187,7 @@ onGameScene.update = function(){
             eff.emmi.on = false;
             onGameScene.player.effects.remove(eff,onGameScene,true);
         },this);
-        this.p1.muero();
+        this.player.muero();
 	    //this.player.destroy();
 	    switch(myUser.elemento) {
 		  	case 0:
