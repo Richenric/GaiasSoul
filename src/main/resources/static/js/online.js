@@ -5,6 +5,7 @@ onGameScene.init = function(){
     this.hasEnded = false;
     myPlayer.tag = myUser.tag;
     myPlayer.elemento = myUser.elemento;
+    let pointMe;
 };
 
 //load assets
@@ -26,6 +27,7 @@ onGameScene.preload = function(){
     this.load.image('sanctuaryWater','assets/sprites/sanctuaryWater.png');
     this.load.image('sanctuaryWood','assets/sprites/sanctuaryWood.png');
     //////////////END-ME////////////////////////////////////////////////////////    
+    this.load.image('pointMe','assets/sprites/volLoud.png');
 };
 //called once after the preload ends
 onGameScene.create = function(){
@@ -101,6 +103,10 @@ onGameScene.create = function(){
 	  	case 5: frame = 'red';
 	}
     this.player = new Player(this, gameW/2-400, gameH/2, 'yellow', frame, myPlayer.tag, true, cp);
+                this pointMe = this.add.sprite(myPlayer.x,myPlayer.y-60,'pointMe');
+                this.pointMe.setRotation(1.5708);//volLoud
+                this.pointMe.setDepth(1);
+                
     this.physics.world.enable(this.player);
     //PARA RELLENAR CON LOS JUGADORES QUE LLEGUEN DE ALGÚN LUGAR
 	for (var i = 0; i < 19; i++) {
@@ -160,6 +166,10 @@ onGameScene.update = function(){
         this.player.update();
         myPlayer.x = this.player.x;
         myPlayer.y = this.player.y;
+        
+        this.pointMe.x = myPlayer.x;
+        this.pointMe.y = myPlayer.y-60;
+        
     }else{
         this.player.effects.children.each(function (eff) {
             eff.emmi.on = false;
