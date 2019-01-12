@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Implementation-Title: GaiaSouls
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: Mawyn
+Built-By: LucasAlejandro
 Implementation-Vendor-Id: GaiaSoulServer
 Build-Jdk: 1.8.0_191
 Implementation-URL: http://projects.spring.io/spring-boot/GaiasSoul/

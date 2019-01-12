@@ -5,6 +5,7 @@ onGameScene.init = function(){
     this.hasEnded = false;
     myPlayer.tag = myUser.tag;
     myPlayer.elemento = myUser.elemento;
+    let pointMe;
 };
 
 //load assets
@@ -26,6 +27,7 @@ onGameScene.preload = function(){
     this.load.image('sanctuaryWater','assets/sprites/sanctuaryWater.png');
     this.load.image('sanctuaryWood','assets/sprites/sanctuaryWood.png');
     //////////////END-ME////////////////////////////////////////////////////////    
+    this.load.image('pointMe','assets/sprites/volLoud.png');
 };
 //called once after the preload ends
 onGameScene.create = function(){
@@ -86,21 +88,37 @@ onGameScene.create = function(){
     //this.keyEnter = this.input.keyboard.addKey(13);
     //Inicializacion de jugadores
     this.pseudoPlayers = [];
-    var frame;
+    var frame,x,y;
     switch(myUser.elemento) {
 	  	case 0: frame = 'redDeadRedemption';
+	  		x = sacredFire.x;
+	  		y = sacredFire.y;
 	    	break;
 	  	case 1: frame = 'grey';
+	  		x = sacredMetal.x;
+	  		y = sacredMetal.y;
 	  		break;
 	  	case 2: frame = 'green';
+			x = sacredWood.x;
+  			y = sacredWood.y;
 	  		break;
 	  	case 3: frame = 'brown';
+	  		x = sacredEarth.x;
+			y = sacredEarth.y;
 	  		break;
 	  	case 4: frame = 'blue';
+	  		x = sacredWater.x;
+			y = sacredWater.y;
 	  		break;
 	  	case 5: frame = 'red';
+	  		x = gameW/2-400;
+	  		y = gameH/2;
 	}
-    this.player = new Player(this, gameW/2-400, gameH/2, 'yellow', frame, myPlayer.tag, true, cp);
+    this.player = new Player(this, x, y, 'yellow', frame, myPlayer.tag, true, cp);
+                this.pointMe = this.add.sprite(myPlayer.x,myPlayer.y-60,'pointMe');
+                this.pointMe.setRotation(1.5708);//volLoud
+                this.pointMe.setDepth(1);
+                
     this.physics.world.enable(this.player);
     //PARA RELLENAR CON LOS JUGADORES QUE LLEGUEN DE ALGÚN LUGAR
 	for (var i = 0; i < 19; i++) {
@@ -160,13 +178,42 @@ onGameScene.update = function(){
         this.player.update();
         myPlayer.x = this.player.x;
         myPlayer.y = this.player.y;
+        
+        this.pointMe.x = myPlayer.x;
+        this.pointMe.y = myPlayer.y-60;
+        
     }else{
         this.player.effects.children.each(function (eff) {
             eff.emmi.on = false;
             onGameScene.player.effects.remove(eff,onGameScene,true);
         },this);
 	    this.player.emmi.on = false;
-	    this.player.destroy();
+	    //this.player.destroy();
+	    switch(myUser.elemento) {
+		  	case 0:
+		  		this.player.x = sacredFire.x;
+		  		this.player.y = sacredFire.y;
+		    	break;
+		  	case 1:
+		  		this.player.x = sacredMetal.x;
+		  		this.player.y = sacredMetal.y;
+		  		break;
+		  	case 2:
+		  		this.player.x = sacredWood.x;
+		  		this.player.y = sacredWood.y;
+		  		break;
+		  	case 3:
+		  		this.player.x = sacredEarth.x;
+		  		this.player.y = sacredEarth.y;
+		  		break;
+		  	case 4:
+		  		this.player.x = sacredWater.x;
+		  		this.player.y = sacredWater.y;
+		  		break;
+		  	case 5:
+		  		this.player.x = gameW/2-400;
+		  		this.player.y = gameH/2;
+		}
 	    hasEnded = true;
     }
     var obj = {
