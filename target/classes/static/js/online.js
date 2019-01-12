@@ -187,7 +187,7 @@ onGameScene.update = function(){
             eff.emmi.on = false;
             onGameScene.player.effects.remove(eff,onGameScene,true);
         },this);
-	    this.player.emmi.on = false;
+        this.p1.muero();
 	    //this.player.destroy();
 	    switch(myUser.elemento) {
 		  	case 0:
@@ -214,7 +214,7 @@ onGameScene.update = function(){
 		  		this.player.x = gameW/2-400;
 		  		this.player.y = gameH/2;
 		}
-	    hasEnded = true;
+	    //hasEnded = true;
     }
     var obj = {
     		typePeticion: 1,
