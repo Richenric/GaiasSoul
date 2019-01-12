@@ -56,7 +56,7 @@
 },
  "brown":
 {
-	"frame": {"x":782,"y":2,"w":128,"h":128},
+	"frame": {"x":780,"y":2,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
