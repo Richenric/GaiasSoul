@@ -40,19 +40,15 @@ onGameScene.create = function(){
     //Lanzamos la escena de interfaz sobre la de juego
     this.scene.launch(onInterface);
     
-    //Ampliación del Background
-    let bg11 = this.add.image(0,0, 'background').setOrigin(0);
-    bg11.setDepth(0);
-    let bg21 = this.add.image(4096, 0, 'background').setOrigin(0).setFlipX(true);
-    bg21.setDepth(0);
-    let bg12 = this.add.image(0, 4096, 'background').setOrigin(0).setFlipY(true);
-    bg12.setDepth(0);
-    let bg22 = this.add.image(4096, 4096, 'background').setOrigin(0).setFlipX(true).setFlipY(true);
-    bg22.setDepth(0);
-    let bg13 = this.add.image(8192, 0, 'background').setOrigin(0).setFlipX(true);
-    bg13.setDepth(0);
-    let bg23 = this.add.image(8192, 4096, 'background').setOrigin(0).setFlipX(true).setFlipY(true);
-    bg23.setDepth(0);
+    //create bg (depth 0)
+    var bgPos = 670;
+    var limW = sceneW/337;
+    var limH = sceneH/337;
+    
+    for(i=0; i<limW; i++){
+        for(j=0; j<limH; j++){
+            let bg = this.add.sprite(i*bgPos,j*bgPos,'background');
+            bg.setDepth(0);}}
     
     let sacredFire = this.add.sprite(sceneW/2, sceneH/17.25, 'sanctuaryFire');
     sacredFire.setScale(1.5);

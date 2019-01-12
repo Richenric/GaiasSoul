@@ -1,27 +1,16 @@
 package GaiaSoulServer.GaiaSouls;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonPointer;
-import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.core.ObjectCodec;
-import com.fasterxml.jackson.core.JsonParser.NumberType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
-import com.fasterxml.jackson.databind.node.JsonNodeType;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import GaiaSoulServer.GaiaSouls.Player;
 
@@ -30,7 +19,6 @@ public class ManejadorWS extends TextWebSocketHandler{
 	private ObjectMapper mapper = new ObjectMapper();
 	
 	private Map<Long, Player> playersOnline = new ConcurrentHashMap<Long,Player>();
-	
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
@@ -57,7 +45,7 @@ public class ManejadorWS extends TextWebSocketHandler{
 				p.setDead(node.get("isDead").asBoolean());
 				p.setDefense(node.get("isDefense").asBoolean());
 				List<Spell> spellArray = mapper.convertValue(node.get("habilidades"), ArrayList.class); //!!!!
-				System.out.println(spellArray.toString());
+				//System.out.println(spellArray.toString());
 				p.setSpellArray(spellArray);
 				break;
 			case 2: //cliente -> array hechizos
@@ -73,18 +61,12 @@ public class ManejadorWS extends TextWebSocketHandler{
 					}
 				}
 				break;
-			case 4:
-				break;
 		}
 		//servidor a cliente --> pos de othersplayers othersspells
 		ObjectNode responseNode = mapper.createObjectNode();
-		//ObjectNode []arrayaux = new ObjectNode [20];
 		int i = 0;
 		for (Player player : playersOnline.values()) {
 			if(player != playersOnline.get(pId)) {
-				//responseNode.arrayNode(20);
-				//ObjectNode auxNode = (responseNode).a
-				//ObjectNode playerNode = mapper.createObjectNode();
 				ObjectNode playerNode = (responseNode).putObject("player" + i);
 				playerNode
 					.put("x", player.getX())
@@ -94,8 +76,6 @@ public class ManejadorWS extends TextWebSocketHandler{
 					.put("isDead", player.isDead())
 					.put("isDefense", player.isDefense())
 					.set("spells",mapper.valueToTree(player.getSpellArray()));
-				
-				//arrayaux[i] = (playerNode);
 				i++;
 			}
 		}

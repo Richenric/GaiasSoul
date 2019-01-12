@@ -39,11 +39,15 @@ offGameScene.create = function(){
     //Lanzamos la escena de interfaz sobre la de juego
     this.scene.launch(offInterface);
     
-    //create bg sprite (depth 0)
-    let bg = this.add.sprite(0,0, 'background');
-
-    bg.setPosition(gameW/2,gameH/2);
-    bg.setDepth(0);
+    //create bg (depth 0)
+    var bgPos = 670;
+    var limW = gameW/337;
+    var limH = gameH/337;
+    
+    for(i=0; i<limW; i++){
+        for(j=0; j<limH; j++){
+            let bg = this.add.sprite(i*bgPos,j*bgPos,'background');
+            bg.setDepth(0);}}
 
     this.input.setDefaultCursor('url(assets/cursors/invisible.cur), pointer');
 

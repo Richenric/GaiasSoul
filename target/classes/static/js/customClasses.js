@@ -267,25 +267,27 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
     	if(spells != undefined){
 	    	for(var i = 0; i<spells.length; i++){
 	    		if(this.spells.children[i] != undefined){
-	    			console.log("actualizo");
+
+	    			console.log(this.spells.children[i]); //NO BORRAR ESTO NOS DA LA VIDAAA
 	    			this.spells.children[i].x = spells[i].x;
 	    			this.spells.children[i].y = spells[i].y;
-	    		}
-	    		else {
-	    			console.log("creo");
-	    			if(spells[i].tipo = 0){
+	    		}else {
+
+	    			//console.log(this.spells.children[i]); //NO BORRAR ESTO NOS DA LA VIDAAA
+	    			//console.log("creo");
+	    			if(spells[i].type == 0){
 	    				var disparo = new Disparo(this.scene, spells[i].x, spells[i].y, 'enemy', 'red', this.tag, this.elemento)
 	    				this.spells.add(disparo);
-	    			}else if(spells[i].tipo = 1){
-	    				var escudo = new Escudo(this.scene, spells[i].x, spells[i].y, 'enemy', 'red', this.tag, this.elemento);
-	    	            this.spells.add(escudo);
-	    			}else if(spells[i].tipo = 2){
+	    			}else if(spells[i].type == 1){
 	    				var zonal = new Zonal(this.scene, spells[i].x, spells[i].y, 'enemy', 'red', this.tag, this.elemento);
 	    				this.spells.add(zonal);
+	    			}else if(spells[i].type == 2){
+	    				var escudo = new Escudo(this.scene, spells[i].x, spells[i].y, 'enemy', 'red', this.tag, this.elemento);
+	    	            this.spells.add(escudo);
 	    			}
 	    		}
 	    	}
-	    	if(this.spells.children.lenght > spells.lenght){
+	    	if(this.spells.children.length > spells.lengh){
 	    		for(var i = spells.lenght; i<this.spells.lenght; i++){
 	    			this.spells.children[i].destroy();
 	    		}
