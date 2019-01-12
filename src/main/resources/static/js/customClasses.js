@@ -274,13 +274,13 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
 	    		else {
 	    			console.log("creo");
 	    			if(spells[i].tipo = 0){
-	    				var disparo = new Disparo(this.scene, spells[i].x, spells[i].y, 'enemy', this.frame, this.tag, this.elemento)
+	    				var disparo = new Disparo(this.scene, spells[i].x, spells[i].y, 'enemy', 'red', this.tag, this.elemento)
 	    				this.spells.add(disparo);
 	    			}else if(spells[i].tipo = 1){
-	    				var escudo = new Escudo(this.scene, spells[i].x, spells[i].y, 'enemy', this.frame, this.tag, this.elemento);
+	    				var escudo = new Escudo(this.scene, spells[i].x, spells[i].y, 'enemy', 'red', this.tag, this.elemento);
 	    	            this.spells.add(escudo);
 	    			}else if(spells[i].tipo = 2){
-	    				var zonal = new Zonal(this.scene, spells[i].x, spells[i].y, 'enemy', this.frame, this.tag, this.elemento);
+	    				var zonal = new Zonal(this.scene, spells[i].x, spells[i].y, 'enemy', 'red', this.tag, this.elemento);
 	    				this.spells.add(zonal);
 	    			}
 	    		}
@@ -294,7 +294,7 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
     	this.spells.children.each(function (spe) {
             if(spe.iMayDie){
                 this.effects.remove(spe,this.scene,true);}
-            else{ eff.update(); }
+            else{ spe.update(); }
         },this);
     }
 }

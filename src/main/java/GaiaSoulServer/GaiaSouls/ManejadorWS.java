@@ -93,7 +93,7 @@ public class ManejadorWS extends TextWebSocketHandler{
 					.put("elemento", player.getElemento())
 					.put("isDead", player.isDead())
 					.put("isDefense", player.isDefense())
-					.set("Spells",mapper.valueToTree(player.getSpellArray()));
+					.set("spells",mapper.valueToTree(player.getSpellArray()));
 				
 				//arrayaux[i] = (playerNode);
 				i++;
