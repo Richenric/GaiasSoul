@@ -201,7 +201,7 @@ WSconnection.onerror = function(e) {
 function actualizacionPseudoPlayer(playernum,num){
 	if(playernum !=undefined && playernum.tag != myUser.nickname){
 		if(onGameScene.pseudoPlayers[num].isActive){
-			onGameScene.pseudoPlayers[num].update(playernum.x,playernum.y,playernum.isDefense,playernum.isDead/*, msg.data[i].spells*/)
+			onGameScene.pseudoPlayers[num].update(playernum.x,playernum.y,playernum.isDefense,playernum.isDead, playernum.spells)
 			if(onGameScene.pseudoPlayers[num].isDead){
 				onGameScene.pseudoPlayers[num].muero();
 				onGameScene.pseudoPlayers[num].deactivate();
