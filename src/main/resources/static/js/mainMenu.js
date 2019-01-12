@@ -81,10 +81,19 @@ mainMenuScene.create = function(){
         mainMenuScene.scene.switch(offGameScene);
     }
     //BACKGROUND// --> Se crea y coloca el sprite del fondo
-    let bg = this.add.sprite(0,0, 'bg');
     let gameW = this.sys.game.config.width;
 	let gameH = this.sys.game.config.height;
-    bg.setPosition(gameW/2,gameH/2);
+    
+    //BACKGROUND//
+    var bgPos = 670;
+    var limW = gameW/337;
+    var limH = gameH/337;
+    
+    for(i=0; i<limW; i++){
+        for(j=0; j<limH; j++){
+            let bg = this.add.sprite(i*bgPos,j*bgPos,'background');
+            bg.setDepth(0);}}
+    
     this.input.setDefaultCursor('url(assets/cursors/CustomCursor.cur), pointer');
     
     //~CONTENEDORES~// --> Para introducir en ellos los botones, permitiendo mayor facilidad a la hora de animarlos.

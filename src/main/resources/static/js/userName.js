@@ -22,9 +22,14 @@ userScene.create = function(){
 	var serverWavingPossible = true;
 	
     //BACKGROUND//
-    let bg = this.add.sprite(0,0, 'bg');
-    bg.setPosition(gameW/2,gameH/2);
-    bg.setDepth(0);
+    var bgPos = 670;
+    var limW = gameW/337;
+    var limH = gameH/337;
+    
+    for(i=0; i<limW; i++){
+        for(j=0; j<limH; j++){
+            let bg = this.add.sprite(i*bgPos,j*bgPos,'background');
+            bg.setDepth(0);}}
     
     //ENTER USERNAME//W
     let userNW = this.add.sprite(gameW/2,gameH/2, 'userNW');
