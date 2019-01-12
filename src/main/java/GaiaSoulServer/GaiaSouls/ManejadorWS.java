@@ -57,6 +57,7 @@ public class ManejadorWS extends TextWebSocketHandler{
 				p.setDead(node.get("isDead").asBoolean());
 				p.setDefense(node.get("isDefense").asBoolean());
 				List<Spell> spellArray = mapper.convertValue(node.get("habilidades"), ArrayList.class); //!!!!
+				System.out.println(spellArray.toString());
 				p.setSpellArray(spellArray);
 				break;
 			case 2: //cliente -> array hechizos
@@ -92,7 +93,7 @@ public class ManejadorWS extends TextWebSocketHandler{
 					.put("elemento", player.getElemento())
 					.put("isDead", player.isDead())
 					.put("isDefense", player.isDefense())
-					.put("Spells",mapper.valueToTree(player.getSpellArray()));
+					.set("Spells",mapper.valueToTree(player.getSpellArray()));
 				
 				//arrayaux[i] = (playerNode);
 				i++;

@@ -38,7 +38,7 @@ onGameScene.create = function(){
     this.physics.world.setBounds(0, 0, sceneW, sceneH);
     
     //Lanzamos la escena de interfaz sobre la de juego
-    //this.scene.launch(onInterface);
+    this.scene.launch(onInterface);
     
     //Ampliación del Background
     let bg11 = this.add.image(0,0, 'background').setOrigin(0);
@@ -229,7 +229,7 @@ function actualizacionPseudoPlayer(playernum,num){
 WSconnection.onmessage = function(msg) {
 	//console.log("WS message: " + msg.data);
 	var obj = JSON.parse(msg.data);
-	console.log(obj);
+	//console.log(obj);
 	if(obj.player0 !=undefined){
 		actualizacionPseudoPlayer(obj.player0,0);
 	}if(obj.player1 !=undefined){

@@ -34,9 +34,6 @@ onInterface.create = function(){
 	let gameH = this.sys.game.config.height;
     bg.setPosition(gameW/2,gameH/2);
     bg.setDepth(0);
-    
-    this.presentation = 120;
-    
     this.j = this.add.container(gameW/2,gameH/1.1);//Contenedor JUGADOR //8.5   
     this.shootContainer = this.add.container(-110,0);  //Contenedor Proyectil
     this.j.add(this.shootContainer);
@@ -55,14 +52,14 @@ onInterface.create = function(){
     	buttonGeneric.setScale(scale);
     	buttonGeneric.setAlpha(alpha);
     	if(blendMode)buttonGeneric.setBlendMode('MULTIPLY');
-    	container.add(buttonGeneric);
     	return buttonGeneric;
     }
     
     function initIcon(image, container, that, tweens,duration){
-    	initGenericButton(0.5,0.75,image,container,that, false);
-    	initGenericButton(0.5,0.5,'disableFilter',container,that, false);
+    	container.add(initGenericButton(0.5,0.75,image,container,that, false));
+    	container.add(initGenericButton(0.5,0.5,'disableFilter',container,that, false));
     	let CD = initGenericButton(0.75,0,'cooldownFilter',container,that, true);
+    	container.add(CD);
     	tweens = that.tweens.add({
             targets: CD,
             scaleX: { value: 0.5, duration: duration, yoyo: false, },
@@ -75,23 +72,23 @@ onInterface.create = function(){
 };
 
 onInterface.update = function(){
-    if(this.presentation >= 0){
+    /*if(this.presentation >= 0){
         console.log("Hola papu");
         if(this.presentation <=30){
             this.player1.setAlpha(Math.min(this.presentation/30,1));
         }
         this.presentation--;
-    }
-    /*if(onGameScene.player.isDead){
+    } 
+    if(onGameScene.player.isDead){
         ////GAMEOVER
-    }*/
+    }
 
     onGameScene.caption.setText(Phaser.Utils.String.Format(this.captionTextFormat, [
         onGameScene.p1.score,
         onGameScene.p2.score
-    ]));
-    this.shootContainer.getAt(2).setScale(Math.min((onGameScene.p1.allCd[1]/60)/2,0.5),Math.min((onGameScene.p1.allCd[1]/60)/2,0.5));
-    this.shieldContainer.getAt(2).setScale(Math.min((onGameScene.p1.allCd[2]/480)/2,0.5),Math.min((onGameScene.p1.allCd[2]/480)/2,0.5));
-    this.zonalContainer.getAt(2).setScale(Math.min((onGameScene.p1.allCd[0]/120)/2,0.5),Math.min((onGameScene.p1.allCd[0]/120)/2,0.5));
+    ])); */
+    this.shootContainer.getAt(2).setScale(Math.min((onGameScene.player.allCd[1]/60)/2,0.5),Math.min((onGameScene.player.allCd[1]/60)/2,0.5));
+    this.shieldContainer.getAt(2).setScale(Math.min((onGameScene.player.allCd[2]/480)/2,0.5),Math.min((onGameScene.player.allCd[2]/480)/2,0.5));
+    this.zonalContainer.getAt(2).setScale(Math.min((onGameScene.player.allCd[0]/120)/2,0.5),Math.min((onGameScene.player.allCd[0]/120)/2,0.5));
 };
 
