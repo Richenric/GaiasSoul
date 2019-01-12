@@ -215,6 +215,7 @@ onGameScene.update = function(){
 		  		this.player.y = gameH/2;
 		}
 	    this.player.isDead = false;
+	    this.player.emmi.on = true;
 	    //hasEnded = true;
     }
     var obj = {
