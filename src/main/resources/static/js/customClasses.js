@@ -83,9 +83,9 @@ class Escudo extends Phaser.Physics.Arcade.Sprite{
             this.lifeTime--;
             this.setPosition(x,y);
             this.particles.setPosition(x,y);
-        if(this.lifeTime <=0){//si llega a 0 se hace desaparecer el zonal
+        if(this.lifeTime <=0){
             this.emmi.on = false;
-            this.iMayDie = true;//y se permite la creacion de otro zonal
+            this.iMayDie = true;
         }
     };
     serialize(){
@@ -259,22 +259,23 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
 
     	this.effects.clear(true);
     }
+    
     update(posX, posY, isDefense, isDead, spells){
     	this.setPosition(posX, posY);
     	this.isDefense = isDefense;
     	this.isDead = isDead;
-    	
-    	if(spells != undefined){
+    	//var indexAux = -1;
+    	if(spells.length > 0){
 	    	for(var i = 0; i<spells.length; i++){
-	    		if(this.spells.children[i] != undefined){
-
-	    			console.log(this.spells.children[i]); //NO BORRAR ESTO NOS DA LA VIDAAA
-	    			this.spells.children[i].x = spells[i].x;
-	    			this.spells.children[i].y = spells[i].y;
+	    		//indexAux = i;
+	    		if(this.spells.children.entries[i] != undefined){
+	    			if(spells[i].type == 2)
+	    				this.spells.children.entries[i].update(spells[i].x, spells[i].y)
+	    			else{
+	    				this.spells.children.entries[i].x = spells[i].x;
+		    			this.spells.children.entries[i].y = spells[i].y;
+	    			}
 	    		}else {
-
-	    			//console.log(this.spells.children[i]); //NO BORRAR ESTO NOS DA LA VIDAAA
-	    			//console.log("creo");
 	    			if(spells[i].type == 0){
 	    				var disparo = new Disparo(this.scene, spells[i].x, spells[i].y, 'enemy', 'red', this.tag, this.elemento)
 	    				this.spells.add(disparo);
@@ -287,23 +288,26 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
 	    			}
 	    		}
 	    	}
-	    	if(this.spells.children.length > spells.lengh){
-	    		for(var i = spells.lenght; i<this.spells.lenght; i++){
-	    			this.spells.children[i].destroy();
-	    		}
-	    	}
-    	}
+    	}else if (this.spells.children.size > 0)
+    		for(var i = spells.length; i<this.spells.length; i++)
+    			this.spells.children.entries[i].destroy();
+    	
     	this.spells.children.each(function (spe) {
-            if(spe.iMayDie){
-                this.effects.remove(spe,this.scene,true);}
-            else{ spe.update(); }
+            if(spe.iMayDie || spe.lifeTime <=0){
+            	this.effects.remove(spe,this.scene,true);
+            	spe.destroy();
+            }
+            else{ 
+            	if(spe.spellType == 2) spe.update(posX,posY);
+            	else spe.update();
+            	}
         },this);
     }
 }
     
 class Player extends Phaser.Physics.Arcade.Sprite{
 
-    constructor (scene, x, y, texture, frame, tag, usesMouse, cp, life){ //create player sprite (depth 1) if you don't set the body as active it won't collide with the world bounds
+    constructor (scene, x, y, texture, frame, tag, usesMouse, cp, life){
         super(scene, x, y, texture);//create player sprite (depth 1)
         scene.add.existing(this);
         scene.physics.add.existing(this);
