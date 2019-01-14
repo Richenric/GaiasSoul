@@ -6,6 +6,8 @@ onGameScene.init = function(){
     myPlayer.tag = myUser.tag;
     myPlayer.elemento = myUser.elemento;
     let pointMe;
+    this.safe = false;
+    this.safePoint;
 };
 
 //load assets
@@ -91,22 +93,27 @@ onGameScene.create = function(){
     var frame,x,y;
     switch(myUser.elemento) {
 	  	case 0: frame = 'redDeadRedemption';
+	  		this.safePoint = this.sacredFire;
 	  		x = this.sacredFire.x;
 	  		y = this.sacredFire.y;
 	    	break;
 	  	case 1: frame = 'grey';
+  			this.safePoint = this.sacredMetal;
 	  		x = this.sacredMetal.x;
 	  		y = this.sacredMetal.y;
 	  		break;
 	  	case 2: frame = 'green';
+			this.safePoint = this.sacredWood;
 			x = this.sacredWood.x;
   			y = this.sacredWood.y;
 	  		break;
 	  	case 3: frame = 'brown';
+	  		this.safePoint = this.sacredEarth;
 	  		x = this.sacredEarth.x;
 			y = this.sacredEarth.y;
 	  		break;
 	  	case 4: frame = 'blue';
+	  		this.safePoint = this.sacredWater;
 	  		x = this.sacredWater.x;
 			y = this.sacredWater.y;
 	  		break;
@@ -155,7 +162,7 @@ onGameScene.create = function(){
 }
 
 onGameScene.checkCollision=function(object1, object2){
-    if(myPlayer.elemento != object2.elemento && !object1.isDead && !object1.isDefense && object2.spellType != 2){
+    if(myPlayer.elemento != object2.elemento && !object1.isDead && !object1.isDefense && !this.safe && object2.spellType != 2){
         this.player.muero(); 
         var obj = {
         	typePeticion:3,
@@ -184,6 +191,21 @@ onGameScene.update = function(){
         
         this.pointMe.x = myPlayer.x;
         this.pointMe.y = myPlayer.y-60;
+        
+        /*(rect1.x < rect2.x + rect2.width &&
+   rect1.x + rect1.width > rect2.x &&
+   rect1.y < rect2.y + rect2.height &&
+   rect1.height + rect1.y > rect2.y)*/
+        
+        if(this.safePoint != undefined
+        &&this.safePoint.x - this.safePoint.displayWidth/2 < this.player.x + this.player.displayWidth/2
+        &&this.safePoint.x + this.safePoint.displayWidth/2 > this.player.x - this.player.displayWidth/2
+        &&this.safePoint.y - this.safePoint.displayHeight/2 < this.player.y + this.player.displayHeight/2
+        &&this.safePoint.y + this.safePoint.displayHeight/2 > this.player.y - this.player.displayHeight/2){
+	        this.safe = true;
+        }else{
+        	this.safe = false;
+        }
         
     }else if(!this.hasEnded){
         this.player.effects.children.each(function (eff) {

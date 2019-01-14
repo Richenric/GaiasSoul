@@ -222,7 +222,7 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
     	//disableBody(true, true);
     }
     muero(){
-        var effectoMuerte = new Muerte(this.scene, this.x, this.y, this.text, this.frpost);
+        var effectoMuerte = new Muerte(this.scene, this.x, this.y, this.tex, this.frame);
         this.effects.add(effectoMuerte);
     }
     activate(elemento, tag, frame){
