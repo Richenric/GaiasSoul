@@ -11,8 +11,9 @@ public class Player {
 	private boolean isDead, isDefense;
 	private String tag;
 	private List<Spell> spellArray;
+	private long pId;
 	
-	public Player (int x, int y, String tag, int elemento) {
+	public Player (int x, int y, String tag, int elemento, long pId) {
 		this.x = x;
 		this.y = y;
 		this.score = 0;
@@ -20,6 +21,7 @@ public class Player {
 		this.isDefense = false;
 		this.tag = tag; //nickname
 		this.elemento = elemento;
+		this.pId = pId;
 		this.spellArray = new ArrayList<Spell>();
 	}
 	public Player () {
@@ -55,6 +57,9 @@ public class Player {
 	}
 	public int getScore() {
 		return score;
+	}
+	public long getPId() {
+		return pId;
 	}
 	public void setX(int x) {
 		this.x = x;

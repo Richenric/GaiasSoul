@@ -4,6 +4,7 @@ import java.util.Stack;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import GaiaSoulServer.GaiaSouls.ManejadorWS;
 
 
 public class ClientManager {
@@ -14,7 +15,6 @@ public class ClientManager {
 	
 	public static void initialize() {
 		if(initialized) {
-			System.out.println("ILLO PESAO QUE YA SE HA INISIAO!");
 			return;
 		}
 		
@@ -30,6 +30,7 @@ public class ClientManager {
 			}
 			
 			while (!disconnect.empty()) {
+				ManejadorWS.borrarPlayer(disconnect.peek().getNickname());
 				UserController.borraUser(disconnect.pop().getId());
 			}
 

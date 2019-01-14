@@ -263,51 +263,31 @@ function actualizacionPseudoPlayer(playernum,num){
 			}
 			onGameScene.pseudoPlayers[num].activate(playernum.elemento, playernum.tag, frame);
 		}
+	}else{
+		onGameScene.pseudoPlayers[num].deactivate();
 	}
 }
 
 WSconnection.onmessage = function(msg) {
 	//console.log("WS message: " + msg.data);
 	var obj = JSON.parse(msg.data);
-	if(obj.player0 !=undefined){
 		actualizacionPseudoPlayer(obj.player0,0);
-	}if(obj.player1 !=undefined){
 		actualizacionPseudoPlayer(obj.player1,1);
-	} if(obj.player2 !=undefined){
 		actualizacionPseudoPlayer(obj.player2,2);
-	}if(obj.player3 !=undefined){
 		actualizacionPseudoPlayer(obj.player3,3);
-	}if(obj.player4 !=undefined){
 		actualizacionPseudoPlayer(obj.player4,4);
-	}if(obj.player5 !=undefined){
 		actualizacionPseudoPlayer(obj.player5,5);
-	}if(obj.player6 !=undefined){
 		actualizacionPseudoPlayer(obj.player6,6);
-	}if(obj.player7 !=undefined){
 		actualizacionPseudoPlayer(obj.player7,7);
-	}if(obj.player8 !=undefined){
 		actualizacionPseudoPlayer(obj.player8,8);
-	}if(obj.player9 !=undefined){
 		actualizacionPseudoPlayer(obj.player9,9);
-	}if(obj.player10 !=undefined){
 		actualizacionPseudoPlayer(obj.player10,10);
-	}if(obj.player11 !=undefined){
 		actualizacionPseudoPlayer(obj.player11,11);
-	}if(obj.player12 !=undefined){
 		actualizacionPseudoPlayer(obj.player12,12);
-	}if(obj.player13 !=undefined){
 		actualizacionPseudoPlayer(obj.player13,13);
-	}if(obj.player14 !=undefined){
 		actualizacionPseudoPlayer(obj.player14,14);
-	}if(obj.player15 !=undefined){
 		actualizacionPseudoPlayer(obj.player15,15);
-	}if(obj.player16 !=undefined){
 		actualizacionPseudoPlayer(obj.player16,16);
-	}if(obj.player17 !=undefined){
 		actualizacionPseudoPlayer(obj.player17,17);
-	}if(obj.player18 !=undefined){
 		actualizacionPseudoPlayer(obj.player18,18);
-	}if(obj.player19 !=undefined){
-		actualizacionPseudoPlayer(obj.player19,19);
-	} 
 };

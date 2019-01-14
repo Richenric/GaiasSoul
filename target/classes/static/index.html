@@ -40,6 +40,10 @@
 	<script type='text/javascript'>
     $(window).on('beforeunload', function(){
         console.log("beforeUnload event!");
+        var obj = {
+        	typePeticion: 2
+        }
+        WSconnection.send(JSON.stringify(obj));
         deleteUser(myUser.id); 
      });
 </script>
