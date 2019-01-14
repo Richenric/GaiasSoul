@@ -182,7 +182,7 @@ onGameScene.update = function(){
         this.pointMe.x = myPlayer.x;
         this.pointMe.y = myPlayer.y-60;
         
-    }else if(!hasEnded){
+    }else if(!this.hasEnded){
         this.player.effects.children.each(function (eff) {
             eff.emmi.on = false;
             onGameScene.player.effects.remove(eff,onGameScene,true);
