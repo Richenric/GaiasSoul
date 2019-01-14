@@ -85,7 +85,7 @@ onGameScene.create = function(){
             onGameScene.scene.launch(pauseMenuScene);
         });
     //REINICIO JUEGO
-    //this.keyEnter = this.input.keyboard.addKey(13);
+    this.keyEnter = this.input.keyboard.addKey(13);
     //Inicializacion de jugadores
     this.pseudoPlayers = [];
     var frame,x,y;
@@ -174,7 +174,7 @@ onGameScene.checkCollision=function(object1, object2){
 }
 //this is called up to 60 times per second
 onGameScene.update = function(){
-    if(!this.player.isDead){
+	if(!this.player.isDead){
         this.player.update();
         myPlayer.x = this.player.x;
         myPlayer.y = this.player.y;
@@ -182,14 +182,18 @@ onGameScene.update = function(){
         this.pointMe.x = myPlayer.x;
         this.pointMe.y = myPlayer.y-60;
         
-    }else{
+    }else if(!hasEnded){
         this.player.effects.children.each(function (eff) {
             eff.emmi.on = false;
             onGameScene.player.effects.remove(eff,onGameScene,true);
         },this);
         this.player.muero();
 	    //this.player.destroy();
-	    switch(myUser.elemento) {
+	    hasEnded = true;
+	    //PONER MENSAJE DE PULSAR ENTER PARA RESPAWNEAR!!
+    }else{
+    	if(this.keyEnter.isDown){
+	    	switch(myUser.elemento) {
 		  	case 0:
 		  		this.player.x = this.sacredFire.x;
 		  		this.player.y = this.sacredFire.y;
@@ -212,11 +216,12 @@ onGameScene.update = function(){
 		  		break;
 		  	case 5:
 		  		this.player.x = gameW/2-400;
-		  		this.player.y = gameH/2;
-		}
-	    this.player.isDead = false;
-	    this.player.emmi.on = true;
-	    //hasEnded = true;
+			  	this.player.y = gameH/2;
+			}
+		    this.player.isDead = false;
+		    this.player.emmi.on = true;
+		    hasEnded = false;
+    	}
     }
     var obj = {
     		typePeticion: 1,
