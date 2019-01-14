@@ -249,17 +249,26 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
     	this.frame = undefined;
         this.isActive = false;
         
-    	this.spells.children.iterate(function (child) {
-    	    child.destroy();
-    	});
+        this.spells.children.each(function (spe) {
+            spe.destroy();
+        },this);
 
     	this.spells.clear(true);
     	
-    	this.effects.children.iterate(function (child) {
-    	    child.destroy();
-    	});
+    	/*this.effects.children.each(function (eff) {
+    		this.effects.remove(eff,this.scene,true);
+            eff.destroy();
+        },this);
 
-    	this.effects.clear(true);
+    	this.effects.clear(true);*/
+    }
+    
+    updateEff(){
+    	this.effects.children.each(function (eff) {
+            if(eff.iMayDie){
+                this.effects.remove(eff,this.scene,true);}
+            else{ eff.update(); }
+        },this);
     }
     
     update(posX, posY, isDefense, isDead, spells){
@@ -296,7 +305,7 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
     	
     	this.spells.children.each(function (spe) {
             if(spe.iMayDie || spe.lifeTime <=0){
-            	this.effects.remove(spe,this.scene,true);
+            	this.spells.remove(spe,this.scene,true);
             	spe.destroy();
             }
             else{ 

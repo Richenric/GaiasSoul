@@ -155,7 +155,7 @@ onGameScene.create = function(){
 }
 
 onGameScene.checkCollision=function(object1, object2){
-    if(myPlayer.elemento != object2.elemento && !object1.isDefense && object2.spellType != 2){
+    if(myPlayer.elemento != object2.elemento && !object1.isDead && !object1.isDefense && object2.spellType != 2){
         this.player.muero(); 
         var obj = {
         	typePeticion:3,
@@ -164,6 +164,7 @@ onGameScene.checkCollision=function(object1, object2){
         WSconnection.send(JSON.stringify(obj));
         	
         this.player.emmi.on = false;
+        this.pointMe.alpha = 0;
         this.player.isDead = true;
         
         if(object2.spellType == 0){
@@ -178,6 +179,8 @@ onGameScene.update = function(){
         this.player.update();
         myPlayer.x = this.player.x;
         myPlayer.y = this.player.y;
+        myPlayer.isDead = this.player.isDead;
+		myPlayer.isDefense = this.player.isDefense;
         
         this.pointMe.x = myPlayer.x;
         this.pointMe.y = myPlayer.y-60;
@@ -187,9 +190,6 @@ onGameScene.update = function(){
             eff.emmi.on = false;
             onGameScene.player.effects.remove(eff,onGameScene,true);
         },this);
-        this.player.muero();
-	    this.player.emmi.on = false;
-        this.player.isDead = true;
         this.hasEnded = true;
 	    //PONER MENSAJE DE PULSAR ENTER PARA RESPAWNEAR!!
     }else{
@@ -226,6 +226,7 @@ onGameScene.update = function(){
 			}
 		    this.player.isDead = false;
 		    this.player.emmi.on = true;
+		    this.pointMe.alpha = 1;
 		    hasEnded = false;
     	}
     }
@@ -233,7 +234,7 @@ onGameScene.update = function(){
     		typePeticion: 1,
     		x: myPlayer.x,
     		y: myPlayer.y,
-    		isDead: myPlayer.isDead,
+    		isDead: onGameScene.player.isDead,
     		isDefense: myPlayer.isDefense,
     		habilidades: this.player.createSerializedArray()
 	}
@@ -256,13 +257,12 @@ WSconnection.onerror = function(e) {
 }
 function actualizacionPseudoPlayer(playernum,num){
 	if(playernum !=undefined && playernum.tag != myUser.nickname){
-		if(onGameScene.pseudoPlayers[num].isActive){
-			onGameScene.pseudoPlayers[num].update(playernum.x,playernum.y,playernum.isDefense,playernum.isDead, playernum.spells)
-			if(onGameScene.pseudoPlayers[num].isDead){
+		if(onGameScene.pseudoPlayers[num].isActive && !playernum.isDead){
+			onGameScene.pseudoPlayers[num].update(playernum.x,playernum.y,playernum.isDefense,playernum.isDead,playernum.spells)
+		}else if(onGameScene.pseudoPlayers[num].isActive && playernum.isDead){
 				onGameScene.pseudoPlayers[num].muero();
 				onGameScene.pseudoPlayers[num].deactivate();
-			}
-		}else{
+		}else if(!onGameScene.pseudoPlayers[num].isActive && !playernum.isDead){
 			var frame;
 			switch(playernum.elemento) {
 			  	case 0: frame = 'redDeadRedemption'; break;
@@ -273,6 +273,8 @@ function actualizacionPseudoPlayer(playernum,num){
 			  	case 5: frame = 'red';				 break;
 			}
 			onGameScene.pseudoPlayers[num].activate(playernum.elemento, playernum.tag, frame);
+		}else{
+			onGameScene.pseudoPlayers[num].updateEff();
 		}
 	}else{
 		onGameScene.pseudoPlayers[num].deactivate();
