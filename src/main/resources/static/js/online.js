@@ -188,10 +188,16 @@ onGameScene.update = function(){
             onGameScene.player.effects.remove(eff,onGameScene,true);
         },this);
         this.player.muero();
+	    this.player.emmi.on = false;
         this.player.isDead = true;
         this.hasEnded = true;
 	    //PONER MENSAJE DE PULSAR ENTER PARA RESPAWNEAR!!
     }else{
+    	this.player.effects.children.each(function (eff) {
+            if(eff.iMayDie){
+                this.player.effects.remove(eff,this,true);}
+            else{ eff.update(); }
+        },this);
     	if(this.keyEnter.isDown){
 	    	switch(myUser.elemento) {
 		  	case 0:
