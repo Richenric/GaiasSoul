@@ -91,6 +91,7 @@ lobbyScene.create = function(){
     let bRdy = this.add.sprite(gameW/2+120,gameH/2-125, 'bRdy').setInteractive();
         bRdy.setAlpha(1);
         bRdy.on('pointerdown', function (pointer) { 
+        	music.stop('theme');
             lobbyScene.scene.switch(onGameScene);
         });
     
@@ -310,20 +311,22 @@ lobbyScene.update = function(){
     	}
     }
     //////////////SE CAMBIARA////////////////////////////////////////////////////////
-    //ACTUALIZAR ELEMENTO
-    /*for(var i=0; i<20; i++){
-    	if(this.auxUsers[i] != undefined){
-	    	if(this.auxUsers[i].id == myUser.id){
-	    		if(this.auxUsers[i-1] != undefined){
-	    			myUser.elemento = (lobbyScene.auxUsers[i-1].elemento + 1)%5;
-	    		}else {
-	        		myUser.elemento = 0;
-	        	}
+    //ACTUALIZAR ELEMENTO / ONLY ONCE
+    if(myUser.elemento == 5){
+	    for(var i=0; i<20; i++){
+	    	if(this.auxUsers[i] != undefined){
+		    	if(this.auxUsers[i].id == myUser.id){
+		    		if(this.auxUsers[i-1] != undefined){
+		    			myUser.elemento = (lobbyScene.auxUsers[i-1].elemento + 1)%5;
+		    		}else {
+		        		myUser.elemento = 0;
+		        	}
+		    	}
+	    	}else {
+	    		myUser.color = 0;
 	    	}
-    	}else {
-    		myUser.color = 0;
-    	}
-    }*/
+	    }
+    }
     ////////////////////////////////////////////////////////
     
     //ACTUALIZAR JUGADORES
