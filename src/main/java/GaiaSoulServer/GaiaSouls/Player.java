@@ -19,6 +19,7 @@ public class Player {
 		this.isDead = false;
 		this.isDefense = false;
 		this.tag = tag; //nickname
+		this.elemento = elemento;
 		this.spellArray = new ArrayList<Spell>();
 	}
 	public Player () {
@@ -28,6 +29,7 @@ public class Player {
 		this.isDead = false;
 		this.isDefense = false;
 		this.tag = ""; //nickname
+		this.elemento = 0;
 		this.spellArray = null;
 	}
 	public int getX() {

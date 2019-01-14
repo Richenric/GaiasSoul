@@ -76,7 +76,6 @@ lobbyScene.create = function(){
     
     //CONTENTEDORES//
     let idBck = this.add.container(gameW/1.09,gameH/1.2);//Botón de retroceso//
-    console.log("HOLA BUENOS DIAS SOY UN MENSAJE HAZME CASITO");
     //////////////ME-SELECELEM////////////////////////////////////////////////////////
     let idSelectElem = this.add.container(gameW/2-360,gameH/2-125);//Selector elemento//
     console.log(gameW/2 + ", " + gameH/2);
