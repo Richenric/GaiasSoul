@@ -204,6 +204,7 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
         this.tex = texture;
         this.tag;
         this.elemento;
+        this.frame;
         this.isActive = false;
         
         this.isDefense = false;
@@ -238,6 +239,7 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
         
         this.emmi.on = true;
         this.emmi.setFrame(frame);
+        this.frame = frame;
     }
     deactivate(){
     	this.emmi.on = false;
@@ -277,13 +279,13 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
 	    			}
 	    		}else {
 	    			if(spells[i].type == 0){
-	    				var disparo = new Disparo(this.scene, spells[i].x, spells[i].y, 'enemy', 'red', this.tag, this.elemento)
+	    				var disparo = new Disparo(this.scene, spells[i].x, spells[i].y, 'enemy', this.frame, this.tag, this.elemento)
 	    				this.spells.add(disparo);
 	    			}else if(spells[i].type == 1){
-	    				var zonal = new Zonal(this.scene, spells[i].x, spells[i].y, 'enemy', 'red', this.tag, this.elemento);
+	    				var zonal = new Zonal(this.scene, spells[i].x, spells[i].y, 'enemy', this.frame, this.tag, this.elemento);
 	    				this.spells.add(zonal);
 	    			}else if(spells[i].type == 2){
-	    				var escudo = new Escudo(this.scene, spells[i].x, spells[i].y, 'enemy', 'red', this.tag, this.elemento);
+	    				var escudo = new Escudo(this.scene, spells[i].x, spells[i].y, 'enemy', this.frame, this.tag, this.elemento);
 	    	            this.spells.add(escudo);
 	    			}
 	    		}
