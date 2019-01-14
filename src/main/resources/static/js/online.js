@@ -148,7 +148,7 @@ onGameScene.create = function(){
     		x: myPlayer.x,
     		y: myPlayer.y,
     		tag: myUser.nickname,
-    		elemento: myPlayer.elemento
+    		elemento: myUser.elemento
 	}
 	WSconnection.send(JSON.stringify(obj));
 	console.log(JSON.stringify(obj));

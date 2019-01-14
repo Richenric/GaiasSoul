@@ -237,7 +237,7 @@ class PseudoPlayer extends Phaser.Physics.Arcade.Sprite{
         this.isDead = false;
         
         this.emmi.on = true;
-        this.emmi.frame = frame;
+        this.emmi.setFrame(frame);
     }
     deactivate(){
     	this.emmi.on = false;

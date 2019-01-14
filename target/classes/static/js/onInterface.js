@@ -47,7 +47,7 @@ onInterface.create = function(){
     this.shieldTweens;
     this.zonalTweens;
         
-    function initGenericButton(scale, alpha, image, container, that, blendMode){
+    function initGenericButton(alpha, scale, image, container, that, blendMode){
     	let buttonGeneric = that.add.sprite(0,0,image);
     	buttonGeneric.setScale(scale);
     	buttonGeneric.setAlpha(alpha);
@@ -56,7 +56,7 @@ onInterface.create = function(){
     }
     
     function initIcon(image, container, that, tweens,duration){
-    	container.add(initGenericButton(0.5,0.75,image,container,that, false));
+    	container.add(initGenericButton(0.75,0.5,image,container,that, false));
     	container.add(initGenericButton(0.5,0.5,'disableFilter',container,that, false));
     	let CD = initGenericButton(0.75,0,'cooldownFilter',container,that, true);
     	container.add(CD);
