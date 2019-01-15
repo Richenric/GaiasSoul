@@ -134,6 +134,11 @@ Mientras el jugador se encuentre en esta ventana estará a tiempo de abandonar la
 * Cargamos la IP que nos devuelve el servidor en el navegador y accedemos al juego a través del puert 8080.
 * Para que los **clientes** puedan cargar los items del servidor, primero se les tendrá que proporcionar la IP del servidor, resultando en 'IP_del_servidor:8080'.
 
+## Plataformas donde se puede jugar
+Advertimos que las siguientes plataformas no incluyen las versiones más actulizadas del juego pero si las más estables.
+*[Kongregate](https://www.kongregate.com/games/LemLeem/gaias-souls)
+*[Itch.io](https://lemlem.itch.io/gaiasouls)
+*[Newgrounds](https://www.newgrounds.com/portal/view/724618?updated=1547513554)
 
 ## Equipo de desarrollo
 |                  Nombre                 | Correo | Cuenta de Github |
