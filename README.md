@@ -136,9 +136,9 @@ Mientras el jugador se encuentre en esta ventana estará a tiempo de abandonar la
 
 ## Plataformas donde se puede jugar
 Advertimos que las siguientes plataformas no incluyen las versiones más actulizadas del juego pero si las más estables.
-*[Kongregate](https://www.kongregate.com/games/LemLeem/gaias-souls)
-*[Itch.io](https://lemlem.itch.io/gaiasouls)
-*[Newgrounds](https://www.newgrounds.com/portal/view/724618?updated=1547513554)
+* [Kongregate](https://www.kongregate.com/games/LemLeem/gaias-souls)
+* [Itch.io](https://lemlem.itch.io/gaiasouls)
+* [Newgrounds](https://www.newgrounds.com/portal/view/724618?updated=1547513554)
 
 ## Equipo de desarrollo
 |                  Nombre                 | Correo | Cuenta de Github |
