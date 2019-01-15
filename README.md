@@ -27,7 +27,7 @@ Advertimos que las siguientes plataformas no incluyen las versiones más actuliza
 * [Newgrounds](https://www.newgrounds.com/portal/view/724618?updated=1547513554)
 
 ## Trailer de la jugabilidad
-[![GaiaSouls Demo](https://cdn.discordapp.com/attachments/389557270783983617/534562803810435082/Captura.PNG)](https://youtu.be/S19RaFEjnvQ)
+> [![GaiaSouls Demo](https://cdn.discordapp.com/attachments/389557270783983617/534562803810435082/Captura.PNG)](https://youtu.be/S19RaFEjnvQ)
 
 ## Apartado Gráfico
 Partimos de un concept art de una idea inicial poco definida, y evolucionó hasta lo que se puede ver actualmente. En un comienzo todo iba a ser hecho a partir de "sprites" pero al final hemos utilizado partículas. A continuación, una comparación entre el concept y lo que hay actualmente.
