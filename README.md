@@ -26,6 +26,9 @@ Advertimos que las siguientes plataformas no incluyen las versiones más actuliza
 * [Itch.io](https://lemlem.itch.io/gaiasouls)
 * [Newgrounds](https://www.newgrounds.com/portal/view/724618?updated=1547513554)
 
+##Trailer de la jugabilidad
+> ![](https://youtu.be/S19RaFEjnvQ)
+
 ## Apartado Gráfico
 Partimos de un concept art de una idea inicial poco definida, y evolucionó hasta lo que se puede ver actualmente. En un comienzo todo iba a ser hecho a partir de "sprites" pero al final hemos utilizado partículas. A continuación, una comparación entre el concept y lo que hay actualmente.
  
