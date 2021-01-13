@@ -147,7 +147,7 @@ Mientras el jugador se encuentre en esta ventana estará a tiempo de abandonar la
 |                  Nombre                 | Correo | Cuenta de Github |
 |:---------------------------------------:|:------:|:----------------:|
 |          Enrique Rico González          |    Rickenric@gmail.com    |         https://github.com/Richenric         |
-| María de los Ángeles Saint-Mard Álvarez |    mawyn.lovegood@gmail.com    |         https://github.com/MawynNeko         |
+| María de los Ángeles Saint-Mard Álvarez |    mawyn.lovegood@gmail.com    |         https://github.com/Maawyn         |
 |           Lucas A. Muñoz Muñoz          |    Lukasa707@gmail.com    |         https://github.com/Lukasha707         |
 
 |                  Trello de desarrollo                 |
